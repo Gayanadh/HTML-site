@@ -3,167 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GK Creations | Resume Magic</title>
+    <title>GK | Resume Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6C63FF;
-            --secondary: #2E7D32;
-            --accent: #FF6584;
-            --bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --primary: #4A90E2;    /* Professional Blue */
+            --accent: #FF8C00;     /* Energetic Orange */
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
         body { 
-            background: var(--bg);
+            background: var(--bg-gradient);
             font-family: 'Poppins', sans-serif; 
             margin: 0; 
             min-height: 100vh;
-            color: #333;
+            color: #fff;
             display: flex;
             flex-direction: column;
         }
 
+        /* Clean Header with GK Branding */
         header { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            padding: 15px 30px; 
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px 50px; 
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .logo-box { 
-            height: 45px; width: 45px; 
-            background: var(--secondary); 
-            border-radius: 12px; 
-            display: flex; align-items: center; justify-content: center; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            overflow: hidden;
+        .brand-logo { 
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 10px;
+            letter-spacing: 2px;
         }
-        .logo-box img { width: 100%; height: 100%; object-fit: cover; }
 
         .content { 
             flex: 1;
-            padding: 40px 20px;
+            padding: 60px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
         h1 { 
-            color: var(--primary); 
-            font-size: 2.5rem; 
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+            font-size: 3.5rem; 
+            margin: 0;
+            background: #fff;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background: linear-gradient(to right, #fff, #d1d1d1);
+            -webkit-background-clip: text;
         }
 
-        p.subtitle { color: #666; margin-bottom: 30px; }
+        .tagline { 
+            font-size: 1.2rem;
+            margin-top: 10px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
 
-        .main-card { 
-            background: white; 
-            padding: 40px; 
-            border-radius: 30px; 
+        /* Glassmorphism Hub Card */
+        .hub-card { 
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 45px; 
+            border-radius: 40px; 
             width: 100%;
             max-width: 550px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            position: relative;
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-
-        /* Fun decorative circle */
-        .main-card::before {
-            content: '';
-            position: absolute;
-            top: -15px; right: -15px;
-            width: 50px; height: 50px;
-            background: var(--accent);
-            border-radius: 50%;
-            z-index: -1;
-        }
-
-        .step-label {
-            display: block;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
             text-align: left;
-            font-weight: 600;
-            margin-bottom: 8px;
+        }
+
+        .step {
+            margin-bottom: 30px;
+        }
+
+        .step label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 12px;
             color: var(--primary);
+            font-size: 14px;
+            text-transform: uppercase;
         }
 
         input[type="file"] {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 25px;
-            border: 2px dashed #cbd5e0;
+            padding: 15px;
+            border: 2px dashed #ddd;
             border-radius: 15px;
             cursor: pointer;
+            transition: 0.3s;
         }
+
+        input[type="file"]:hover { border-color: var(--primary); }
 
         textarea { 
             width: 100%; 
-            height: 120px; 
-            margin-bottom: 25px;
+            height: 140px; 
             padding: 15px; 
             border-radius: 15px; 
             border: 1px solid #eee; 
-            background: #f9f9f9;
+            background: #fcfcfc;
             font-family: inherit;
             box-sizing: border-box;
+            resize: none;
             transition: 0.3s;
         }
         
-        textarea:focus { outline: none; border-color: var(--primary); background: white; }
+        textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 10px rgba(74,144,226,0.1); }
 
-        .button-group { display: flex; flex-direction: column; gap: 12px; }
+        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
 
         .btn { 
-            padding: 15px 30px; 
+            padding: 15px; 
             border: none; 
-            border-radius: 18px; 
+            border-radius: 15px; 
             cursor: pointer; 
-            font-size: 16px; 
+            font-size: 15px; 
             font-weight: 700; 
             color: white; 
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
         }
 
-        .btn-main { background: var(--primary); }
-        .btn-pdf { background: var(--secondary); }
+        .btn-word { background: var(--primary); }
+        .btn-pdf { background: var(--accent); }
 
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-        .btn:active { transform: translateY(0); }
+        .btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
 
         #statusText { 
-            margin-top: 20px; 
-            font-size: 14px;
+            margin-top: 25px; 
+            text-align: center;
             font-weight: 600;
-            color: #555; 
-            min-height: 20px;
+            font-size: 14px;
+            color: #666;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-box"><img src="logo.png" alt="G"></div>
-    <div style="font-weight: 700; color: var(--primary);">GK CREATIONS</div>
+    <div class="brand-logo">GK</div>
+    <div style="font-size: 14px; opacity: 0.8;">Professional Career Tools</div>
 </header>
 
 <div class="content">
-    <h1>Resume Magic ✨</h1>
-    <p class="subtitle">Upgrade your career in just a few clicks!</p>
+    <h1>Resume Hub</h1>
+    <p class="tagline">Upgrade your career in just a few clicks!</p>
 
-    <div class="main-card">
-        <label class="step-label">Step 1: Upload Your File (.docx)</label>
-        <input type="file" id="resumeUpload" accept=".docx">
+    <div class="hub-card">
+        <div class="step">
+            <label>1. Upload Original Resume</label>
+            <input type="file" id="resumeUpload" accept=".docx">
+        </div>
         
-        <label class="step-label">Step 2: Tell us what's new!</label>
-        <textarea id="updates" placeholder="Add your new skills, changed phone numbers, or recent achievements here..."></textarea>
+        <div class="step">
+            <label>2. Describe Your Updates</label>
+            <textarea id="updates" placeholder="e.g. Add 'Advanced Python Skills' to the skills section..."></textarea>
+        </div>
         
-        <div class="button-group">
-            <button class="btn btn-main" onclick="processResume('docx')">Upgrade Word Doc</button>
-            <button class="btn btn-pdf" onclick="processResume('pdf')">Download as PDF</button>
+        <div class="btn-group">
+            <button class="btn btn-word" onclick="processResume('docx')">Get Word Doc</button>
+            <button class="btn btn-pdf" onclick="processResume('pdf')">Download PDF</button>
         </div>
         
         <p id="statusText"></p>
@@ -177,13 +185,13 @@
         const statusText = document.getElementById('statusText');
 
         if (!fileInput.files[0]) {
-            statusText.style.color = "#FF6584";
-            statusText.innerText = "⚠️ Please select a file first!";
+            statusText.style.color = "#d9534f";
+            statusText.innerText = "Please select a file to continue.";
             return;
         }
 
-        statusText.style.color = "#555";
-        statusText.innerText = "🪄 Sprinkling some magic... please wait.";
+        statusText.style.color = "#4A90E2";
+        statusText.innerText = "Processing your request at the Hub...";
         
         const endpoint = format === 'pdf' ? '/upgrade-pdf' : '/upgrade';
         const formData = new FormData();
@@ -191,6 +199,7 @@
         formData.append('updates', updates);
 
         try {
+            // Using your live Render backend
             const response = await fetch('https://html-site-4emx.onrender.com' + endpoint, {
                 method: 'POST',
                 body: formData
@@ -201,15 +210,16 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `Upgraded_Resume.${format}`;
+                a.download = `Resume_Hub_Updated.${format}`;
                 document.body.appendChild(a);
                 a.click();
-                statusText.innerText = "✨ Success! Check your downloads.";
+                statusText.style.color = "#2E7D32";
+                statusText.innerText = "Done! Your updated resume is ready.";
             } else {
-                statusText.innerText = "😟 Oops! Something went wrong on the server.";
+                statusText.innerText = "Error: Hub is temporarily unavailable.";
             }
         } catch (error) {
-            statusText.innerText = "😴 Server is waking up. Try again in 30 seconds!";
+            statusText.innerText = "Hub is waking up. Try again in 30 seconds!";
         }
     }
 </script>
