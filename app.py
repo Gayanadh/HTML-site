@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, jsonify
 from flask_cors import CORS
 from docx import Document
 from fpdf import FPDF
@@ -18,60 +18,61 @@ def upgrade():
         if not file:
             return "No file uploaded", 400
 
-        # OPEN your existing document (Preserves all boxes, fonts, and margins)
+        # Load the existing Word Document
+        # This keeps your original margins, fonts, and text boxes intact
         doc = Document(file)
 
-        # SURGICAL INJECTION: Add the AI updates at the very beginning
-        # This keeps the rest of the document exactly as you designed it.
+        # Inject updates at the very top
         if updates:
-            # We insert a new paragraph at the very top (index 0)
             p = doc.paragraphs[0].insert_paragraph_before()
             run = p.add_run(f"AI-OPTIMIZED UPDATE: {updates}")
             run.bold = True
-            p.add_run("\n" + "="*30 + "\n") # Visual separator
+            doc.add_paragraph("-" * 30)
 
-        # --- EXPORT AS WORD (100% Perfect Layout) ---
+        # --- WORD EXPORT ---
         if requested_format == 'docx':
-            file_stream = io.BytesIO()
-            doc.save(file_stream)
-            file_stream.seek(0)
+            target_stream = io.BytesIO()
+            doc.save(target_stream)
+            target_stream.seek(0)
             return send_file(
-                file_stream,
+                target_stream,
                 mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                 as_attachment=True,
                 download_name="Optimized_Resume.docx"
             )
 
-        # --- EXPORT AS PDF ---
+        # --- PDF EXPORT ---
         elif requested_format == 'pdf':
             pdf = FPDF()
             pdf.add_page()
-            pdf.set_auto_page_break(auto=True, margin=15)
-            pdf.set_font("Arial", size=10)
+            # Using 'Helvetica' as it is a core font that doesn't require external files
+            pdf.set_font("Helvetica", size=10)
             
-            # We pull the text content out of your formatted doc
+            # Transfer text from Word to PDF
             for para in doc.paragraphs:
                 if para.text.strip():
-                    # Clean special characters that crash PDF generators
-                    clean_text = para.text.encode('latin-1', 'ignore').decode('latin-1')
+                    # This line cleans symbols that usually cause 500 errors
+                    clean_text = para.text.encode('ascii', 'ignore').decode('ascii')
                     pdf.multi_cell(0, 8, txt=clean_text)
                     pdf.ln(2)
             
-            pdf_stream = io.BytesIO()
-            pdf_bytes = pdf.output(dest='S')
-            pdf_stream.write(pdf_bytes)
-            pdf_stream.seek(0)
-            
+            pdf_output = io.BytesIO()
+            # In fpdf2, dest='S' returns the byte string
+            pdf_content = pdf.output() 
+            pdf_output.write(pdf_content)
+            pdf_output.seek(0)
+
             return send_file(
-                pdf_stream,
+                pdf_output,
                 mimetype='application/pdf',
                 as_attachment=True,
                 download_name="Optimized_Resume.pdf"
             )
 
     except Exception as e:
-        print(f"Error: {e}")
-        return f"Server Error: {str(e)}", 500
+        # This prints the REAL error to your Render Logs
+        print(f"CRITICAL ERROR: {str(e)}")
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
