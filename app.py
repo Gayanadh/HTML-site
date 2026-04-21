@@ -1,73 +1,71 @@
 from flask import Flask, request, send_file
 from flask_cors import CORS
 from docx import Document
-from docx.shared import Pt, Inches, RGBColor
-from docx.enum.text import WD_ALIGN_PARAGRAPH
+from fpdf import FPDF
+import PyPDF2
 import io
 
 app = Flask(__name__)
 CORS(app)
+
+def process_pdf_upload(file):
+    reader = PyPDF2.PdfReader(file)
+    text = ""
+    for page in reader.pages:
+        text += page.extract_text()
+    return text
 
 @app.route('/upgrade', methods=['POST'])
 def upgrade():
     try:
         file = request.files['resume']
         updates = request.form.get('updates')
-
-        # Load the original doc
-        doc = Document(file)
         
-        # 1. Standardize Margins for ATS (0.5 inch all around)
-        for section in doc.sections:
-            section.top_margin = Inches(0.5)
-            section.bottom_margin = Inches(0.5)
-            section.left_margin = Inches(0.5)
-            section.right_margin = Inches(0.5)
+        # Handle PDF Uploads by converting to text first
+        if file.filename.endswith('.pdf'):
+            existing_text = process_pdf_upload(file)
+            doc = Document()
+            doc.add_paragraph(existing_text)
+        else:
+            doc = Document(file)
 
-        # 2. Add New Content Section
-        # We use a standard paragraph and format it manually to avoid Style KeyErrors
         doc.add_page_break()
-        head_para = doc.add_paragraph()
-        head_run = head_para.add_run('REFINED PROFESSIONAL EXPERIENCE')
-        head_run.bold = True
-        head_run.font.size = Pt(14)
-        head_run.font.name = 'Arial'
-        head_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p = doc.add_paragraph()
+        p.add_run(f"FAANG OPTIMIZED UPDATES: {updates}").bold = True
         
-        # Add the User Updates
-        update_para = doc.add_paragraph()
-        update_run = update_para.add_run(f"AI OPTIMIZED UPDATES: {updates}")
-        update_run.font.size = Pt(11)
-        update_run.font.name = 'Calibri'
-
-        # 3. Final Polish for all text (ATS 90+ Score Formatting)
-        for para in doc.paragraphs:
-            for run in para.runs:
-                if not run.font.name:
-                    run.font.name = 'Arial'
-                if not run.font.size:
-                    run.font.size = Pt(11)
-
-        # Save to memory
         file_stream = io.BytesIO()
         doc.save(file_stream)
         file_stream.seek(0)
-
-        return send_file(
-            file_stream, 
-            mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            as_attachment=True, 
-            download_name='FAANG_ATS_Optimized.docx'
-        )
+        return send_file(file_stream, as_attachment=True, download_name='Optimized_Resume.docx')
     except Exception as e:
-        print(f"Error: {str(e)}")
         return str(e), 500
 
 @app.route('/upgrade-pdf', methods=['POST'])
 def upgrade_pdf():
-    # Since direct PDF conversion is heavy, we return the optimized Docx
-    # marked as PDF for the frontend handler to manage.
-    return upgrade()
+    try:
+        file = request.files['resume']
+        updates = request.form.get('updates')
+
+        # Extract text based on file type
+        if file.filename.endswith('.pdf'):
+            content = process_pdf_upload(file)
+        else:
+            doc = Document(file)
+            content = "\n".join([p.text for p in doc.paragraphs])
+
+        # Create PDF Output
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font("Arial", size=11)
+        pdf.multi_cell(0, 10, txt=content)
+        pdf.ln(10)
+        pdf.set_text_color(46, 116, 181) # Your theme blue
+        pdf.multi_cell(0, 10, txt=f"FAANG UPDATES: {updates}")
+
+        pdf_output = io.BytesIO(pdf.output())
+        return send_file(pdf_output, mimetype='application/pdf', as_attachment=True, download_name='FAANG_Resume.pdf')
+    except Exception as e:
+        return str(e), 500
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=10000)
