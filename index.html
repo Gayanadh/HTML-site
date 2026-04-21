@@ -9,6 +9,8 @@
         :root {
             --primary: #4A90E2;    /* Professional Blue */
             --accent: #FF8C00;     /* Energetic Orange */
+            --focus-border: #2E74B5; /* Deep Blue for Focus */
+            --input-bg: #EEF4FF;    /* Light Blue Tint */
             --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
@@ -22,7 +24,6 @@
             flex-direction: column;
         }
 
-        /* Clean Header with GK Branding */
         header { 
             display: flex; 
             justify-content: space-between; 
@@ -54,11 +55,9 @@
         h1 { 
             font-size: 3.5rem; 
             margin: 0;
-            background: #fff;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             background: linear-gradient(to right, #fff, #d1d1d1);
             -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .tagline { 
@@ -66,10 +65,8 @@
             margin-top: 10px;
             margin-bottom: 40px;
             opacity: 0.9;
-            font-weight: 400;
         }
 
-        /* Glassmorphism Hub Card */
         .hub-card { 
             background: rgba(255, 255, 255, 0.95);
             color: #333;
@@ -81,9 +78,7 @@
             text-align: left;
         }
 
-        .step {
-            margin-bottom: 30px;
-        }
+        .step { margin-bottom: 30px; }
 
         .step label {
             display: block;
@@ -94,31 +89,44 @@
             text-transform: uppercase;
         }
 
+        /* Updated File Input Style */
         input[type="file"] {
             width: 100%;
             padding: 15px;
-            border: 2px dashed #ddd;
+            background-color: var(--input-bg); /* Light Blue Tint */
+            border: 2px dashed #cbd5e0;
             border-radius: 15px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
         }
 
-        input[type="file"]:hover { border-color: var(--primary); }
+        input[type="file"]:focus {
+            outline: none;
+            border-color: var(--focus-border);
+            background-color: #fff;
+        }
 
+        /* Updated Textarea Style */
         textarea { 
             width: 100%; 
             height: 140px; 
             padding: 15px; 
             border-radius: 15px; 
-            border: 1px solid #eee; 
-            background: #fcfcfc;
+            border: 2px solid transparent; 
+            background-color: var(--input-bg); /* Light Blue Tint */
             font-family: inherit;
             box-sizing: border-box;
             resize: none;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
         
-        textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 10px rgba(74,144,226,0.1); }
+        textarea:focus { 
+            outline: none; 
+            border-color: var(--focus-border); /* Blue Border on Focus */
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(46, 116, 181, 0.1);
+        }
 
         .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
 
@@ -199,7 +207,6 @@
         formData.append('updates', updates);
 
         try {
-            // Using your live Render backend
             const response = await fetch('https://html-site-4emx.onrender.com' + endpoint, {
                 method: 'POST',
                 body: formData
