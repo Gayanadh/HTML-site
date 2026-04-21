@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GK | Resume Hub - FAANG & ATS Optimizer</title>
+    <title>GK | Resume Hub - AI FAANG Optimizer</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2E74B5;    
-            --accent: #FF8C00;     
-            --input-bg: #EEF4FF;    
+            --primary: #2E74B5;    /* Professional Deep Blue */
+            --accent: #FF8C00;     /* Energetic Orange */
+            --input-bg: #EEF4FF;    /* Light Blue Tint */
             --focus-border: #2E74B5;
             --bg-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
         }
@@ -75,6 +75,7 @@
             font-size: 12px;
             font-weight: 700;
             margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .hub-card { 
@@ -98,12 +99,15 @@
             text-transform: uppercase;
         }
 
+        /* Themed Inputs with Light Blue Tint */
         input[type="file"] {
             width: 100%;
             padding: 12px;
             background-color: var(--input-bg);
             border: 2px dashed #cbd5e0;
             border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
             box-sizing: border-box;
         }
 
@@ -123,12 +127,14 @@
             font-family: inherit;
             box-sizing: border-box;
             resize: none;
+            transition: all 0.3s ease;
         }
         
         textarea:focus { 
             outline: none; 
             border-color: var(--focus-border);
             background-color: #fff;
+            box-shadow: 0 0 12px rgba(46, 116, 181, 0.15);
         }
 
         .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
@@ -141,17 +147,30 @@
             font-size: 14px; 
             font-weight: 700; 
             color: white; 
+            transition: 0.3s;
             text-transform: uppercase;
         }
 
         .btn-word { background: var(--primary); }
         .btn-pdf { background: #444; }
 
+        .btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
+
         #statusText { 
             margin-top: 20px; 
             text-align: center;
             font-weight: 600;
             font-size: 13px;
+            color: #555;
+        }
+
+        .faang-footer {
+            margin-top: 15px;
+            font-size: 11px;
+            color: var(--primary);
+            font-weight: bold;
+            text-align: center;
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -165,22 +184,26 @@
 <div class="content">
     <div class="ats-badge">✓ 90%+ ATS SCORE GUARANTEED</div>
     <h1>Resume Hub</h1>
-    <p class="tagline">Upgrade your career in just a few clicks!</p>
+    <p class="tagline">AI-Powered FAANG Semantic Injection</p>
 
     <div class="hub-card">
         <div class="step">
-            <label>1. Upload Resume (90%+ ATS Target)</label>
-            <input type="file" id="resumeUpload" accept=".docx, .pdf">
+            <label>1. Upload Resume (.docx or .pdf)</label>
+            <input type="file" id="resumeUpload" accept=".docx,.pdf">
         </div>
         
         <div class="step">
-            <label>2. Targeted FAANG Updates</label>
-            <textarea id="updates" placeholder="Add specific achievements..."></textarea>
+            <label>2. Describe Achievement to Inject</label>
+            <textarea id="updates" placeholder="e.g. Led a team of 5 to reduce server latency by 40%..."></textarea>
         </div>
         
         <div class="btn-group">
-            <button class="btn btn-word" onclick="processResume('docx')">AI FAANG Upgrade</button>
-            <button class="btn btn-pdf" onclick="processResume('pdf')">Export ATS PDF</button>
+            <button class="btn btn-word" onclick="processResume('docx')">AI SMART INJECT</button>
+            <button class="btn btn-pdf" onclick="processResume('pdf')">AI ATS EXPORT</button>
+        </div>
+
+        <div class="faang-footer">
+            Semantic Section Discovery • Arial Font • ATS Optimized
         </div>
         
         <p id="statusText"></p>
@@ -194,11 +217,13 @@
         const statusText = document.getElementById('statusText');
 
         if (!fileInput.files[0]) {
-            statusText.innerText = "Please select a file.";
+            statusText.style.color = "#d9534f";
+            statusText.innerText = "Please select a file to start AI injection.";
             return;
         }
 
-        statusText.innerText = "Optimizing for FAANG... please wait.";
+        statusText.style.color = "#2E74B5";
+        statusText.innerText = "AI is scanning sections for injection... please wait.";
         
         const endpoint = format === 'pdf' ? '/upgrade-pdf' : '/upgrade';
         const formData = new FormData();
@@ -206,6 +231,7 @@
         formData.append('updates', updates);
 
         try {
+            // Pointing to your live Render backend
             const response = await fetch('https://html-site-4emx.onrender.com' + endpoint, {
                 method: 'POST',
                 body: formData
@@ -216,15 +242,20 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `FAANG_Resume.${format}`;
+                a.download = `AI_Optimized_Resume.${format}`;
                 document.body.appendChild(a);
                 a.click();
-                statusText.innerText = "Success!";
+                statusText.style.color = "#27AE60";
+                statusText.innerText = "Success! Achievement injected and optimized.";
+            } else {
+                statusText.style.color = "#d9534f";
+                statusText.innerText = "AI Engine error. Check your file format.";
             }
         } catch (error) {
-            statusText.innerText = "Server error. Try again in 30s.";
+            statusText.innerText = "Hub is waking up. Try again in 30 seconds!";
         }
     }
 </script>
+
 </body>
 </html>
