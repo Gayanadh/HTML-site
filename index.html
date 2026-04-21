@@ -110,10 +110,19 @@
 
     async function processResume(format) {
         const statusText = document.getElementById('statusText');
+        const fileInput = document.getElementById('resumeUpload');
+
+        if (fileInput.files.length === 0) {
+            statusText.innerText = "Please upload a resume file first!";
+            statusText.style.color = "#e74c3c";
+            return;
+        }
+
         statusText.innerText = "AI is tailoring your resume to FAANG standards...";
+        statusText.style.color = "#666";
         
         const formData = new FormData();
-        formData.append('resume', document.getElementById('resumeUpload').files[0]);
+        formData.append('resume', fileInput.files[0]);
         formData.append('updates', document.getElementById('updates').value);
         formData.append('template', document.getElementById('template').value);
 
@@ -122,16 +131,37 @@
                 method: 'POST',
                 body: formData
             });
+
             if (response.ok) {
                 const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
+                
+                // FIXED: Explicitly set MIME type to ensure PDF displays correctly
+                const mimeType = format === 'pdf' ? 'application/pdf' : 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+                const fileBlob = new Blob([blob], { type: mimeType });
+                
+                const url = window.URL.createObjectURL(fileBlob);
                 const a = document.createElement('a');
+                a.style.display = 'none';
                 a.href = url;
                 a.download = `AI_FAANG_Resume.${format}`;
+                
+                document.body.appendChild(a);
                 a.click();
+                
+                // Cleanup browser memory
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+                
                 statusText.innerText = "Success! Professional Summary & Achievements Injected.";
+                statusText.style.color = "#27AE60";
+            } else {
+                statusText.innerText = "Server Error: The AI is busy. Please try again in 60 seconds.";
+                statusText.style.color = "#e74c3c";
             }
-        } catch (e) { statusText.innerText = "Server warming up... try again."; }
+        } catch (e) { 
+            statusText.innerText = "Server warming up... Please click again in a moment."; 
+            statusText.style.color = "#f39c12";
+        }
     }
 </script>
 </body>
