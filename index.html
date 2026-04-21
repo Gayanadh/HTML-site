@@ -1,179 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GK Creations - Resume Builder</title>
-    <style>
-        /* 1. Page & Layout Styles */
-        body { 
-            background-color: skyblue; 
-            font-family: Arial, sans-serif; 
-            margin: 0; 
-            color: white; 
-            text-align: center; 
-        }
+async function processResume() {
+    const fileInput = document.getElementById('resumeUpload');
+    const updates = document.getElementById('updates').value;
+    const statusText = document.getElementById('statusText');
 
-        header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 10px 20px; 
-            background: rgba(0,0,0,0.1); 
-        }
-
-        /* Your Green Logo Box */
-        .logo-box { 
-            height: 50px; 
-            width: 50px;
-            background: #2e7d32; /* Green Background */
-            border-radius: 8px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .logo-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .settings-bar {
-            background: white; 
-            color: black; 
-            padding: 6px 12px; 
-            border-radius: 5px; 
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* 2. Content Box Styles */
-        .content { padding: 40px; }
-
-        h1 { 
-            color: blue; 
-            font-family: "Times New Roman", serif; 
-            font-size: 42px; 
-            margin-bottom: 20px;
-        }
-
-        .main-card {
-            background: white;
-            color: #333;
-            padding: 30px;
-            border-radius: 20px;
-            display: inline-block;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        textarea { 
-            width: 95%; 
-            height: 120px; 
-            margin: 20px 0; 
-            padding: 10px; 
-            border-radius: 10px; 
-            border: 1px solid #ddd; 
-            font-size: 16px; 
-        }
-
-        /* 3. Button Styles */
-        .btn { 
-            padding: 12px 25px; 
-            border: none; 
-            border-radius: 25px; 
-            cursor: pointer; 
-            font-size: 16px; 
-            font-weight: bold; 
-            transition: 0.3s; 
-        }
-
-        .btn-upgrade { 
-            background-color: darkblue; 
-            color: white; 
-            width: 200px;
-        }
-
-        .btn-download { 
-            background-color: #2e7d32; 
-            color: white; 
-            display: none; /* Hidden until upgrade is clicked */
-            margin: 10px;
-        }
-
-        #statusText { margin-top: 15px; font-weight: bold; color: #555; }
-    </style>
-</head>
-<body>
-
-<header>
-    <div class="logo-box">
-        <img src="logo.png" alt="G">
-    </div>
-    <div class="settings-bar">⚙️ SETTINGS</div>
-</header>
-
-<div class="content">
-    <h1>Resume Builder</h1>
-    
-    <div class="main-card">
-        <p><strong>Step 1:</strong> Upload your current Resume</p>
-        <input type="file" id="resumeUpload" accept=".pdf,.doc,.docx">
-        
-        <p style="margin-top:20px;"><strong>Step 2:</strong> Kindly provide your updates in resume</p>
-        <textarea id="updates" placeholder="e.g. Change phone to 000000 and add Project Manager role..."></textarea>
-        
-        <br>
-        <button class="btn btn-upgrade" onclick="processResume()">Upgrade Resume</button>
-        
-        <p id="statusText"></p>
-        
-        <div id="downloadArea">
-            <button class="btn btn-download" onclick="downloadFile('pdf')">Download PDF</button>
-            <button class="btn btn-download" onclick="downloadFile('doc')">Download DOCX</button>
-        </div>
-    </div>
-</div>
-
-<script>
-    // This function handles the "Upgrading" logic
-    function processResume() {
-        const file = document.getElementById('resumeUpload').files[0];
-        const updates = document.getElementById('updates').value;
-
-        if (!updates) {
-            alert("Please provide the updates you want to make!");
-            return;
-        }
-
-        document.getElementById('statusText').innerText = "Resume Upgraded Successfully!";
-        
-        // Reveal the download buttons
-        document.querySelectorAll('.btn-download').forEach(btn => btn.style.display = 'inline-block');
+    if (!fileInput.files[0]) {
+        alert("Please upload a .docx file first!");
+        return;
     }
 
-    // The "Trick": Generating a download without a server
-    function downloadFile(extension) {
-        const content = document.getElementById('updates').value;
-        const filename = "Updated_Resume." + extension;
-        
-        // We create a Blob (binary large object) which acts as a file in memory
-        const blob = new Blob([content], { type: 'text/plain' });
-        const link = document.createElement('a');
-        
-        link.href = window.URL.createObjectURL(blob);
-        link.download = filename;
-        
-        // This triggers the browser's download prompt
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-</script>
+    statusText.innerText = "Connecting to backend... please wait.";
 
-</body>
-</html>
+    const formData = new FormData();
+    formData.append('resume', fileInput.files[0]);
+    formData.append('updates', updates);
+
+    try {
+        // REPLACE THE URL BELOW after Step 4
+        const response = await fetch('https://your-render-app-name.onrender.com/upgrade', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "Upgraded_Resume.docx";
+            document.body.appendChild(a);
+            a.click();
+            statusText.innerText = "Done! Your upgraded resume downloaded.";
+        }
+    } catch (error) {
+        statusText.innerText = "Error connecting to server.";
+        console.error(error);
+    }
+}
