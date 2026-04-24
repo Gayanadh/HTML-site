@@ -9,7 +9,6 @@ from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 import fitz  # PyMuPDF
 import google.generativeai as genai
-from google.generativeai.types import RequestOptions
 
 app = Flask(__name__)
 CORS(app)
@@ -96,12 +95,9 @@ def polish():
         
         prompt = prompts.get(template, prompts["google"])
         
-        # FIX: Explicitly set the API version to 'v1' to avoid the 404 error
+        # FIXED: Removed the RequestOptions that caused the error
         model = genai.GenerativeModel('gemini-1.5-flash')
-        response = model.generate_content(
-            f"{prompt}\n\nInput: {text}",
-            request_options=RequestOptions(api_version='v1')
-        )
+        response = model.generate_content(f"{prompt}\n\nInput: {text}")
         
         if response and response.text:
             return jsonify({"polished_text": response.text})
