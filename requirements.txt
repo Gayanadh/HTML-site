@@ -2,6 +2,6 @@ flask
 flask-cors
 python-docx
 PyMuPDF
-gunicorn
 lxml
-google-generativeai
+gunicorn
+google-generativeai>=0.8.0
