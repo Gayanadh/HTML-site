@@ -14,10 +14,13 @@ app = Flask(__name__)
 CORS(app)
 
 # --- AI CONFIGURATION ---
+# This reads the key you saved in the Render Environment Variables
 API_KEY = os.environ.get("GEMINI_API_KEY")
+
 if API_KEY:
     genai.configure(api_key=API_KEY)
-    ai_model = genai.GenerativeModel('gemini-pro')
+    # Using 1.5-flash for maximum reliability and speed
+    ai_model = genai.GenerativeModel('gemini-1.5-flash')
 
 # --- HELPERS ---
 
@@ -66,6 +69,7 @@ def docx_to_pdf_via_libreoffice(docx_bytes: bytes) -> bytes | None:
             src = os.path.join(tmpdir, "resume.docx")
             with open(src, "wb") as f:
                 f.write(docx_bytes)
+            # Run headless LibreOffice for conversion
             subprocess.run(["libreoffice", "--headless", "--convert-to", "pdf", "--outdir", tmpdir, src], capture_output=True, timeout=60)
             pdf_path = os.path.join(tmpdir, "resume.pdf")
             if os.path.exists(pdf_path):
@@ -80,20 +84,32 @@ def docx_to_pdf_via_libreoffice(docx_bytes: bytes) -> bytes | None:
 @app.route("/polish", methods=["POST"])
 def polish():
     if not API_KEY:
-        return jsonify({"polished_text": "Error: API Key not set on Render."}), 500
-    data = request.json
-    text = data.get("text", "")
-    template = data.get("template", "google")
+        return jsonify({"polished_text": "Error: GEMINI_API_KEY is not set in Render."}), 500
     
-    prompts = {
-        "google": "Rewrite this as a Google-style achievement (XYZ formula): 'Accomplished [X] as measured by [Y], by doing [Z]'. One sentence.",
-        "apple": "Rewrite this for Apple. Focus on product-centric storytelling and elegant user impact. One sentence.",
-        "amazon": "Rewrite this for Amazon. Use high-scale metrics and Leadership Principle language. One sentence."
-    }
-    
-    prompt = prompts.get(template, prompts["google"])
-    response = ai_model.generate_content(f"{prompt}\n\nInput: {text}")
-    return jsonify({"polished_text": response.text})
+    try:
+        data = request.json
+        text = data.get("text", "")
+        template = data.get("template", "google")
+        
+        prompts = {
+            "google": "Rewrite this as a Google-style achievement (XYZ formula): 'Accomplished [X] as measured by [Y], by doing [Z]'. One sentence.",
+            "apple": "Rewrite this for Apple. Focus on product-centric storytelling and elegant user impact. One sentence.",
+            "amazon": "Rewrite this for Amazon. Use high-scale metrics and Leadership Principle language. One sentence."
+        }
+        
+        prompt = prompts.get(template, prompts["google"])
+        
+        # Calling the AI Model
+        response = ai_model.generate_content(f"{prompt}\n\nInput: {text}")
+        
+        if response and response.text:
+            return jsonify({"polished_text": response.text})
+        else:
+            return jsonify({"polished_text": "AI returned an empty response. Try rephrasing."})
+
+    except Exception as e:
+        # Returns the exact error (e.g. quota limit or invalid key) instead of a 500 crash
+        return jsonify({"polished_text": f"AI Error: {str(e)}"}), 200
 
 @app.route("/upgrade", methods=["POST"])
 def upgrade():
@@ -101,26 +117,39 @@ def upgrade():
         file = request.files.get("resume")
         updates = request.form.get("updates", "").strip()
         requested_format = request.form.get("format", "docx").lower()
-        if not file: return jsonify({"error": "No file"}), 400
+        
+        if not file: 
+            return jsonify({"error": "No file uploaded"}), 400
         
         file_bytes = file.read()
         filename = file.filename.lower()
 
+        # Handle PDF Uploads
         if filename.endswith(".pdf"):
             enhanced_pdf = inject_into_pdf(file_bytes, updates)
             return send_file(enhanced_pdf, mimetype="application/pdf", as_attachment=True, download_name="Optimized_Resume.pdf")
 
+        # Handle DOCX Uploads
         elif filename.endswith(".docx"):
             enhanced_docx = inject_into_docx(file_bytes, updates)
+            
+            # If user wants DOCX back
             if requested_format == "docx":
                 return send_file(enhanced_docx, mimetype="application/vnd.openxmlformats-officedocument.wordprocessingml.document", as_attachment=True, download_name="Optimized_Resume.docx")
             
+            # If user wants PDF from a DOCX
             pdf_bytes = docx_to_pdf_via_libreoffice(enhanced_docx.read())
             if pdf_bytes:
                 return send_file(io.BytesIO(pdf_bytes), mimetype="application/pdf", as_attachment=True, download_name="Optimized_Resume.pdf")
+            
+            # Fallback to DOCX if LibreOffice fails
+            enhanced_docx.seek(0)
             return send_file(enhanced_docx, mimetype="application/vnd.openxmlformats-officedocument.wordprocessingml.document", as_attachment=True, download_name="Optimized_Resume.docx")
+            
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+    # Get port from Render environment
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
