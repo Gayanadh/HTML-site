@@ -15,26 +15,37 @@
         #atsBar { width: 30%; height: 100%; background: #FF8C00; transition: 0.5s; }
         .score-label { font-size: 12px; font-weight: bold; color: #2E74B5; margin-bottom: 5px; display: block; }
         .step { margin-bottom: 20px; }
-
-        /* FIX: labels now use 'for' attribute — styled as display:block */
         label { display: block; font-weight: 700; font-size: 12px; color: var(--primary); text-transform: uppercase; margin-bottom: 8px; cursor: pointer; }
-
-        input, textarea, select { width: 100%; padding: 12px; background: var(--input-bg); border: 2px solid transparent; border-radius: 12px; box-sizing: border-box; font-family: inherit; transition: 0.3s; }
+        input, textarea, select { width: 100%; padding: 12px; background: var(--input-bg); border: 2px solid transparent; border-radius: 12px; box-sizing: border-box; font-family: inherit; transition: 0.3s; font-size: 13px; }
         textarea:focus, select:focus, input:focus { outline: none; border-color: var(--primary); background: #fff; }
-        .magic-btn { background: #f39c12; color: white; border: none; padding: 5px 12px; border-radius: 8px; font-size: 11px; cursor: pointer; margin-top: 5px; font-weight: bold; }
+
+        .magic-row { display: flex; gap: 10px; align-items: flex-start; margin-top: 8px; }
+        .magic-btn { background: #f39c12; color: white; border: none; padding: 10px 16px; border-radius: 10px; font-size: 12px; cursor: pointer; font-weight: 700; white-space: nowrap; transition: background 0.2s; flex-shrink: 0; }
         .magic-btn:hover { background: #d68910; }
+        .magic-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+        /* AI heading tag shown after polish */
+        .heading-tag { display: none; align-items: center; gap: 6px; margin-top: 8px; font-size: 11px; }
+        .heading-tag.visible { display: flex; }
+        .heading-badge {
+            background: #e8f4ff; color: #1a5276; border: 1px solid #aed6f1;
+            padding: 3px 10px; border-radius: 20px; font-weight: 700;
+            font-size: 11px; letter-spacing: 0.03em;
+        }
+        .heading-label { color: #888; font-size: 11px; }
+
         .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .btn { padding: 15px; border: none; border-radius: 12px; cursor: pointer; font-weight: 700; color: white; font-size: 14px; }
-        .btn:hover { opacity: 0.9; }
+        .btn { padding: 15px; border: none; border-radius: 12px; cursor: pointer; font-weight: 700; color: white; font-size: 14px; transition: opacity 0.2s; }
+        .btn:hover { opacity: 0.88; }
         .btn-word { background: var(--primary); }
         .btn-pdf { background: #444; }
-        #statusText { text-align: center; font-size: 13px; color: #666; padding-top: 10px; min-height: 20px; }
+        #statusText { text-align: center; font-size: 13px; color: #666; padding-top: 12px; min-height: 22px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="brand-logo" style="font-weight:800; font-size:24px;">GK</div>
+    <div style="font-weight:800; font-size:24px;">GK</div>
     <div>AI Career Suite</div>
 </header>
 
@@ -45,42 +56,46 @@
         <span class="score-label">ATS OPTIMIZATION SCORE: <span id="scoreText">30%</span></span>
         <div class="ats-meter-container"><div id="atsBar"></div></div>
 
-        <!-- Step 1 -->
         <div class="step">
-            <!-- FIX: for="template" links label to select -->
             <label for="template">1. Select FAANG Template</label>
-            <select id="template">
+            <select id="template" onchange="resetHeading()">
                 <option value="google">Google Standard (Minimalist)</option>
                 <option value="apple">Apple Creative (UI/UX)</option>
                 <option value="amazon">Amazon Data-Driven (Metrics)</option>
             </select>
         </div>
 
-        <!-- Step 2 -->
         <div class="step">
-            <!-- FIX: for="resumeUpload" -->
             <label for="resumeUpload">2. Upload Current Resume</label>
             <input type="file" id="resumeUpload" accept=".docx,.pdf" onchange="updateScore()">
         </div>
 
-        <!-- Step 3 -->
         <div class="step">
-            <!-- FIX: for="jobDesc" -->
             <label for="jobDesc">3. Paste Target Job Description</label>
-            <textarea id="jobDesc" style="height:80px;" placeholder="Paste JD here..." oninput="updateScore()"></textarea>
+            <textarea id="jobDesc" style="height:80px;" placeholder="Paste JD here to boost keyword matching..." oninput="updateScore()"></textarea>
         </div>
 
-        <!-- Step 4 -->
         <div class="step">
-            <!-- FIX: for="updates" -->
-            <label for="updates">4. Describe Achievement</label>
-            <textarea id="updates" placeholder="e.g. I reduced SLA wait times by 40%" oninput="updateScore()"></textarea>
-            <!-- FIX: type="button" prevents accidental form submit -->
-            <button class="magic-btn" type="button" onclick="magicPolish()">✨ MAGIC POLISH</button>
+            <label for="updates">4. Describe Your Update</label>
+            <textarea id="updates" rows="3"
+                placeholder="e.g. I reduced SLA breaches by coordinating cross-functional teams&#10;e.g. I earned AWS certification&#10;e.g. I speak French and Spanish"
+                oninput="updateScore(); resetHeading()"></textarea>
+
+            <!-- Magic Polish button + heading tag -->
+            <div class="magic-row">
+                <button class="magic-btn" id="polishBtn" type="button" onclick="magicPolish()">
+                    ✨ AI Polish &amp; Classify
+                </button>
+                <div>
+                    <div class="heading-tag" id="headingTag">
+                        <span class="heading-label">Will be placed under:</span>
+                        <span class="heading-badge" id="headingBadge"></span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="btn-group">
-            <!-- FIX: type="button" on all action buttons -->
             <button class="btn btn-word" type="button" onclick="processResume('docx')">AI SMART INJECT</button>
             <button class="btn btn-pdf"  type="button" onclick="processResume('pdf')">AI ATS EXPORT</button>
         </div>
@@ -91,6 +106,9 @@
 
 <script>
     const API_BASE = "https://resume-hub-3eeb.onrender.com";
+
+    // Stores the AI-chosen heading after /polish
+    let chosenHeading = "";
 
     function updateScore() {
         let score = 30;
@@ -103,54 +121,77 @@
         document.getElementById('scoreText').innerText = score + "%";
     }
 
+    function resetHeading() {
+        chosenHeading = "";
+        document.getElementById('headingTag').classList.remove('visible');
+        document.getElementById('headingBadge').innerText = "";
+    }
+
+    function showHeadingBadge(heading) {
+        chosenHeading = heading;
+        document.getElementById('headingBadge').innerText = heading;
+        document.getElementById('headingTag').classList.add('visible');
+    }
+
     async function magicPolish() {
         const input = document.getElementById('updates');
-        const statusText = document.getElementById('statusText');
+        const btn   = document.getElementById('polishBtn');
+        const status = document.getElementById('statusText');
+
         if (!input.value.trim()) {
-            statusText.innerText = "Type a rough achievement first!";
+            status.innerText = "Write something in step 4 first.";
             return;
         }
-        statusText.innerText = "✨ AI is polishing your text...";
+
+        btn.disabled = true;
+        btn.innerText = "⏳ Classifying...";
+        status.innerText = "AI is reading your sentence and finding the right heading...";
+
         try {
             const res = await fetch(`${API_BASE}/polish`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    text: input.value,
+                    text:     input.value,
                     template: document.getElementById('template').value
                 })
             });
             const data = await res.json();
             input.value = data.polished_text;
-            statusText.innerText = "✨ Achievement polished!";
+            showHeadingBadge(data.heading || "Achievements");
+            status.innerText = `✅ Polished and classified — will inject under "${data.heading}".`;
             updateScore();
         } catch (e) {
-            statusText.innerText = "AI Polish failed. Check connection.";
+            status.innerText = "AI Polish failed. Check your connection.";
+        } finally {
+            btn.disabled = false;
+            btn.innerText = "✨ AI Polish & Classify";
         }
     }
 
     async function processResume(format) {
-        const statusText = document.getElementById('statusText');
+        const status    = document.getElementById('statusText');
         const fileInput = document.getElementById('resumeUpload');
 
         if (!fileInput.files[0]) {
-            statusText.innerText = "Please upload a resume first!";
+            status.innerText = "Please upload a resume first.";
             return;
         }
 
         let finalFormat = format;
         if (fileInput.files[0].name.toLowerCase().endsWith('.pdf') && format === 'docx') {
             finalFormat = 'pdf';
-            statusText.innerText = "Note: PDF input will export as PDF to preserve layout.";
-        } else {
-            statusText.innerText = "AI is processing your file...";
         }
 
+        status.innerText = "AI is injecting your update into the resume...";
+
         const formData = new FormData();
-        formData.append('resume', fileInput.files[0]);
-        formData.append('updates', document.getElementById('updates').value);
+        formData.append('resume',   fileInput.files[0]);
+        formData.append('updates',  document.getElementById('updates').value);
         formData.append('template', document.getElementById('template').value);
-        formData.append('format', finalFormat);
+        formData.append('format',   finalFormat);
+        // Pass the AI-chosen heading so the backend knows where to inject
+        if (chosenHeading) formData.append('heading', chosenHeading);
 
         try {
             const res = await fetch(`${API_BASE}/upgrade`, { method: 'POST', body: formData });
@@ -162,12 +203,12 @@
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
-                statusText.innerText = "✅ Success! File downloaded.";
+                status.innerText = `✅ Done! Injected under "${chosenHeading || 'Achievements'}".`;
             } else {
-                statusText.innerText = "Server error. Please try again.";
+                status.innerText = "Server error. Please try again.";
             }
         } catch (e) {
-            statusText.innerText = "Server warming up — try again in 30 seconds.";
+            status.innerText = "Server warming up — try again in 30 seconds.";
         }
     }
 </script>
