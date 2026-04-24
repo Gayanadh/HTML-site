@@ -4,3 +4,4 @@ python-docx
 PyMuPDF
 gunicorn
 lxml
+google-generativeai
