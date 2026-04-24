@@ -75,7 +75,8 @@
 <script>
     function updateScore() {
         let score = 30;
-        if (document.getElementById('resumeUpload').files.length > 0) score += 30;
+        const fileInput = document.getElementById('resumeUpload');
+        if (fileInput.files.length > 0) score += 30;
         if (document.getElementById('jobDesc').value.length > 50) score += 20;
         if (document.getElementById('updates').value.length > 20) score += 15;
         const bar = document.getElementById('atsBar');
@@ -93,23 +94,33 @@
     async function processResume(format) {
         const statusText = document.getElementById('statusText');
         const fileInput = document.getElementById('resumeUpload');
+        const selectedFile = fileInput.files[0];
 
-        if (fileInput.files.length === 0) {
+        if (!selectedFile) {
             statusText.innerText = "Error: Please upload a resume first.";
             statusText.style.color = "#e74c3c";
             return;
         }
 
-        statusText.innerText = "AI is modifying your " + format.toUpperCase() + "...";
+        // PREVENT CORRUPTION: If PDF is uploaded, always export as PDF
+        let finalFormat = format;
+        if (selectedFile.name.toLowerCase().endsWith('.pdf') && format === 'docx') {
+            statusText.innerText = "Notice: PDF layouts can only be preserved via PDF export.";
+            statusText.style.color = "#f39c12";
+            finalFormat = 'pdf';
+        }
+
+        statusText.innerText = "AI is modifying your " + finalFormat.toUpperCase() + "...";
         statusText.style.color = "#2E74B5";
 
         const formData = new FormData();
-        formData.append('resume', fileInput.files[0]);
+        formData.append('resume', selectedFile);
         formData.append('updates', document.getElementById('updates').value);
         formData.append('template', document.getElementById('template').value);
-        formData.append('format', format);
+        formData.append('format', finalFormat);
 
         try {
+            // FIXED URL: Points to your new Resume Hub Docker service
             const response = await fetch('https://resume-hub-3eeb.onrender.com/upgrade', {
                 method: 'POST',
                 body: formData
@@ -120,7 +131,7 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `Optimized_Resume.${format}`;
+                a.download = `Optimized_Resume.${finalFormat}`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -128,9 +139,11 @@
                 statusText.style.color = "#27AE60";
             } else {
                 statusText.innerText = "Error: Server failed to process file.";
+                statusText.style.color = "#e74c3c";
             }
         } catch (e) {
             statusText.innerText = "Server is warming up. Please try again in 10s.";
+            statusText.style.color = "#f39c12";
         }
     }
 </script>
