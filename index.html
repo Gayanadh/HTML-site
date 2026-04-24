@@ -15,28 +15,40 @@
         #atsBar { width: 30%; height: 100%; background: #FF8C00; transition: 0.5s; }
         .score-label { font-size: 12px; font-weight: bold; color: #2E74B5; margin-bottom: 5px; display: block; }
         .step { margin-bottom: 20px; }
-        label { display: block; font-weight: 700; font-size: 12px; color: var(--primary); text-transform: uppercase; margin-bottom: 8px; }
+
+        /* FIX: labels now use 'for' attribute — styled as display:block */
+        label { display: block; font-weight: 700; font-size: 12px; color: var(--primary); text-transform: uppercase; margin-bottom: 8px; cursor: pointer; }
+
         input, textarea, select { width: 100%; padding: 12px; background: var(--input-bg); border: 2px solid transparent; border-radius: 12px; box-sizing: border-box; font-family: inherit; transition: 0.3s; }
-        textarea:focus, select:focus { outline: none; border-color: var(--primary); background: #fff; }
+        textarea:focus, select:focus, input:focus { outline: none; border-color: var(--primary); background: #fff; }
         .magic-btn { background: #f39c12; color: white; border: none; padding: 5px 12px; border-radius: 8px; font-size: 11px; cursor: pointer; margin-top: 5px; font-weight: bold; }
+        .magic-btn:hover { background: #d68910; }
         .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .btn { padding: 15px; border: none; border-radius: 12px; cursor: pointer; font-weight: 700; color: white; }
+        .btn { padding: 15px; border: none; border-radius: 12px; cursor: pointer; font-weight: 700; color: white; font-size: 14px; }
+        .btn:hover { opacity: 0.9; }
         .btn-word { background: var(--primary); }
         .btn-pdf { background: #444; }
+        #statusText { text-align: center; font-size: 13px; color: #666; padding-top: 10px; min-height: 20px; }
     </style>
 </head>
 <body>
 
-<header><div class="brand-logo" style="font-weight:800; font-size:24px;">GK</div><div>AI Career Suite</div></header>
+<header>
+    <div class="brand-logo" style="font-weight:800; font-size:24px;">GK</div>
+    <div>AI Career Suite</div>
+</header>
 
 <div class="content">
-    <h1>Resume Hub <span style="font-size: 15px; vertical-align: middle; background: #27AE60; padding: 4px 10px; border-radius: 10px;">PRO</span></h1>
+    <h1>Resume Hub <span style="font-size:15px; vertical-align:middle; background:#27AE60; padding:4px 10px; border-radius:10px;">PRO</span></h1>
+
     <div class="hub-card">
         <span class="score-label">ATS OPTIMIZATION SCORE: <span id="scoreText">30%</span></span>
         <div class="ats-meter-container"><div id="atsBar"></div></div>
-        
+
+        <!-- Step 1 -->
         <div class="step">
-            <label>1. Select FAANG Template</label>
+            <!-- FIX: for="template" links label to select -->
+            <label for="template">1. Select FAANG Template</label>
             <select id="template">
                 <option value="google">Google Standard (Minimalist)</option>
                 <option value="apple">Apple Creative (UI/UX)</option>
@@ -44,27 +56,36 @@
             </select>
         </div>
 
+        <!-- Step 2 -->
         <div class="step">
-            <label>2. Upload Current Resume</label>
+            <!-- FIX: for="resumeUpload" -->
+            <label for="resumeUpload">2. Upload Current Resume</label>
             <input type="file" id="resumeUpload" accept=".docx,.pdf" onchange="updateScore()">
         </div>
 
+        <!-- Step 3 -->
         <div class="step">
-            <label>3. Paste Target Job Description</label>
-            <textarea id="jobDesc" style="height: 80px;" placeholder="Paste JD here..." oninput="updateScore()"></textarea>
+            <!-- FIX: for="jobDesc" -->
+            <label for="jobDesc">3. Paste Target Job Description</label>
+            <textarea id="jobDesc" style="height:80px;" placeholder="Paste JD here..." oninput="updateScore()"></textarea>
         </div>
-        
+
+        <!-- Step 4 -->
         <div class="step">
-            <label>4. Describe Achievement</label>
-            <textarea id="updates" placeholder="e.g. I fixed bugs" oninput="updateScore()"></textarea>
-            <button class="magic-btn" onclick="magicPolish()">✨ MAGIC POLISH</button>
+            <!-- FIX: for="updates" -->
+            <label for="updates">4. Describe Achievement</label>
+            <textarea id="updates" placeholder="e.g. I reduced SLA wait times by 40%" oninput="updateScore()"></textarea>
+            <!-- FIX: type="button" prevents accidental form submit -->
+            <button class="magic-btn" type="button" onclick="magicPolish()">✨ MAGIC POLISH</button>
         </div>
-        
+
         <div class="btn-group">
-            <button class="btn btn-word" onclick="processResume('docx')">AI SMART INJECT</button>
-            <button class="btn btn-pdf" onclick="processResume('pdf')">AI ATS EXPORT</button>
+            <!-- FIX: type="button" on all action buttons -->
+            <button class="btn btn-word" type="button" onclick="processResume('docx')">AI SMART INJECT</button>
+            <button class="btn btn-pdf"  type="button" onclick="processResume('pdf')">AI ATS EXPORT</button>
         </div>
-        <p id="statusText" style="text-align:center; font-size:13px; color:#666; padding-top:10px;"></p>
+
+        <p id="statusText" aria-live="polite"></p>
     </div>
 </div>
 
@@ -76,41 +97,55 @@
         if (document.getElementById('resumeUpload').files.length > 0) score += 30;
         if (document.getElementById('jobDesc').value.length > 50) score += 20;
         if (document.getElementById('updates').value.length > 10) score += 15;
-        document.getElementById('atsBar').style.width = score + "%";
+        const bar = document.getElementById('atsBar');
+        bar.style.width = score + "%";
+        bar.style.background = score > 80 ? "#27AE60" : score > 50 ? "#f39c12" : "#e74c3c";
         document.getElementById('scoreText').innerText = score + "%";
     }
 
     async function magicPolish() {
         const input = document.getElementById('updates');
         const statusText = document.getElementById('statusText');
-        if (!input.value.trim()) { statusText.innerText = "Type a rough achievement first!"; return; }
-        
+        if (!input.value.trim()) {
+            statusText.innerText = "Type a rough achievement first!";
+            return;
+        }
         statusText.innerText = "✨ AI is polishing your text...";
         try {
             const res = await fetch(`${API_BASE}/polish`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text: input.value, template: document.getElementById('template').value })
+                body: JSON.stringify({
+                    text: input.value,
+                    template: document.getElementById('template').value
+                })
             });
             const data = await res.json();
             input.value = data.polished_text;
             statusText.innerText = "✨ Achievement polished!";
             updateScore();
-        } catch (e) { statusText.innerText = "AI Polish failed. Check connection."; }
+        } catch (e) {
+            statusText.innerText = "AI Polish failed. Check connection.";
+        }
     }
 
     async function processResume(format) {
         const statusText = document.getElementById('statusText');
         const fileInput = document.getElementById('resumeUpload');
-        if (!fileInput.files[0]) { statusText.innerText = "Upload a resume first!"; return; }
+
+        if (!fileInput.files[0]) {
+            statusText.innerText = "Please upload a resume first!";
+            return;
+        }
 
         let finalFormat = format;
         if (fileInput.files[0].name.toLowerCase().endsWith('.pdf') && format === 'docx') {
             finalFormat = 'pdf';
-            statusText.innerText = "Note: PDF must stay PDF to preserve layout.";
+            statusText.innerText = "Note: PDF input will export as PDF to preserve layout.";
+        } else {
+            statusText.innerText = "AI is processing your file...";
         }
 
-        statusText.innerText = "AI is modifying your file...";
         const formData = new FormData();
         formData.append('resume', fileInput.files[0]);
         formData.append('updates', document.getElementById('updates').value);
@@ -124,10 +159,16 @@
                 const a = document.createElement('a');
                 a.href = URL.createObjectURL(blob);
                 a.download = `Optimized_Resume.${finalFormat}`;
+                document.body.appendChild(a);
                 a.click();
-                statusText.innerText = "Success! File downloaded.";
-            } else { statusText.innerText = "Server Error."; }
-        } catch (e) { statusText.innerText = "Server warming up... try again in 30s."; }
+                document.body.removeChild(a);
+                statusText.innerText = "✅ Success! File downloaded.";
+            } else {
+                statusText.innerText = "Server error. Please try again.";
+            }
+        } catch (e) {
+            statusText.innerText = "Server warming up — try again in 30 seconds.";
+        }
     }
 </script>
 </body>
