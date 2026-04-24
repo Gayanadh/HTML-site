@@ -6,11 +6,7 @@
     <title>GK | Resume Hub - AI Career Suite</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #2E74B5;
-            --input-bg: #EEF4FF;
-            --bg-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-        }
+        :root { --primary: #2E74B5; --input-bg: #EEF4FF; --bg-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
         body { background: var(--bg-gradient); font-family: 'Poppins', sans-serif; margin: 0; color: #fff; display: flex; flex-direction: column; min-height: 100vh; }
         header { display: flex; justify-content: space-between; padding: 20px 50px; background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); }
         .content { padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
@@ -60,7 +56,7 @@
         
         <div class="step">
             <label>4. Describe Achievement</label>
-            <textarea id="updates" placeholder="e.g. I reduced client SLA wait times" oninput="updateScore()"></textarea>
+            <textarea id="updates" placeholder="e.g. I fixed bugs" oninput="updateScore()"></textarea>
             <button class="magic-btn" onclick="magicPolish()">✨ MAGIC POLISH</button>
         </div>
         
@@ -68,83 +64,70 @@
             <button class="btn btn-word" onclick="processResume('docx')">AI SMART INJECT</button>
             <button class="btn btn-pdf" onclick="processResume('pdf')">AI ATS EXPORT</button>
         </div>
-        <p id="statusText" style="text-align:center; font-size:13px; color:#666;"></p>
+        <p id="statusText" style="text-align:center; font-size:13px; color:#666; padding-top:10px;"></p>
     </div>
 </div>
 
 <script>
+    const API_BASE = "https://resume-hub-3eeb.onrender.com";
+
     function updateScore() {
         let score = 30;
-        const fileInput = document.getElementById('resumeUpload');
-        if (fileInput.files.length > 0) score += 30;
+        if (document.getElementById('resumeUpload').files.length > 0) score += 30;
         if (document.getElementById('jobDesc').value.length > 50) score += 20;
-        if (document.getElementById('updates').value.length > 20) score += 15;
-        const bar = document.getElementById('atsBar');
-        bar.style.width = score + "%";
+        if (document.getElementById('updates').value.length > 10) score += 15;
+        document.getElementById('atsBar').style.width = score + "%";
         document.getElementById('scoreText').innerText = score + "%";
-        bar.style.background = score > 80 ? "#27AE60" : (score > 50 ? "#f39c12" : "#e74c3c");
     }
 
-    function magicPolish() {
+    async function magicPolish() {
         const input = document.getElementById('updates');
-        input.value = "Exceeded client expectations by achieving a 100% SLA reduction, resulting in a 15% increase in customer satisfaction scores.";
-        updateScore();
+        const statusText = document.getElementById('statusText');
+        if (!input.value.trim()) { statusText.innerText = "Type a rough achievement first!"; return; }
+        
+        statusText.innerText = "✨ AI is polishing your text...";
+        try {
+            const res = await fetch(`${API_BASE}/polish`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: input.value, template: document.getElementById('template').value })
+            });
+            const data = await res.json();
+            input.value = data.polished_text;
+            statusText.innerText = "✨ Achievement polished!";
+            updateScore();
+        } catch (e) { statusText.innerText = "AI Polish failed. Check connection."; }
     }
 
     async function processResume(format) {
         const statusText = document.getElementById('statusText');
         const fileInput = document.getElementById('resumeUpload');
-        const selectedFile = fileInput.files[0];
+        if (!fileInput.files[0]) { statusText.innerText = "Upload a resume first!"; return; }
 
-        if (!selectedFile) {
-            statusText.innerText = "Error: Please upload a resume first.";
-            statusText.style.color = "#e74c3c";
-            return;
-        }
-
-        // PREVENT CORRUPTION: If PDF is uploaded, always export as PDF
         let finalFormat = format;
-        if (selectedFile.name.toLowerCase().endsWith('.pdf') && format === 'docx') {
-            statusText.innerText = "Notice: PDF layouts can only be preserved via PDF export.";
-            statusText.style.color = "#f39c12";
+        if (fileInput.files[0].name.toLowerCase().endsWith('.pdf') && format === 'docx') {
             finalFormat = 'pdf';
+            statusText.innerText = "Note: PDF must stay PDF to preserve layout.";
         }
 
-        statusText.innerText = "AI is modifying your " + finalFormat.toUpperCase() + "...";
-        statusText.style.color = "#2E74B5";
-
+        statusText.innerText = "AI is modifying your file...";
         const formData = new FormData();
-        formData.append('resume', selectedFile);
+        formData.append('resume', fileInput.files[0]);
         formData.append('updates', document.getElementById('updates').value);
         formData.append('template', document.getElementById('template').value);
         formData.append('format', finalFormat);
 
         try {
-            // FIXED URL: Points to your new Resume Hub Docker service
-            const response = await fetch('https://resume-hub-3eeb.onrender.com/upgrade', {
-                method: 'POST',
-                body: formData
-            });
-
-            if (response.ok) {
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
+            const res = await fetch(`${API_BASE}/upgrade`, { method: 'POST', body: formData });
+            if (res.ok) {
+                const blob = await res.blob();
                 const a = document.createElement('a');
-                a.href = url;
+                a.href = URL.createObjectURL(blob);
                 a.download = `Optimized_Resume.${finalFormat}`;
-                document.body.appendChild(a);
                 a.click();
-                document.body.removeChild(a);
-                statusText.innerText = "Success! Layout and updates preserved.";
-                statusText.style.color = "#27AE60";
-            } else {
-                statusText.innerText = "Error: Server failed to process file.";
-                statusText.style.color = "#e74c3c";
-            }
-        } catch (e) {
-            statusText.innerText = "Server is warming up. Please try again in 10s.";
-            statusText.style.color = "#f39c12";
-        }
+                statusText.innerText = "Success! File downloaded.";
+            } else { statusText.innerText = "Server Error."; }
+        } catch (e) { statusText.innerText = "Server warming up... try again in 30s."; }
     }
 </script>
 </body>
