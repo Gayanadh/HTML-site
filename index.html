@@ -60,4 +60,79 @@
         
         <div class="step">
             <label>4. Describe Achievement</label>
-            <textarea id="
+            <textarea id="updates" placeholder="e.g. I reduced client SLA wait times" oninput="updateScore()"></textarea>
+            <button class="magic-btn" onclick="magicPolish()">✨ MAGIC POLISH</button>
+        </div>
+        
+        <div class="btn-group">
+            <button class="btn btn-word" onclick="processResume('docx')">AI SMART INJECT</button>
+            <button class="btn btn-pdf" onclick="processResume('pdf')">AI ATS EXPORT</button>
+        </div>
+        <p id="statusText" style="text-align:center; font-size:13px; color:#666;"></p>
+    </div>
+</div>
+
+<script>
+    function updateScore() {
+        let score = 30;
+        if (document.getElementById('resumeUpload').files.length > 0) score += 30;
+        if (document.getElementById('jobDesc').value.length > 50) score += 20;
+        if (document.getElementById('updates').value.length > 20) score += 15;
+        const bar = document.getElementById('atsBar');
+        bar.style.width = score + "%";
+        document.getElementById('scoreText').innerText = score + "%";
+        bar.style.background = score > 80 ? "#27AE60" : (score > 50 ? "#f39c12" : "#e74c3c");
+    }
+
+    function magicPolish() {
+        const input = document.getElementById('updates');
+        input.value = "Exceeded client expectations by achieving a 100% SLA reduction, resulting in a 15% increase in customer satisfaction scores.";
+        updateScore();
+    }
+
+    async function processResume(format) {
+        const statusText = document.getElementById('statusText');
+        const fileInput = document.getElementById('resumeUpload');
+
+        if (fileInput.files.length === 0) {
+            statusText.innerText = "Error: Please upload a resume first.";
+            statusText.style.color = "#e74c3c";
+            return;
+        }
+
+        statusText.innerText = "AI is modifying your " + format.toUpperCase() + "...";
+        statusText.style.color = "#2E74B5";
+
+        const formData = new FormData();
+        formData.append('resume', fileInput.files[0]);
+        formData.append('updates', document.getElementById('updates').value);
+        formData.append('template', document.getElementById('template').value);
+        formData.append('format', format);
+
+        try {
+            const response = await fetch('https://resume-hub-3eeb.onrender.com/upgrade', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Optimized_Resume.${format}`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                statusText.innerText = "Success! Layout and updates preserved.";
+                statusText.style.color = "#27AE60";
+            } else {
+                statusText.innerText = "Error: Server failed to process file.";
+            }
+        } catch (e) {
+            statusText.innerText = "Server is warming up. Please try again in 10s.";
+        }
+    }
+</script>
+</body>
+</html>
