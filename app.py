@@ -8,14 +8,13 @@ from docx import Document
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 import fitz  # PyMuPDF
-import google.generativeai as genai
+from groq import Groq
 
 app = Flask(__name__)
 CORS(app)
 
-API_KEY = os.environ.get("GEMINI_API_KEY")
-if API_KEY:
-    genai.configure(api_key=API_KEY)
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+groq_client = Groq(api_key=GROQ_API_KEY) if GROQ_API_KEY else None
 
 def inject_into_docx(file_bytes, updates):
     doc = Document(io.BytesIO(file_bytes))
@@ -51,8 +50,8 @@ def inject_into_pdf(file_bytes, updates):
         pw = page.rect.width
         banner = fitz.Rect(30, 6, pw - 30, 34)
         page.draw_rect(banner, color=(0.18, 0.46, 0.71), fill=(0.93, 0.97, 1.0), width=0.8)
-        page.insert_textbox(banner, f"\u2728 AI-OPTIMISED: {updates}", fontsize=8.5,
-                            fontname="helv", color=(0.12, 0.36, 0.58), align=0)
+        page.insert_textbox(banner, f"\u2728 AI-OPTIMISED: {updates}",
+                            fontsize=8.5, fontname="helv", color=(0.12, 0.36, 0.58), align=0)
     out = io.BytesIO(pdf.tobytes(garbage=4, deflate=True))
     out.seek(0)
     return out
@@ -77,38 +76,47 @@ def docx_to_pdf_via_libreoffice(docx_bytes):
 
 @app.route("/polish", methods=["POST"])
 def polish():
-    if not API_KEY:
-        return jsonify({"polished_text": "Error: GEMINI_API_KEY is not set on the server."}), 500
+    if not groq_client:
+        return jsonify({"polished_text": "Error: GROQ_API_KEY is not set on the server."}), 500
     try:
         data = request.json
         text = data.get("text", "")
         template = data.get("template", "google")
 
         prompts = {
-            "google": "Rewrite as a Google XYZ achievement: 'Accomplished [X] as measured by [Y], by doing [Z]'. One sentence, no preamble.",
-            "apple": "Rewrite for Apple focusing on elegant product/user impact. One sentence, no preamble.",
-            "amazon": "Rewrite for Amazon using metrics and Leadership Principle language. One sentence, no preamble."
+            "google": (
+                "You are a resume expert. Rewrite the input as a single Google-style achievement "
+                "using the XYZ formula: 'Accomplished [X] as measured by [Y], by doing [Z]'. "
+                "Return ONLY the rewritten sentence. No explanation, no preamble."
+            ),
+            "apple": (
+                "You are a resume expert. Rewrite the input for an Apple job application. "
+                "Focus on product-centric storytelling and elegant user impact. "
+                "Return ONLY the rewritten sentence. No explanation, no preamble."
+            ),
+            "amazon": (
+                "You are a resume expert. Rewrite the input for an Amazon job application. "
+                "Use high-scale metrics and Amazon Leadership Principle language. "
+                "Return ONLY the rewritten sentence. No explanation, no preamble."
+            )
         }
-        prompt = prompts.get(template, prompts["google"])
 
-        # FIX 1: Use gemini-2.0-flash (stable, works on v1 and v1beta)
-        # FIX 2: No 'models/' prefix
-        model = genai.GenerativeModel("gemini-2.0-flash")
-        response = model.generate_content(f"{prompt}\n\nInput: {text}")
+        system_prompt = prompts.get(template, prompts["google"])
 
-        if response and response.text:
-            return jsonify({"polished_text": response.text.strip()})
-        return jsonify({"polished_text": "AI returned empty result. Try again."})
+        response = groq_client.chat.completions.create(
+            model="llama-3.1-8b-instant",   # free, fast, 14,400 req/day
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user",   "content": text}
+            ],
+            max_tokens=150,
+            temperature=0.7
+        )
+
+        polished = response.choices[0].message.content.strip()
+        return jsonify({"polished_text": polished})
 
     except Exception as e:
-        # Fallback: try gemini-1.5-flash if 2.0 fails
-        try:
-            model = genai.GenerativeModel("gemini-1.5-flash-latest")
-            response = model.generate_content(f"{prompt}\n\nInput: {text}")
-            if response and response.text:
-                return jsonify({"polished_text": response.text.strip()})
-        except Exception:
-            pass
         return jsonify({"polished_text": f"AI Error: {str(e)}"}), 200
 
 @app.route("/upgrade", methods=["POST"])
