@@ -95,8 +95,8 @@ def polish():
         
         prompt = prompts.get(template, prompts["google"])
         
-        # FIXED: Removed specific version arguments to let the library auto-detect stable 'v1'
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        # CRITICAL FIX: Use the full string path to force the stable v1 model
+        model = genai.GenerativeModel('models/gemini-1.5-flash')
         response = model.generate_content(f"{prompt}\n\nInput: {text}")
         
         if response and response.text:
@@ -105,7 +105,6 @@ def polish():
             return jsonify({"polished_text": "AI returned empty results. Try again."})
 
     except Exception as e:
-        # Returns the error but doesn't crash the server (HTTP 200 with error text)
         return jsonify({"polished_text": f"AI Error: {str(e)}"}), 200
 
 @app.route("/upgrade", methods=["POST"])
