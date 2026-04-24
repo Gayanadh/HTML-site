@@ -1,6 +1,6 @@
 flask
 flask-cors
 python-docx
-fpdf2
-PyPDF2
+PyMuPDF
 gunicorn
+lxml
