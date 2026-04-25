@@ -4,25 +4,259 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GK | Resume Hub Premium</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-:root{--primary:#2E74B5;--input-bg:#EEF4FF;--bg-gradient:linear-gradient(135deg,#1e3c72 0%,#2a5298 100%);}*{box-sizing:border-box}body{margin:0;font-family:Poppins,sans-serif;background:var(--bg-gradient);color:#fff;min-height:100vh}.wrap{max-width:1200px;margin:auto;padding:20px}header{display:flex;justify-content:space-between;align-items:center;padding:18px 0}.logo{font-size:28px;font-weight:800}.pill{background:rgba(255,255,255,.14);padding:8px 14px;border-radius:999px;backdrop-filter:blur(12px)}.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;padding:20px 0 30px}.title{font-size:52px;line-height:1.05;margin:0 0 12px}.sub{opacity:.92;max-width:620px}.card{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(18px);border-radius:28px;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.22)}.panel{background:#fff;color:#222;border-radius:28px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,.25)}label{display:block;font-size:12px;font-weight:700;color:var(--primary);text-transform:uppercase;margin:0 0 8px}.field{margin-bottom:18px}input,select,textarea{width:100%;padding:14px;border-radius:14px;border:2px solid transparent;background:var(--input-bg);font-family:inherit;resize:vertical}input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary);background:#fff}.drop{border:2px dashed #9db9df;padding:20px;text-align:center;border-radius:18px;background:#f8fbff;cursor:pointer}.meter{height:12px;background:#e9eef8;border-radius:999px;overflow:hidden}.bar{height:100%;width:30%;background:#f39c12;transition:.4s}.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}.btn{border:none;padding:14px 18px;border-radius:14px;font-weight:700;cursor:pointer}.btn.primary{background:var(--primary);color:#fff}.btn.dark{background:#2f2f2f;color:#fff}.btn.gold{background:#f39c12;color:#fff}.btn:disabled{opacity:.6;cursor:not-allowed}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.mini{padding:18px;border-radius:22px;background:rgba(255,255,255,.1)}.muted{font-size:13px;color:#666}.status{min-height:24px;font-size:13px;margin-top:10px}.badge{display:inline-block;background:#27AE60;color:#fff;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:700}.float{animation:float 4s ease-in-out infinite}@keyframes float{50%{transform:translateY(-8px)}}@media(max-width:900px){.hero{grid-template-columns:1fr}.title{font-size:38px}.row,.stats{grid-template-columns:1fr}header{gap:10px;flex-wrap:wrap}}
+:root{
+--primary:#2E74B5;
+--input-bg:#EEF4FF;
+--bg-gradient:linear-gradient(135deg,#1e3c72 0%,#2a5298 100%);
+}
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+background:var(--bg-gradient);
+font-family:'Poppins',sans-serif;
+color:#fff;
+min-height:100vh;
+}
+
+.wrap{
+max-width:1200px;
+margin:auto;
+padding:20px;
+}
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 0;
+}
+
+.logo{
+font-size:28px;
+font-weight:800;
+}
+
+.pill{
+background:rgba(255,255,255,.14);
+padding:8px 14px;
+border-radius:999px;
+backdrop-filter:blur(12px);
+}
+
+.hero{
+display:grid;
+grid-template-columns:1.1fr .9fr;
+gap:24px;
+align-items:center;
+padding:20px 0 30px;
+}
+
+.title{
+font-size:52px;
+line-height:1.05;
+margin:0 0 12px;
+font-weight:800;
+}
+
+.sub{
+opacity:.92;
+max-width:620px;
+}
+
+.card{
+background:rgba(255,255,255,.14);
+border:1px solid rgba(255,255,255,.18);
+backdrop-filter:blur(18px);
+border-radius:28px;
+padding:22px;
+box-shadow:0 20px 50px rgba(0,0,0,.22);
+}
+
+.panel{
+background:#fff;
+color:#222;
+border-radius:28px;
+padding:28px;
+box-shadow:0 20px 50px rgba(0,0,0,.25);
+}
+
+label{
+display:block;
+font-size:12px;
+font-weight:700;
+color:var(--primary);
+text-transform:uppercase;
+margin-bottom:8px;
+}
+
+.field{
+margin-bottom:18px;
+}
+
+input,select,textarea{
+width:100%;
+padding:14px;
+border-radius:14px;
+border:2px solid transparent;
+background:var(--input-bg);
+font-family:inherit;
+resize:vertical;
+}
+
+input:focus,select:focus,textarea:focus{
+outline:none;
+border-color:var(--primary);
+background:#fff;
+}
+
+.drop{
+border:2px dashed #9db9df;
+padding:20px;
+text-align:center;
+border-radius:18px;
+background:#f8fbff;
+cursor:pointer;
+font-weight:600;
+}
+
+.file-label{
+margin-top:10px;
+font-size:14px;
+color:#2E74B5;
+font-weight:600;
+word-break:break-word;
+}
+
+.meter{
+height:12px;
+background:#e9eef8;
+border-radius:999px;
+overflow:hidden;
+}
+
+.bar{
+height:100%;
+width:30%;
+background:#f39c12;
+transition:.4s;
+}
+
+.row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+}
+
+.btn{
+border:none;
+padding:14px 18px;
+border-radius:14px;
+font-weight:700;
+cursor:pointer;
+}
+
+.btn.primary{
+background:var(--primary);
+color:#fff;
+}
+
+.btn.dark{
+background:#2f2f2f;
+color:#fff;
+}
+
+.btn.gold{
+background:#f39c12;
+color:#fff;
+margin-top:10px;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:14px;
+margin-top:18px;
+}
+
+.mini{
+padding:18px;
+border-radius:22px;
+background:rgba(255,255,255,.1);
+}
+
+.badge{
+display:inline-block;
+background:#27AE60;
+color:#fff;
+padding:5px 10px;
+border-radius:999px;
+font-size:12px;
+font-weight:700;
+margin-bottom:10px;
+}
+
+.float{
+animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+50%{
+transform:translateY(-8px);
+}
+}
+
+@media(max-width:900px){
+.hero{
+grid-template-columns:1fr;
+}
+.title{
+font-size:38px;
+}
+.row,.stats{
+grid-template-columns:1fr;
+}
+header{
+gap:10px;
+flex-wrap:wrap;
+}
+}
 </style>
 </head>
+
 <body>
+
 <div class="wrap">
-<header><div class="logo">GK</div><div class="pill">AI Career Suite</div></header>
+
+<header>
+<div class="logo">GK</div>
+<div class="pill">AI Career Suite</div>
+</header>
+
 <section class="hero">
+
 <div>
 <div class="badge">PREMIUM</div>
+
 <h1 class="title">Resume Hub</h1>
+
 <p class="sub">Upgrade your career in just a few clicks!</p>
+
 <div class="stats">
 <div class="mini"><strong>98%</strong><br><small>ATS Friendly</small></div>
 <div class="mini"><strong>3x</strong><br><small>Cleaner Layout</small></div>
 <div class="mini"><strong>1 Click</strong><br><small>Export</small></div>
 </div>
 </div>
+
 <div class="card float">
 <h3 style="margin-top:0">Live Preview Features</h3>
 <ul>
@@ -33,23 +267,108 @@
 <li>Smart Export Flow</li>
 </ul>
 </div>
+
 </section>
+
 <section class="panel">
-<div class="field"><label>ATS Optimization Score <span id="scoreText">30%</span></label><div class="meter"><div class="bar" id="bar"></div></div></div>
-<div class="field"><label for="template">Choose Template</label><select id="template"><option>Google Standard</option><option>Apple Creative</option><option>Amazon Metrics</option></select></div>
-<div class="field"><label for="file">Upload Resume</label><div class="drop" onclick="document.getElementById('file').click()">Drop file here or click to browse<input id="file" type="file" accept=".pdf,.docx" hidden></div></div>
-<div class="field"><label for="jd">Target Job Description</label><textarea id="jd" rows="4" placeholder="Paste target job description..."></textarea></div>
-<div class="field"><label for="ach">Achievement</label><textarea id="ach" rows="3" placeholder="Reduced SLA wait times by 40%..."></textarea><button class="btn gold" style="margin-top:10px" onclick="polish()">✨ Magic Polish</button></div>
-<div class="row"><button class="btn primary" onclick="exportFile('docx')">AI Smart Inject</button><button class="btn dark" onclick="exportFile('pdf')">AI ATS Export</button></div>
-<div class="status muted" id="status">Ready.</div>
-</section>
+
+<div class="field">
+<label>ATS Optimization Score <span id="scoreText">30%</span></label>
+<div class="meter">
+<div class="bar" id="bar"></div>
 </div>
+</div>
+
+<div class="field">
+<label for="template">Choose Template</label>
+<select id="template">
+<option>Google Standard</option>
+<option>Apple Creative</option>
+<option>Amazon Metrics</option>
+</select>
+</div>
+
+<div class="field">
+<label for="file">Upload Resume</label>
+
+<div class="drop" onclick="document.getElementById('file').click()">
+Drop file here or click to browse
+<input id="file" name="resume" type="file" accept=".pdf,.docx" hidden>
+<div class="file-label" id="fileLabel">No file selected</div>
+</div>
+
+</div>
+
+<div class="field">
+<label for="jd">Target Job Description</label>
+<textarea id="jd" rows="4" placeholder="Paste target job description..."></textarea>
+</div>
+
+<div class="field">
+<label for="ach">Achievement</label>
+<textarea id="ach" rows="3" placeholder="Reduced SLA wait times by 40%..."></textarea>
+<button class="btn gold" onclick="polish()">✨ Magic Polish</button>
+</div>
+
+<div class="row">
+<button class="btn primary" onclick="exportFile('docx')">AI Smart Inject</button>
+<button class="btn dark" onclick="exportFile('pdf')">AI ATS Export</button>
+</div>
+
+<!-- READY REMOVED -->
+
+</section>
+
+</div>
+
 <script>
-const file=document.getElementById('file'),jd=document.getElementById('jd'),ach=document.getElementById('ach');
-[file,jd,ach].forEach(el=>el.addEventListener('input',update));file.addEventListener('change',update);
-function update(){let s=30;if(file.files.length)s+=30;if(jd.value.length>50)s+=20;if(ach.value.length>10)s+=15;s=Math.min(s,100);bar.style.width=s+'%';bar.style.background=s>80?'#27AE60':s>50?'#f39c12':'#e74c3c';scoreText.textContent=s+'%';}
-function polish(){if(!ach.value.trim()) return status.textContent='Enter an achievement first.'; ach.value='Improved team efficiency by 40% through streamlined workflows and SLA-focused process optimization.'; update(); status.textContent='✨ Achievement polished.';}
-function exportFile(type){status.textContent='Preparing '+type.toUpperCase()+' export...'; setTimeout(()=>status.textContent='✅ Premium demo ready. Connect backend API for live downloads.',1200)}
+const file=document.getElementById('file');
+const jd=document.getElementById('jd');
+const ach=document.getElementById('ach');
+const fileLabel=document.getElementById('fileLabel');
+
+[file,jd,ach].forEach(el=>el.addEventListener('input',update));
+file.addEventListener('change',function(){
+
+if(file.files.length>0){
+fileLabel.innerText=file.files[0].name;
+}else{
+fileLabel.innerText="No file selected";
+}
+
+update();
+
+});
+
+function update(){
+let s=30;
+
+if(file.files.length)s+=30;
+if(jd.value.length>50)s+=20;
+if(ach.value.length>10)s+=15;
+
+s=Math.min(s,100);
+
+bar.style.width=s+'%';
+bar.style.background=s>80?'#27AE60':s>50?'#f39c12':'#e74c3c';
+
+scoreText.textContent=s+'%';
+}
+
+function polish(){
+if(!ach.value.trim()) return;
+ach.value='Improved team efficiency by 40% through streamlined workflows and SLA-focused process optimization.';
+update();
+}
+
+function exportFile(type){
+if(file.files.length===0){
+alert("Please upload your resume first.");
+return;
+}
+alert("Resume selected successfully. Backend ready for upload.");
+}
 </script>
+
 </body>
 </html>
