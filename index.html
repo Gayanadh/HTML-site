@@ -3,372 +3,191 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GK | Resume Hub Premium</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-
+<title>GK | Resume Hub - AI Career Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
---primary:#2E74B5;
---input-bg:#EEF4FF;
---bg-gradient:linear-gradient(135deg,#1e3c72 0%,#2a5298 100%);
-}
-
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
-
-body{
-background:var(--bg-gradient);
-font-family:'Poppins',sans-serif;
-color:#fff;
-min-height:100vh;
-}
-
-.wrap{
-max-width:1200px;
-margin:auto;
-padding:20px;
-}
-
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 0;
-}
-
-.logo{
-font-size:28px;
-font-weight:800;
-}
-
-.pill{
-background:rgba(255,255,255,.14);
-padding:8px 14px;
-border-radius:999px;
-backdrop-filter:blur(12px);
-}
-
-.hero{
-display:grid;
-grid-template-columns:1.1fr .9fr;
-gap:24px;
-align-items:center;
-padding:20px 0 30px;
-}
-
-.title{
-font-size:52px;
-line-height:1.05;
-margin:0 0 12px;
-font-weight:800;
-}
-
-.sub{
-opacity:.92;
-max-width:620px;
-}
-
-.card{
-background:rgba(255,255,255,.14);
-border:1px solid rgba(255,255,255,.18);
-backdrop-filter:blur(18px);
-border-radius:28px;
-padding:22px;
-box-shadow:0 20px 50px rgba(0,0,0,.22);
-}
-
-.panel{
-background:#fff;
-color:#222;
-border-radius:28px;
-padding:28px;
-box-shadow:0 20px 50px rgba(0,0,0,.25);
-}
-
-label{
-display:block;
-font-size:12px;
-font-weight:700;
-color:var(--primary);
-text-transform:uppercase;
-margin-bottom:8px;
-}
-
-.field{
-margin-bottom:18px;
-}
-
-input,select,textarea{
-width:100%;
-padding:14px;
-border-radius:14px;
-border:2px solid transparent;
-background:var(--input-bg);
-font-family:inherit;
-resize:vertical;
-}
-
-input:focus,select:focus,textarea:focus{
-outline:none;
-border-color:var(--primary);
-background:#fff;
-}
-
-.drop{
-border:2px dashed #9db9df;
-padding:20px;
-text-align:center;
-border-radius:18px;
-background:#f8fbff;
-cursor:pointer;
-font-weight:600;
-}
-
-.file-label{
-margin-top:10px;
-font-size:14px;
-color:#2E74B5;
-font-weight:600;
-word-break:break-word;
-}
-
-.meter{
-height:12px;
-background:#e9eef8;
-border-radius:999px;
-overflow:hidden;
-}
-
-.bar{
-height:100%;
-width:30%;
-background:#f39c12;
-transition:.4s;
-}
-
-.row{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:14px;
-}
-
-.btn{
-border:none;
-padding:14px 18px;
-border-radius:14px;
-font-weight:700;
-cursor:pointer;
-}
-
-.btn.primary{
-background:var(--primary);
-color:#fff;
-}
-
-.btn.dark{
-background:#2f2f2f;
-color:#fff;
-}
-
-.btn.gold{
-background:#f39c12;
-color:#fff;
-margin-top:10px;
-}
-
-.stats{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:14px;
-margin-top:18px;
-}
-
-.mini{
-padding:18px;
-border-radius:22px;
-background:rgba(255,255,255,.1);
-}
-
-.badge{
-display:inline-block;
-background:#27AE60;
-color:#fff;
-padding:5px 10px;
-border-radius:999px;
-font-size:12px;
-font-weight:700;
-margin-bottom:10px;
-}
-
-.float{
-animation:float 4s ease-in-out infinite;
-}
-
-@keyframes float{
-50%{
-transform:translateY(-8px);
-}
-}
-
-@media(max-width:900px){
-.hero{
-grid-template-columns:1fr;
-}
-.title{
-font-size:38px;
-}
-.row,.stats{
-grid-template-columns:1fr;
-}
-header{
-gap:10px;
-flex-wrap:wrap;
-}
-}
+  :root { --primary: #2E74B5; --input-bg: #EEF4FF; --bg: linear-gradient(135deg,#1e3c72,#2a5298); }
+  body { background:var(--bg); font-family:'Poppins',sans-serif; margin:0; color:#fff; display:flex; flex-direction:column; min-height:100vh; }
+  header { display:flex; justify-content:space-between; padding:20px 50px; background:rgba(255,255,255,0.1); backdrop-filter:blur(15px); }
+  .content { padding:40px 20px; display:flex; flex-direction:column; align-items:center; }
+  .hub-card { background:#fff; color:#333; padding:35px; border-radius:30px; width:100%; max-width:650px; box-shadow:0 20px 50px rgba(0,0,0,0.3); }
+  .ats-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+  .score-label { font-size:12px; font-weight:700; color:var(--primary); }
+  .ats-meter { background:#eee; border-radius:10px; height:10px; overflow:hidden; margin-bottom:20px; }
+  #atsBar { width:30%; height:100%; background:#FF8C00; transition:.5s; }
+  .step { margin-bottom:20px; }
+  label { display:block; font-weight:700; font-size:12px; color:var(--primary); text-transform:uppercase; margin-bottom:8px; cursor:pointer; }
+  input,textarea,select { width:100%; padding:12px; background:var(--input-bg); border:2px solid transparent; border-radius:12px; box-sizing:border-box; font-family:inherit; font-size:13px; transition:.3s; }
+  textarea:focus,select:focus,input:focus { outline:none; border-color:var(--primary); background:#fff; }
+  .polish-row { display:flex; gap:10px; align-items:flex-start; }
+  .polish-row textarea { flex:1; }
+  .magic-btn { background:#f39c12; color:#fff; border:none; padding:11px 16px; border-radius:10px; font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap; flex-shrink:0; transition:background .2s; }
+  .magic-btn:hover { background:#d68910; }
+  .magic-btn:disabled { background:#ccc; cursor:not-allowed; }
+  .heading-tag { display:none; align-items:center; gap:6px; margin-top:8px; font-size:11px; }
+  .heading-tag.show { display:flex; }
+  .heading-badge { background:#e8f4ff; color:#1a5276; border:1px solid #aed6f1; padding:3px 10px; border-radius:20px; font-weight:700; font-size:11px; }
+  .vision-badge { background:#f0e8ff; color:#4a1e8a; border:1px solid #c5a8f5; padding:2px 8px; border-radius:10px; font-size:10px; font-weight:600; }
+  .btn-group { display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-top:20px; }
+  .btn { padding:15px; border:none; border-radius:12px; cursor:pointer; font-weight:700; color:#fff; font-size:14px; transition:opacity .2s; }
+  .btn:hover { opacity:.88; }
+  .btn-word { background:var(--primary); }
+  .btn-pdf  { background:#444; }
+  #statusText { text-align:center; font-size:12px; color:#666; padding-top:10px; min-height:22px; line-height:1.5; }
+  .ai-label { font-size:10px; color:#888; margin-top:6px; display:flex; align-items:center; gap:4px; }
 </style>
 </head>
-
 <body>
-
-<div class="wrap">
-
 <header>
-<div class="logo">GK</div>
-<div class="pill">AI Career Suite</div>
+  <div style="font-weight:800;font-size:24px">GK</div>
+  <div>AI Career Suite <span class="vision-badge">Vision Powered</span></div>
 </header>
 
-<section class="hero">
+<div class="content">
+  <h1>Resume Hub <span style="font-size:15px;vertical-align:middle;background:#27AE60;padding:4px 10px;border-radius:10px">PRO</span></h1>
+  <div class="hub-card">
+    <div class="ats-row">
+      <span class="score-label">ATS Score: <span id="scoreText">30%</span></span>
+      <span class="vision-badge">Claude Vision reads your layout</span>
+    </div>
+    <div class="ats-meter"><div id="atsBar"></div></div>
 
-<div>
-<div class="badge">PREMIUM</div>
+    <div class="step">
+      <label for="template">1. Select FAANG Template</label>
+      <select id="template" onchange="resetHeading()">
+        <option value="google">Google Standard (Minimalist)</option>
+        <option value="apple">Apple Creative (UI/UX)</option>
+        <option value="amazon">Amazon Data-Driven (Metrics)</option>
+      </select>
+    </div>
 
-<h1 class="title">Resume Hub</h1>
+    <div class="step">
+      <label for="resumeUpload">2. Upload Resume</label>
+      <input type="file" id="resumeUpload" accept=".docx,.pdf" onchange="updateScore()">
+      <div class="ai-label">Claude Vision will read every heading, text box, and column in your file</div>
+    </div>
 
-<p class="sub">Upgrade your career in just a few clicks!</p>
+    <div class="step">
+      <label for="jobDesc">3. Paste Job Description</label>
+      <textarea id="jobDesc" style="height:70px" placeholder="Paste JD here..." oninput="updateScore()"></textarea>
+    </div>
 
-<div class="stats">
-<div class="mini"><strong>98%</strong><br><small>ATS Friendly</small></div>
-<div class="mini"><strong>3x</strong><br><small>Cleaner Layout</small></div>
-<div class="mini"><strong>1 Click</strong><br><small>Export</small></div>
-</div>
-</div>
+    <div class="step">
+      <label for="updates">4. Describe Your Update</label>
+      <div class="polish-row">
+        <textarea id="updates" rows="3"
+          placeholder="e.g. I reduced SLA breaches&#10;e.g. I earned AWS certification&#10;e.g. I speak French"
+          oninput="updateScore(); resetHeading()"></textarea>
+        <button class="magic-btn" id="polishBtn" type="button" onclick="magicPolish()">AI Polish</button>
+      </div>
+      <div class="heading-tag" id="headingTag">
+        <span style="color:#888;font-size:11px">Claude chose heading:</span>
+        <span class="heading-badge" id="headingBadge"></span>
+      </div>
+    </div>
 
-<div class="card float">
-<h3 style="margin-top:0">Live Preview Features</h3>
-<ul>
-<li>Drag & Drop Resume Upload</li>
-<li>Real-time ATS Score</li>
-<li>Premium Glass UI</li>
-<li>Responsive Mobile Layout</li>
-<li>Smart Export Flow</li>
-</ul>
-</div>
-
-</section>
-
-<section class="panel">
-
-<div class="field">
-<label>ATS Optimization Score <span id="scoreText">30%</span></label>
-<div class="meter">
-<div class="bar" id="bar"></div>
-</div>
-</div>
-
-<div class="field">
-<label for="template">Choose Template</label>
-<select id="template">
-<option>Google Standard</option>
-<option>Apple Creative</option>
-<option>Amazon Metrics</option>
-</select>
-</div>
-
-<div class="field">
-<label for="file">Upload Resume</label>
-
-<div class="drop" onclick="document.getElementById('file').click()">
-Drop file here or click to browse
-<input id="file" name="resume" type="file" accept=".pdf,.docx" hidden>
-<div class="file-label" id="fileLabel">No file selected</div>
-</div>
-
-</div>
-
-<div class="field">
-<label for="jd">Target Job Description</label>
-<textarea id="jd" rows="4" placeholder="Paste target job description..."></textarea>
-</div>
-
-<div class="field">
-<label for="ach">Achievement</label>
-<textarea id="ach" rows="3" placeholder="Reduced SLA wait times by 40%..."></textarea>
-<button class="btn gold" onclick="polish()">✨ Magic Polish</button>
-</div>
-
-<div class="row">
-<button class="btn primary" onclick="exportFile('docx')">AI Smart Inject</button>
-<button class="btn dark" onclick="exportFile('pdf')">AI ATS Export</button>
-</div>
-
-<!-- READY REMOVED -->
-
-</section>
-
+    <div class="btn-group">
+      <button class="btn btn-word" type="button" onclick="processResume('docx')">AI Smart Inject</button>
+      <button class="btn btn-pdf"  type="button" onclick="processResume('pdf')">AI ATS Export</button>
+    </div>
+    <p id="statusText" aria-live="polite"></p>
+  </div>
 </div>
 
 <script>
-const file=document.getElementById('file');
-const jd=document.getElementById('jd');
-const ach=document.getElementById('ach');
-const fileLabel=document.getElementById('fileLabel');
+const API_BASE = "https://resume-hub-3eeb.onrender.com";
+let chosenHeading = "";
+let cachedStructure = "";
 
-[file,jd,ach].forEach(el=>el.addEventListener('input',update));
-file.addEventListener('change',function(){
-
-if(file.files.length>0){
-fileLabel.innerText=file.files[0].name;
-}else{
-fileLabel.innerText="No file selected";
+function updateScore() {
+  let s = 30;
+  if (document.getElementById('resumeUpload').files.length > 0) s += 30;
+  if (document.getElementById('jobDesc').value.length > 50) s += 20;
+  if (document.getElementById('updates').value.length > 10) s += 15;
+  const bar = document.getElementById('atsBar');
+  bar.style.width = s + "%";
+  bar.style.background = s > 80 ? "#27AE60" : s > 50 ? "#f39c12" : "#e74c3c";
+  document.getElementById('scoreText').innerText = s + "%";
 }
 
-update();
-
-});
-
-function update(){
-let s=30;
-
-if(file.files.length)s+=30;
-if(jd.value.length>50)s+=20;
-if(ach.value.length>10)s+=15;
-
-s=Math.min(s,100);
-
-bar.style.width=s+'%';
-bar.style.background=s>80?'#27AE60':s>50?'#f39c12':'#e74c3c';
-
-scoreText.textContent=s+'%';
+function resetHeading() {
+  chosenHeading = "";
+  cachedStructure = "";
+  document.getElementById('headingTag').classList.remove('show');
 }
 
-function polish(){
-if(!ach.value.trim()) return;
-ach.value='Improved team efficiency by 40% through streamlined workflows and SLA-focused process optimization.';
-update();
+async function magicPolish() {
+  const input    = document.getElementById('updates');
+  const btn      = document.getElementById('polishBtn');
+  const status   = document.getElementById('statusText');
+  const fileInput = document.getElementById('resumeUpload');
+
+  if (!input.value.trim()) { status.innerText = "Write something in step 4 first."; return; }
+  if (!fileInput.files[0]) { status.innerText = "Upload your resume first so Claude can read its structure."; return; }
+
+  btn.disabled = true;
+  btn.innerText = "Reading...";
+  status.innerText = "Claude Vision is analyzing your resume layout, headings and columns...";
+
+  const form = new FormData();
+  form.append('resume',   fileInput.files[0]);
+  form.append('text',     input.value);
+  form.append('template', document.getElementById('template').value);
+
+  try {
+    const res  = await fetch(`${API_BASE}/polish`, { method:'POST', body:form });
+    const data = await res.json();
+
+    input.value    = data.polished_text;
+    chosenHeading  = data.heading || "Achievements";
+    cachedStructure = JSON.stringify(data.resume_structure || {});
+
+    document.getElementById('headingBadge').innerText = chosenHeading;
+    document.getElementById('headingTag').classList.add('show');
+    status.innerText = `Claude read your resume and chose: "${chosenHeading}"`;
+    updateScore();
+  } catch(e) {
+    status.innerText = "Could not reach server. Try again in 30s.";
+  } finally {
+    btn.disabled = false;
+    btn.innerText = "AI Polish";
+  }
 }
 
-function exportFile(type){
-if(file.files.length===0){
-alert("Please upload your resume first.");
-return;
-}
-alert("Resume selected successfully. Backend ready for upload.");
+async function processResume(format) {
+  const status    = document.getElementById('statusText');
+  const fileInput = document.getElementById('resumeUpload');
+  if (!fileInput.files[0]) { status.innerText = "Please upload a resume first."; return; }
+
+  let finalFormat = format;
+  if (fileInput.files[0].name.toLowerCase().endsWith('.pdf') && format === 'docx') finalFormat = 'pdf';
+
+  status.innerText = "Injecting update into the correct heading...";
+
+  const form = new FormData();
+  form.append('resume',   fileInput.files[0]);
+  form.append('updates',  document.getElementById('updates').value);
+  form.append('template', document.getElementById('template').value);
+  form.append('format',   finalFormat);
+  if (chosenHeading)   form.append('heading',          chosenHeading);
+  if (cachedStructure) form.append('resume_structure', cachedStructure);
+
+  try {
+    const res = await fetch(`${API_BASE}/upgrade`, { method:'POST', body:form });
+    if (res.ok) {
+      const blob = await res.blob();
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `Optimized_Resume.${finalFormat}`;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      status.innerText = `Done! Placed under "${chosenHeading || 'Achievements'}".`;
+    } else {
+      status.innerText = "Server error. Please try again.";
+    }
+  } catch(e) {
+    status.innerText = "Server warming up — retry in 30 seconds.";
+  }
 }
 </script>
-
 </body>
 </html>
