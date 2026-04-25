@@ -21,178 +21,162 @@ CORS(app)
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 groq_client = Groq(api_key=GROQ_API_KEY) if GROQ_API_KEY else None
 
-# ATS-Standard Heading Order for logic
-ATS_HEADING_ORDER = [
-    "Professional Summary", "Key Strengths", "Technical Skills", "Achievements",
-    "Certifications", "Professional History", "Education", "Projects", "Awards",
-    "Languages", "Volunteer Experience",
-]
+# --- BRANDING COLORS ---
+NAVY = RGBColor(27, 38, 59)    # Midnight Navy
+SLATE = RGBColor(65, 90, 119)   # Slate Grey
+OFF_BLACK = RGBColor(13, 15, 20)
 
 # ─────────────────────────────────────────────
-#  STYLING & REBUILD ENGINE
+#  EXECUTIVE DESIGN ENGINE
 # ─────────────────────────────────────────────
 
-def build_styled_docx(ai_markdown: str) -> io.BytesIO:
-    """
-    Takes raw AI text and builds a professionally formatted 
-    document with colors, borders, and margins.
-    """
-    doc = Document()
-    
-    # Set Professional Margins (Narrow)
+def set_narrow_margins(doc):
     for section in doc.sections:
-        section.top_margin = Inches(0.5)
-        section.bottom_margin = Inches(0.5)
-        section.left_margin = Inches(0.6)
-        section.right_margin = Inches(0.6)
+        section.top_margin = Inches(0.4)
+        section.bottom_margin = Inches(0.4)
+        section.left_margin = Inches(0.5)
+        section.right_margin = Inches(0.5)
+    return doc
 
-    # Process AI Markdown-style lines
-    for line in ai_markdown.split('\n'):
+def add_executive_header(doc, name, info_line):
+    """Creates a centered, high-impact header."""
+    header_p = doc.add_paragraph()
+    header_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    name_run = header_p.add_run(name.upper())
+    name_run.bold = True
+    name_run.font.size = Pt(22)
+    name_run.font.color.rgb = NAVY
+    
+    info_p = doc.add_paragraph()
+    info_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    info_run = info_p.add_run(info_line)
+    info_run.font.size = Pt(9)
+    info_run.font.color.rgb = SLATE
+    
+    # Add a thick bottom border after the header
+    border_p = doc.add_paragraph()
+    border_run = border_p.add_run("-" * 105)
+    border_run.font.size = Pt(2)
+    border_run.font.color.rgb = NAVY
+    border_p.paragraph_format.space_after = Pt(12)
+
+def build_high_class_docx(ai_content: str) -> io.BytesIO:
+    doc = Document()
+    doc = set_narrow_margins(doc)
+    
+    # Extract Name/Contact for Header (AI usually puts these first)
+    lines = ai_content.split('\n')
+    header_data = [l for l in lines[:5] if l.strip() and not l.startswith('#')]
+    name = header_data[0] if header_data else "RESUME"
+    contact = " | ".join(header_data[1:3]) if len(header_data) > 1 else ""
+    
+    add_executive_header(doc, name, contact)
+
+    for line in lines:
         line = line.strip()
-        if not line: continue
+        if not line or line in header_data: continue
         
         if line.startswith('# '):
-            # SECTION HEADERS (e.g., EXPERIENCE) - Blue & Bold
+            # MAJOR SECTION (Blue Bar Style)
             p = doc.add_paragraph()
-            p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+            p.paragraph_format.space_before = Pt(10)
             run = p.add_run(line.replace('# ', '').upper())
             run.bold = True
-            run.font.size = Pt(13)
-            run.font.color.rgb = RGBColor(46, 116, 181) # Professional Blue
+            run.font.size = Pt(11)
+            run.font.color.rgb = NAVY
             
-            # Add a thin grey horizontal line under the header
-            p_border = doc.add_paragraph()
-            run_border = p_border.add_run("-" * 85)
-            run_border.font.color.rgb = RGBColor(200, 200, 200)
-            p_border.paragraph_format.space_after = Pt(4)
+            # Subtle Underline
+            p_line = doc.add_paragraph()
+            run_line = p_line.add_run("_" * 90)
+            run_line.font.size = Pt(1)
+            run_line.font.color.rgb = RGBColor(200, 200, 200)
+            p_line.paragraph_format.space_after = Pt(6)
 
         elif line.startswith('## '):
-            # JOB TITLES / COMPANIES - Dark & Bold
+            # SUBHEADING (Bold/Italic Job Title)
             p = doc.add_paragraph()
             run = p.add_run(line.replace('## ', ''))
             run.bold = True
-            run.font.size = Pt(11)
-            run.font.color.rgb = RGBColor(30, 30, 30)
-            p.paragraph_format.space_before = Pt(6)
+            run.font.size = Pt(10.5)
+            p.paragraph_format.space_before = Pt(4)
 
         elif line.startswith('- ') or line.startswith('* '):
-            # BULLET POINTS
-            text = line[2:].strip()
-            p = doc.add_paragraph(text, style='List Bullet')
-            p.paragraph_format.space_after = Pt(2)
+            # ATS-OPTIMIZED BULLETS
+            p = doc.add_paragraph(line[2:].strip(), style='List Bullet')
+            p.paragraph_format.space_after = Pt(1.5)
 
         else:
             # BODY TEXT
             p = doc.add_paragraph(line)
             p.paragraph_format.space_after = Pt(4)
+            run = p.runs[0] if p.runs else p.add_run(line)
+            run.font.size = Pt(9.5)
             
     out = io.BytesIO()
     doc.save(out)
     out.seek(0)
     return out
 
-def extract_raw_text(file_bytes: bytes, filename: str) -> str:
-    """Extracts text from PDF or DOCX so the AI can read it."""
-    try:
-        if filename.endswith(".pdf"):
-            pdf = fitz.open(stream=file_bytes, filetype="pdf")
-            return "\n".join([page.get_text() for page in pdf])
-        elif filename.endswith(".docx"):
-            doc = Document(io.BytesIO(file_bytes))
-            return "\n".join([p.text for p in doc.paragraphs])
-    except:
-        return ""
-    return ""
-
 # ─────────────────────────────────────────────
-#  ROUTES
+#  REBUILD & POLISH ROUTES
 # ─────────────────────────────────────────────
 
 @app.route("/rebuild", methods=["POST"])
 def rebuild():
-    """Route for the AI Complete Rebuild feature."""
-    if not groq_client: 
-        return jsonify({"error": "GROQ_API_KEY is not configured on Render."}), 500
-    
+    if not groq_client: return jsonify({"error": "GROQ_API_KEY Missing"}), 500
     try:
         file = request.files.get("resume")
         jd = request.form.get("jobDesc", "")
         template = request.form.get("template", "google")
         
-        if not file: return jsonify({"error": "No file uploaded"}), 400
-
-        # 1. Extract Text
+        # 1. READ
         file_bytes = file.read()
-        resume_text = extract_raw_text(file_bytes, file.filename.lower())
+        if file.filename.lower().endswith(".pdf"):
+            pdf = fitz.open(stream=file_bytes, filetype="pdf")
+            resume_text = "\n".join([page.get_text() for page in pdf])
+        else:
+            doc = Document(io.BytesIO(file_bytes))
+            resume_text = "\n".join([p.text for p in doc.paragraphs])
+
+        # 2. AI INTELLIGENCE (70B MODEL)
+        prompt = f"""You are a Master Executive Resume Architect. 
+        Reconstruct this resume to perfectly align with the target Job Description.
         
-        if not resume_text.strip():
-            return jsonify({"error": "Could not read text from your file."}), 400
-
-        # 2. AI Generation
-        prompt = f"""You are a FAANG Resume Expert. Rewrite the following resume to perfectly match this Job Description.
-STYLE: {template.upper()}
-FORMATTING RULES:
-- Use '# SECTION NAME' for main headers.
-- Use '## Title | Company | Dates' for experience.
-- Use '- ' for bullet points.
-- Do NOT use bold ** or italics.
-
-JOB DESCRIPTION:
-{jd}
-
-CURRENT RESUME DATA:
-{resume_text}
-"""
+        INSTRUCTIONS:
+        - Use '# SECTION NAME' for major headers.
+        - Use '## Role | Company | Location | Dates' for subheaders.
+        - Use the {template.upper()} impact-style for bullets.
+        - Ensure keyword density for ATS optimization.
+        
+        TARGET JD: {jd}
+        USER RESUME: {resume_text}
+        """
+        
         response = groq_client.chat.completions.create(
-            model="llama-3.1-8b-instant",
+            model="llama-3.1-70b-versatile",
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=3000,
-            temperature=0.3
+            max_tokens=3000, temperature=0.2
         )
-        ai_content = response.choices[0].message.content.strip()
+        ai_output = response.choices[0].message.content.strip()
 
-        # 3. Build Styled DOCX
-        styled_docx = build_styled_docx(ai_content)
+        # 3. BUILD & EXPORT
+        final_docx = build_high_class_docx(ai_output)
         
-        # 4. Convert to PDF via LibreOffice (Since you are using Docker)
-        pdf_bytes = None
+        # Try PDF Export via LibreOffice
         try:
             with tempfile.TemporaryDirectory() as tmpdir:
-                src = os.path.join(tmpdir, "resume.docx")
-                with open(src, "wb") as f: f.write(styled_docx.read())
+                src = os.path.join(tmpdir, "res.docx")
+                with open(src, "wb") as f: f.write(final_docx.read())
                 subprocess.run(["libreoffice", "--headless", "--convert-to", "pdf", "--outdir", tmpdir, src], timeout=60)
-                pdf_path = os.path.join(tmpdir, "resume.pdf")
+                pdf_path = os.path.join(tmpdir, "res.pdf")
                 if os.path.exists(pdf_path):
-                    with open(pdf_path, "rb") as f: pdf_bytes = f.read()
-        except:
-            pass
+                    with open(pdf_path, "rb") as f: return send_file(io.BytesIO(f.read()), mimetype="application/pdf", as_attachment=True, download_name="Executive_Rebuild.pdf")
+        except: pass
 
-        if pdf_bytes:
-            return send_file(io.BytesIO(pdf_bytes), mimetype="application/pdf", as_attachment=True, download_name="AI_Rebuilt_Resume.pdf")
-        else:
-            styled_docx.seek(0)
-            return send_file(styled_docx, mimetype="application/vnd.openxmlformats-officedocument.wordprocessingml.document", as_attachment=True, download_name="AI_Rebuilt_Resume.docx")
+        final_docx.seek(0)
+        return send_file(final_docx, mimetype="application/vnd.openxmlformats-officedocument.wordprocessingml.document", as_attachment=True, download_name="Executive_Rebuild.docx")
 
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route("/polish", methods=["POST"])
-def polish():
-    # Keep your existing polish logic here...
-    try:
-        data = request.json
-        text = data.get("text", "")
-        template = data.get("template", "google")
-        prompt = f"Rewrite this resume bullet point using the {template} style: {text}"
-        response = groq_client.chat.completions.create(
-            model="llama-3.1-8b-instant",
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=200
-        )
-        return jsonify({"polished_text": response.choices[0].message.content.strip()})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    except Exception as e: return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
