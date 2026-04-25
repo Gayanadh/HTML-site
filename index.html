@@ -3,182 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GK | Resume Hub - AI Career Suite</title>
-    <link href="[https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap](https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap)" rel="stylesheet">
+    <title>GK | Executive Resume Suite</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #2E74B5; --input-bg: #EEF4FF; --bg-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
-        body { background: var(--bg-gradient); font-family: 'Poppins', sans-serif; margin: 0; color: #fff; display: flex; flex-direction: column; min-height: 100vh; }
-        header { display: flex; justify-content: space-between; padding: 20px 50px; background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); }
-        .content { padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
-        .hub-card { background: #fff; color: #333; padding: 35px; border-radius: 30px; width: 100%; max-width: 650px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
-        .ats-meter-container { margin-bottom: 20px; background: #eee; border-radius: 10px; height: 10px; overflow: hidden; }
-        #atsBar { width: 30%; height: 100%; background: #FF8C00; transition: 0.5s; }
-        .score-label { font-size: 12px; font-weight: bold; color: #2E74B5; margin-bottom: 5px; display: block; }
-        .step { margin-bottom: 20px; }
-        label { display: block; font-weight: 700; font-size: 12px; color: var(--primary); text-transform: uppercase; margin-bottom: 8px; cursor: pointer; }
-        input, textarea, select { width: 100%; padding: 12px; background: var(--input-bg); border: 2px solid transparent; border-radius: 12px; box-sizing: border-box; font-family: inherit; transition: 0.3s; }
-        textarea:focus, select:focus, input:focus { outline: none; border-color: var(--primary); background: #fff; }
-        .magic-btn { background: #f39c12; color: white; border: none; padding: 5px 12px; border-radius: 8px; font-size: 11px; cursor: pointer; margin-top: 5px; font-weight: bold; }
-        .magic-btn:hover { background: #d68910; }
-        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .btn { padding: 15px; border: none; border-radius: 12px; cursor: pointer; font-weight: 700; color: white; font-size: 14px; }
-        .btn:hover { opacity: 0.9; }
-        .btn-word { background: var(--primary); }
-        .btn-pdf { background: #444; }
-        .btn-rebuild { background: #e74c3c; grid-column: span 2; } /* Full width rebuild button */
-        #statusText { text-align: center; font-size: 13px; color: #666; padding-top: 10px; min-height: 20px; }
+        :root { --accent: #D4AF37; --bg: #0A0B10; --card: rgba(255,255,255,0.03); }
+        body { background: var(--bg); font-family: 'DM Sans', sans-serif; color: #fff; margin: 0; padding: 40px 20px; }
+        .wrapper { max-width: 700px; margin: 0 auto; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 48px; color: var(--accent); margin-bottom: 5px; }
+        .tagline { opacity: 0.6; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 40px; display: block; }
+        
+        .card { background: var(--card); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; padding: 40px; backdrop-filter: blur(20px); }
+        .label { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; display: block; }
+        
+        input, textarea, select { width: 100%; padding: 15px; background: rgba(0,0,0,0.4); border: 1px solid #222; border-radius: 12px; color: #fff; margin-bottom: 25px; transition: 0.3s; }
+        input:focus, textarea:focus { border-color: var(--accent); outline: none; }
+        
+        .btn-main { background: linear-gradient(135deg, #D4AF37, #B8860B); color: #000; border: none; padding: 20px; border-radius: 14px; width: 100%; font-weight: 800; cursor: pointer; font-size: 16px; transition: 0.3s; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
+        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3); }
+        
+        #status { text-align: center; margin-top: 25px; font-size: 14px; color: #666; font-style: italic; }
+        .progress-container { height: 4px; background: #111; border-radius: 2px; margin: 20px 0; overflow: hidden; }
+        #progressBar { height: 100%; width: 0%; background: var(--accent); transition: 1s ease; }
     </style>
 </head>
 <body>
-
-<header>
-    <div class="brand-logo" style="font-weight:800; font-size:24px;">GK</div>
-    <div>AI Career Suite</div>
-</header>
-
-<div class="content">
-    <h1>Resume Hub <span style="font-size:15px; vertical-align:middle; background:#27AE60; padding:4px 10px; border-radius:10px;">PRO</span></h1>
-
-    <div class="hub-card">
-        <span class="score-label">ATS OPTIMIZATION SCORE: <span id="scoreText">30%</span></span>
-        <div class="ats-meter-container"><div id="atsBar"></div></div>
-
-        <div class="step">
-            <label for="template">1. Select FAANG Template</label>
+    <div class="wrapper">
+        <h1>Resume Hub</h1>
+        <span class="tagline">The Executive AI Career Suite</span>
+        
+        <div class="card">
+            <div class="progress-container"><div id="progressBar"></div></div>
+            
+            <label class="label">Step 1: Placement Strategy</label>
             <select id="template">
-                <option value="google">Google Standard (Minimalist)</option>
-                <option value="apple">Apple Creative (UI/UX)</option>
-                <option value="amazon">Amazon Data-Driven (Metrics)</option>
+                <option value="google">Google: Data-Driven XYZ</option>
+                <option value="apple">Apple: Visionary Storytelling</option>
+                <option value="amazon">Amazon: Leadership Metrics</option>
             </select>
-        </div>
 
-        <div class="step">
-            <label for="resumeUpload">2. Upload Current Resume</label>
-            <input type="file" id="resumeUpload" accept=".docx,.pdf" onchange="updateScore()">
-        </div>
+            <label class="label">Step 2: Source File</label>
+            <input type="file" id="resumeUpload" onchange="document.getElementById('progressBar').style.width='50%'">
 
-        <div class="step">
-            <label for="jobDesc">3. Paste Target Job Description</label>
-            <textarea id="jobDesc" style="height:80px;" placeholder="Paste JD here..." oninput="updateScore()"></textarea>
-        </div>
+            <label class="label">Step 3: Target Role Analysis</label>
+            <textarea id="jobDesc" rows="6" placeholder="Paste the Job Description..." oninput="document.getElementById('progressBar').style.width='80%'"></textarea>
 
-        <div class="step">
-            <label for="updates">4. Describe Achievement (For Injection Only)</label>
-            <textarea id="updates" placeholder="e.g. I reduced SLA wait times by 40%" oninput="updateScore()"></textarea>
-            <button class="magic-btn" type="button" onclick="magicPolish()">✨ MAGIC POLISH</button>
+            <button class="btn-main" onclick="initiateRebuild()">🔥 COMMENCE EXECUTIVE REBUILD</button>
+            <p id="status"></p>
         </div>
-
-        <div class="btn-group">
-            <button class="btn btn-word" type="button" onclick="processResume('docx')">AI SMART INJECT</button>
-            <button class="btn btn-pdf"  type="button" onclick="processResume('pdf')">AI ATS EXPORT</button>
-            <button class="btn btn-rebuild" type="button" onclick="rebuildResume()">🔥 AI COMPLETE REBUILD (PDF)</button>
-        </div>
-
-        <p id="statusText" aria-live="polite"></p>
     </div>
-</div>
 
-<script>
-    const API_BASE = "[https://resume-hub-3eeb.onrender.com](https://resume-hub-3eeb.onrender.com)";
+    <script>
+        const API = "https://resume-hub-3eeb.onrender.com";
+        async function initiateRebuild() {
+            const status = document.getElementById('status');
+            const file = document.getElementById('resumeUpload').files[0];
+            const jd = document.getElementById('jobDesc').value;
 
-    function updateScore() {
-        let score = 30;
-        if (document.getElementById('resumeUpload').files.length > 0) score += 30;
-        if (document.getElementById('jobDesc').value.length > 50) score += 20;
-        if (document.getElementById('updates').value.length > 10) score += 15;
-        const bar = document.getElementById('atsBar');
-        bar.style.width = score + "%";
-        bar.style.background = score > 80 ? "#27AE60" : score > 50 ? "#f39c12" : "#e74c3c";
-        document.getElementById('scoreText').innerText = score + "%";
-    }
+            if (!file || !jd) { status.innerText = "Error: Missing document or job description."; return; }
 
-    async function magicPolish() {
-        const input = document.getElementById('updates');
-        const statusText = document.getElementById('statusText');
-        if (!input.value.trim()) { statusText.innerText = "Type a rough achievement first!"; return; }
-        statusText.innerText = "✨ AI is polishing your text...";
-        try {
-            const res = await fetch(`${API_BASE}/polish`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text: input.value, template: document.getElementById('template').value })
-            });
-            const data = await res.json();
-            input.value = data.polished_text;
-            statusText.innerText = "✨ Achievement polished!";
-            updateScore();
-        } catch (e) { statusText.innerText = "AI Polish failed. Check connection."; }
-    }
+            status.innerHTML = "✨ <strong>Engine active.</strong> Redesigning your professional identity...";
+            
+            const fd = new FormData();
+            fd.append('resume', file);
+            fd.append('jobDesc', jd);
+            fd.append('template', document.getElementById('template').value);
 
-    async function processResume(format) {
-        const statusText = document.getElementById('statusText');
-        const fileInput = document.getElementById('resumeUpload');
-        if (!fileInput.files[0]) { statusText.innerText = "Please upload a resume first!"; return; }
-        
-        let finalFormat = format;
-        if (fileInput.files[0].name.toLowerCase().endsWith('.pdf') && format === 'docx') {
-            finalFormat = 'pdf';
-            statusText.innerText = "Note: PDF input will export as PDF to preserve layout.";
-        } else { statusText.innerText = "AI is processing your file..."; }
-
-        const formData = new FormData();
-        formData.append('resume', fileInput.files[0]);
-        formData.append('updates', document.getElementById('updates').value);
-        formData.append('template', document.getElementById('template').value);
-        formData.append('format', finalFormat);
-
-        try {
-            const res = await fetch(`${API_BASE}/upgrade`, { method: 'POST', body: formData });
-            if (res.ok) {
-                const blob = await res.blob();
-                const a = document.createElement('a');
-                a.href = URL.createObjectURL(blob);
-                a.download = `Optimized_Resume.${finalFormat}`;
-                document.body.appendChild(a); a.click(); document.body.removeChild(a);
-                statusText.innerText = "✅ Success! File downloaded.";
-            } else { statusText.innerText = "Server error. Please try again."; }
-        } catch (e) { statusText.innerText = "Server warming up — try again in 30 seconds."; }
-    }
-
-    // NEW FUNCTION: Complete Rebuild
-    async function rebuildResume() {
-        const statusText = document.getElementById('statusText');
-        const fileInput = document.getElementById('resumeUpload');
-        const jdInput = document.getElementById('jobDesc');
-
-        if (!fileInput.files[0]) {
-            statusText.innerText = "Upload your current resume first!";
-            return;
+            try {
+                const res = await fetch(`${API}/rebuild`, { method: 'POST', body: fd });
+                if (res.ok) {
+                    const blob = await res.blob();
+                    const a = document.createElement('a');
+                    a.href = window.URL.createObjectURL(blob);
+                    a.download = `Executive_Resume.pdf`;
+                    a.click();
+                    status.innerHTML = "✅ <strong>Complete.</strong> Your upgraded resume has been generated.";
+                } else { status.innerText = "Error: The AI server encountered an issue."; }
+            } catch (e) { status.innerText = "Connection error. Re-attempting in 5s..."; }
         }
-        if (jdInput.value.length < 20) {
-            statusText.innerText = "Paste a detailed Job Description to guide the AI.";
-            return;
-        }
-
-        statusText.innerText = "🔥 AI is writing your completely new resume. This takes about 10 seconds...";
-        
-        const formData = new FormData();
-        formData.append('resume', fileInput.files[0]);
-        formData.append('jobDesc', jdInput.value);
-        formData.append('template', document.getElementById('template').value);
-
-        try {
-            const res = await fetch(`${API_BASE}/rebuild`, { method: 'POST', body: formData });
-            if (res.ok) {
-                const blob = await res.blob();
-                const a = document.createElement('a');
-                a.href = URL.createObjectURL(blob);
-                a.download = `AI_Rebuilt_Resume.pdf`;
-                document.body.appendChild(a); a.click(); document.body.removeChild(a);
-                statusText.innerText = "✅ Success! Your entirely new resume is ready.";
-            } else {
-                const err = await res.json();
-                statusText.innerText = "Server error: " + (err.error || "Please try again.");
-            }
-        } catch (e) {
-            statusText.innerText = "Server warming up — try again in 30 seconds.";
-        }
-    }
-</script>
+    </script>
 </body>
 </html>
