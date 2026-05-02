@@ -1,534 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GK | Resume Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --blue-dark:#1a2c6b;
-  --blue-mid:#2a3f8f;
-  --blue:#3452b4;
-  --accent:#f5a623;
-  --accent2:#27ae60;
-  --white:#ffffff;
-  --glass:rgba(255,255,255,0.10);
-  --glass-border:rgba(255,255,255,0.18);
-  --input-bg:#f0f4ff;
-  --text:#1a2c6b;
-  --muted:#6b7db3;
-}
-body{
-  font-family:'Manrope',sans-serif;
-  background:linear-gradient(135deg,#1a2c6b 0%,#2a3f8f 40%,#3452b4 100%);
-  min-height:100vh;
-  color:var(--white);
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Hub - AI Career Suite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --panel-bg: rgba(30, 41, 59, 0.7);
+            --primary: #3b82f6;
+            --gold: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        body { 
+            background: linear-gradient(135deg, #020617, #0f172a); 
+            color: var(--text-main); 
+            min-height: 100vh; 
+            padding: 2rem; 
+            line-height: 1.6;
+        }
+        
+        .container { max-width: 1100px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 2.5rem; }
+        header h1 { 
+            font-size: 3.5rem; 
+            font-weight: 800; 
+            background: linear-gradient(to right, #60a5fa, #a78bfa); 
+            -webkit-background-clip: text; 
+            color: transparent; 
+            margin-bottom: 0.5rem;
+        }
+        
+        .glass-panel { 
+            background: var(--panel-bg); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 24px; 
+            padding: 3rem; 
+            backdrop-filter: blur(12px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* ATS Meter Section */
+        .ats-container { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            background: rgba(15, 23, 42, 0.8); 
+            padding: 1.5rem 2.5rem; 
+            border-radius: 18px; 
+            margin-bottom: 2.5rem; 
+            border-left: 6px solid var(--gold);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .ats-info h3 { color: var(--gold); font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1.5px; }
+        .ats-score { font-size: 3rem; font-weight: 800; color: var(--success); text-shadow: 0 0 25px rgba(16, 185, 129, 0.4); }
+        
+        /* Form Styling */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1.5rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .full-width { grid-column: span 2; }
+        
+        label { display: block; margin-bottom: 0.8rem; font-weight: 600; color: #e2e8f0; font-size: 1rem; }
+        input[type="text"], select, textarea { 
+            width: 100%; 
+            padding: 1rem; 
+            border-radius: 12px; 
+            background: rgba(15, 23, 42, 0.6); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            color: white; 
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        input:focus, select:focus, textarea:focus { 
+            outline: none; 
+            border-color: var(--primary); 
+            background: rgba(15, 23, 42, 0.9);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+        
+        .file-upload-wrapper {
+            position: relative;
+            border: 2px dashed rgba(255,255,255,0.2);
+            border-radius: 14px;
+            padding: 2.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            background: rgba(255,255,255,0.02);
+        }
+        .file-upload-wrapper:hover { border-color: var(--primary); background: rgba(59, 130, 246, 0.05); }
+        input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
 
-/* ── HEADER ── */
-header{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:18px 48px;
-  background:rgba(255,255,255,0.07);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--glass-border);
-}
-.logo{font-size:22px;font-weight:800;letter-spacing:-.5px}
-.header-badge{
-  font-size:11px;font-weight:600;letter-spacing:.08em;
-  border:1px solid var(--glass-border);
-  padding:6px 16px;border-radius:20px;
-  background:rgba(255,255,255,0.08);
-}
+        /* Buttons */
+        .btn-row { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-top: 2.5rem; }
+        .btn { 
+            padding: 1.2rem 1.5rem; 
+            border-radius: 12px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            border: none; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 0.8rem; 
+            flex: 1;
+            font-size: 1rem;
+        }
+        .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .btn:active { transform: translateY(0); }
+        
+        .btn-primary { background: linear-gradient(135deg, #2563eb, #4f46e5); color: white; box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4); }
+        .btn-secondary { background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.1); }
+        .btn-architect { 
+            background: linear-gradient(135deg, #7c3aed, #db2777); 
+            color: white; 
+            position: relative;
+            box-shadow: 0 10px 20px -3px rgba(124, 58, 237, 0.4);
+        }
+        .btn-architect::after { 
+            content: 'EDIT'; 
+            position: absolute; 
+            top: -12px; 
+            right: -10px; 
+            background: var(--success); 
+            font-size: 0.7rem; 
+            padding: 4px 10px; 
+            border-radius: 20px; 
+            font-weight: 800;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            letter-spacing: 0.5px;
+        }
 
-/* ── HERO ── */
-.hero{padding:40px 48px 0;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;max-width:1100px;margin:0 auto}
-.premium-badge{
-  display:inline-block;background:var(--accent2);
-  color:#fff;font-size:10px;font-weight:700;letter-spacing:.1em;
-  padding:3px 10px;border-radius:4px;margin-bottom:12px;text-transform:uppercase;
-}
-.hero-title{font-size:clamp(40px,5vw,64px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:10px}
-.hero-sub{font-size:15px;font-weight:400;color:rgba(255,255,255,0.7);margin-bottom:28px}
-.stats{display:flex;gap:12px}
-.stat-card{
-  background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);
-  border-radius:12px;padding:14px 20px;flex:1;
-}
-.stat-num{font-size:22px;font-weight:800;letter-spacing:-1px}
-.stat-label{font-size:11px;color:rgba(255,255,255,0.65);font-weight:500;margin-top:2px}
+        .status-box {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1rem;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
 
-/* ── FEATURE PANEL ── */
-.feature-panel{
-  background:rgba(255,255,255,0.1);
-  border:1px solid rgba(255,255,255,0.2);
-  border-radius:20px;padding:24px 28px;
-  backdrop-filter:blur(16px);
-}
-.feature-panel h3{font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:.02em}
-.feature-panel ul{list-style:none}
-.feature-panel li{
-  font-size:13px;color:rgba(255,255,255,0.85);
-  padding:5px 0;display:flex;align-items:center;gap:8px;
-}
-.feature-panel li::before{
-  content:'';width:6px;height:6px;border-radius:50%;
-  background:var(--accent);flex-shrink:0;
-}
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ── MAIN CARD ── */
-.card-wrap{padding:28px 48px 60px;max-width:1100px;margin:0 auto}
-.hub-card{
-  background:#fff;border-radius:24px;
-  padding:32px 36px;
-  box-shadow:0 24px 80px rgba(0,0,0,0.25);
-  color:var(--text);
-}
+        /* Rebuild Modal Section */
+        .rebuild-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
 
-/* ATS bar */
-.ats-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.ats-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
-.ats-score{font-size:13px;font-weight:700;color:var(--blue)}
-.ats-track{height:8px;background:#e8edf8;border-radius:4px;overflow:hidden;margin-bottom:26px}
-#atsBar{height:100%;width:30%;background:var(--accent);border-radius:4px;transition:width .5s,background .4s}
-
-/* form fields */
-.field{margin-bottom:20px}
-.field label{
-  display:block;font-size:11px;font-weight:700;
-  color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;
-}
-.field select,.field textarea,.field input[type=text]{
-  width:100%;padding:12px 16px;
-  background:var(--input-bg);border:1.5px solid #dde4f5;
-  border-radius:12px;font-family:inherit;font-size:13px;
-  color:var(--text);transition:border .2s,background .2s;outline:none;
-}
-.field select:focus,.field textarea:focus{
-  border-color:var(--blue);background:#fff;
-}
-.field select{cursor:pointer;-webkit-appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7db3' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;
-}
-
-/* drag drop */
-.drop-zone{
-  border:2px dashed #c5d0ea;border-radius:12px;
-  padding:24px;text-align:center;background:var(--input-bg);
-  cursor:pointer;transition:border .2s,background .2s;position:relative;
-}
-.drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:#e8edf8}
-.drop-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.drop-icon{font-size:22px;margin-bottom:6px}
-.drop-text{font-size:13px;color:var(--muted)}
-.drop-text span{color:var(--blue);font-weight:600;text-decoration:underline}
-.file-name{font-size:12px;font-weight:600;color:var(--accent2);margin-top:6px}
-
-/* achievement row */
-.achieve-row{display:flex;gap:10px;align-items:flex-start}
-.achieve-row textarea{flex:1;min-height:80px;resize:vertical}
-.magic-btn{
-  background:var(--accent);color:#fff;border:none;
-  padding:12px 18px;border-radius:12px;
-  font-family:inherit;font-size:12px;font-weight:700;
-  cursor:pointer;white-space:nowrap;transition:opacity .2s,transform .1s;
-  display:flex;align-items:center;gap:6px;flex-shrink:0;
-}
-.magic-btn:hover{opacity:.88}
-.magic-btn:active{transform:scale(.97)}
-.magic-btn:disabled{background:#ccc;cursor:not-allowed}
-
-/* heading tag */
-.heading-tag{display:none;align-items:center;gap:6px;margin-top:8px;font-size:11px}
-.heading-tag.show{display:flex}
-.heading-pill{
-  background:#e8f4ff;color:#1a5276;border:1px solid #aed6f1;
-  padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700;
-}
-
-/* buttons */
-.btn-group{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:6px}
-.btn{
-  padding:15px 10px;border:none;border-radius:14px;
-  font-family:inherit;font-size:13px;font-weight:700;
-  color:#fff;cursor:pointer;transition:opacity .2s,transform .1s;
-  display:flex;align-items:center;justify-content:center;gap:7px;
-}
-.btn:hover{opacity:.88}
-.btn:active{transform:scale(.98)}
-.btn-inject{background:var(--blue)}
-.btn-export{background:#1a1a2e}
-.btn-architect{
-  background:linear-gradient(135deg,#6c3483,#9b59b6);
-  position:relative;overflow:hidden;
-}
-.btn-architect::after{
-  content:'NEW';position:absolute;top:6px;right:8px;
-  font-size:8px;font-weight:800;letter-spacing:.08em;
-  background:var(--accent);color:#fff;padding:1px 5px;border-radius:4px;
-}
-
-/* status */
-#statusText{
-  text-align:center;font-size:12px;color:var(--muted);
-  margin-top:14px;min-height:20px;line-height:1.5;
-}
-#statusText.success{color:#27ae60;font-weight:600}
-#statusText.error{color:#e74c3c}
-#statusText.loading{color:var(--blue)}
-
-/* rebuild modal */
-.modal-overlay{
-  display:none;position:fixed;inset:0;
-  background:rgba(0,0,0,0.5);z-index:1000;
-  align-items:center;justify-content:center;
-}
-.modal-overlay.show{display:flex}
-.modal{
-  background:#fff;border-radius:20px;padding:32px;
-  width:90%;max-width:480px;color:var(--text);
-  box-shadow:0 30px 80px rgba(0,0,0,0.3);
-}
-.modal h3{font-size:18px;font-weight:800;margin-bottom:6px;color:var(--blue-dark)}
-.modal p{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6}
-.modal-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.modal-btn{
-  padding:13px;border:none;border-radius:12px;
-  font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;
-}
-.modal-cancel{background:#f0f4ff;color:var(--muted)}
-.modal-confirm{background:linear-gradient(135deg,#6c3483,#9b59b6);color:#fff}
-.modal select,.modal textarea{
-  width:100%;padding:11px 14px;margin-bottom:12px;
-  background:#f0f4ff;border:1.5px solid #dde4f5;
-  border-radius:10px;font-family:inherit;font-size:13px;
-  color:var(--text);outline:none;
-}
-.modal select:focus,.modal textarea:focus{border-color:var(--blue)}
-.modal label{display:block;font-size:11px;font-weight:700;color:var(--muted);
-  text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
-
-@media(max-width:700px){
-  .hero{grid-template-columns:1fr;padding:24px}
-  .card-wrap{padding:16px}
-  .hub-card{padding:20px}
-  .stats{flex-direction:column}
-  .btn-group{grid-template-columns:1fr}
-  header{padding:14px 20px}
-}
-</style>
+        @media (max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            .btn-row { flex-direction: column; }
+            header h1 { font-size: 2.5rem; }
+        }
+    </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">GK</div>
-  <div class="header-badge">AI Career Suite</div>
-</header>
+<div class="container">
+    <header>
+        <h1>Resume Hub</h1>
+        <p style="color: var(--text-muted); font-size: 1.1rem;">The Professional AI Architect for Modern Careers</p>
+    </header>
 
-<div class="hero">
-  <div>
-    <div class="premium-badge">Premium</div>
-    <h1 class="hero-title">Resume Hub</h1>
-    <p class="hero-sub">Upgrade your career in just a few clicks!</p>
-    <div class="stats">
-      <div class="stat-card">
-        <div class="stat-num">98%</div>
-        <div class="stat-label">ATS Friendly</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">3x</div>
-        <div class="stat-label">Cleaner Layout</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">1 Click</div>
-        <div class="stat-label">Export</div>
-      </div>
+    <div class="glass-panel">
+        <div class="ats-container">
+            <div class="ats-info">
+                <h3 id="ats-label">ATS Optimization Score</h3>
+                <p id="scoreTag" style="font-size: 0.9rem; color: var(--text-muted); margin-top: 4px;">Upload your file to begin analysis</p>
+            </div>
+            <div class="ats-score" id="scoreText">0%</div>
+        </div>
+
+        <form id="resumeForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="inp-name" placeholder="Johnathan Doe">
+                </div>
+                <div class="form-group">
+                    <label>Target Framework</label>
+                    <select id="template">
+                        <option value="google">Standard Professional (Google Style)</option>
+                        <option value="apple">Creative Modern (Apple Style)</option>
+                        <option value="amazon">Leadership Focused (Amazon Style)</option>
+                        <option value="goldman">Conservative Global (Goldman Style)</option>
+                    </select>
+                </div>
+                <div class="form-group full-width">
+                    <label>Existing Document</label>
+                    <div class="file-upload-wrapper">
+                        <span id="fileNameDisplay" style="color: var(--text-muted);">Drop .docx or .pdf here to analyze</span>
+                        <input type="file" id="resumeUpload" name="resume" accept=".docx,.pdf" onchange="handleFileSelect(this)">
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label>Add Recent Achievement (Smart Inject)</label>
+                    <textarea id="updates" rows="4" placeholder="e.g. 'I led a team of 5 to increase revenue by 20% using Python and SQL'"></textarea>
+                    <button type="button" class="btn" style="background: rgba(245, 158, 11, 0.15); color: var(--gold); border: 1px solid var(--gold); width: auto; margin-top: 15px; padding: 0.7rem 1.5rem;" onclick="magicPolish()">✨ AI Magic Polish & Classify</button>
+                </div>
+            </div>
+
+            <div id="statusBox" class="status-box"></div>
+
+            <div class="btn-row">
+                <button type="button" class="btn btn-primary" onclick="submitForm('docx')">⬇ Smart Inject (.docx)</button>
+                <button type="button" class="btn btn-secondary" onclick="submitForm('pdf')">📄 Export ATS (.pdf)</button>
+                <button type="button" class="btn btn-architect" onclick="openArchitect()">✏️ Career Architect</button>
+            </div>
+
+            <div class="rebuild-section">
+                <h3 style="margin-bottom: 1rem; font-family: 'Poppins';">Complete AI Rebuild</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Target a specific job description? Paste it below and let Groq AI rewrite your entire profile from scratch.</p>
+                <textarea id="jobDesc" placeholder="Paste target job description here..." style="margin-bottom: 1rem;"></textarea>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <select id="rebuildFormat" style="width: 120px;">
+                        <option value="pdf">PDF</option>
+                        <option value="docx">DOCX</option>
+                    </select>
+                    <button type="button" class="btn" style="background: #7c3aed; color: white;" onclick="fullRebuild()">🚀 Start Full AI Rebuild</button>
+                </div>
+            </div>
+        </form>
     </div>
-  </div>
-  <div class="feature-panel">
-    <h3>Live Preview Features</h3>
-    <ul>
-      <li>Drag &amp; Drop Resume Upload</li>
-      <li>Real-time ATS Score</li>
-      <li>AI Heading Detection via Groq</li>
-      <li>Responsive Mobile Layout</li>
-      <li>Smart Export Flow</li>
-      <li>Complete AI Resume Rebuild</li>
-    </ul>
-  </div>
-</div>
-
-<div class="card-wrap">
-  <div class="hub-card">
-
-    <div class="ats-row">
-      <span class="ats-label">ATS Optimization Score</span>
-      <span class="ats-score" id="scoreText">30%</span>
-    </div>
-    <div class="ats-track"><div id="atsBar"></div></div>
-
-    <div class="field">
-      <label for="template">Choose Template</label>
-      <select id="template" onchange="resetHeading()">
-        <option value="google">Google Standard — Minimalist</option>
-        <option value="apple">Apple Creative — UI/UX Focus</option>
-        <option value="amazon">Amazon Metrics — Data Driven</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label>Upload Resume</label>
-      <div class="drop-zone" id="dropZone">
-        <input type="file" id="resumeUpload" accept=".docx,.pdf" onchange="handleFile(this)">
-        <div class="drop-icon">📄</div>
-        <div class="drop-text">Drop file here or <span>click to browse</span></div>
-        <div class="file-name" id="fileName"></div>
-      </div>
-    </div>
-
-    <div class="field">
-      <label for="jobDesc">Target Job Description</label>
-      <textarea id="jobDesc" rows="3" placeholder="Paste target job description..." oninput="updateScore()"></textarea>
-    </div>
-
-    <div class="field">
-      <label for="updates">Achievement</label>
-      <div class="achieve-row">
-        <textarea id="updates" rows="3"
-          placeholder="e.g. I reduced SLA breaches by coordinating teams&#10;e.g. I earned AWS certification&#10;e.g. I speak French and Spanish"
-          oninput="updateScore(); resetHeading()"></textarea>
-        <button class="magic-btn" id="polishBtn" type="button" onclick="magicPolish()">
-          ✨ Magic Polish
-        </button>
-      </div>
-      <div class="heading-tag" id="headingTag">
-        <span style="font-size:11px;color:var(--muted)">Will inject under:</span>
-        <span class="heading-pill" id="headingBadge"></span>
-      </div>
-    </div>
-
-    <div class="btn-group">
-      <button class="btn btn-inject" type="button" onclick="processResume('docx')">
-        ⬇ AI Smart Inject
-      </button>
-      <button class="btn btn-export" type="button" onclick="processResume('pdf')">
-        📄 AI ATS Export
-      </button>
-      <button class="btn btn-architect" type="button" onclick="openArchitect()">
-        🔄 Complete AI Rebuild
-      </button>
-    </div>
-
-    <p id="statusText" aria-live="polite"></p>
-  </div>
-</div>
-
-<!-- Rebuild Modal -->
-<div class="modal-overlay" id="rebuildModal">
-  <div class="modal">
-    <h3>Complete AI Rebuild</h3>
-    <p>Groq will read your entire resume, rewrite every section with ATS-optimized language, and generate a clean professional document. All your original facts are preserved.</p>
-
-    <label for="rebuildTemplate">Template Style</label>
-    <select id="rebuildTemplate">
-      <option value="google">Google — XYZ Formula</option>
-      <option value="apple">Apple — Elegant Impact</option>
-      <option value="amazon">Amazon — Metrics + Leadership</option>
-    </select>
-
-    <label for="rebuildJD">Target Job Description (optional)</label>
-    <textarea id="rebuildJD" rows="3" placeholder="Paste JD to optimize keywords..."></textarea>
-
-    <label>Download Format</label>
-    <select id="rebuildFormat">
-      <option value="docx">Word Document (.docx)</option>
-      <option value="pdf">PDF (requires LibreOffice on server)</option>
-    </select>
-
-    <div class="modal-btns" style="margin-top:8px">
-      <button class="modal-btn modal-cancel" type="button" onclick="closeRebuild()">Cancel</button>
-      <button class="modal-btn modal-confirm" type="button" onclick="doRebuild()">Rebuild Resume</button>
-    </div>
-  </div>
 </div>
 
 <script>
-const API_BASE = "https://resume-hub-3eeb.onrender.com";
-let chosenHeading = "";
+    const API_BASE = "https://html-site-4emx.onrender.com";
+    let chosenHeading = "EXPERIENCE";
 
-// ── Drag & Drop ──
-const dz = document.getElementById('dropZone');
-['dragenter','dragover'].forEach(e=>dz.addEventListener(e,ev=>{ev.preventDefault();dz.classList.add('drag-over')}));
-['dragleave','drop'].forEach(e=>dz.addEventListener(e,ev=>{ev.preventDefault();dz.classList.remove('drag-over')}));
-dz.addEventListener('drop',ev=>{
-  const f=ev.dataTransfer.files[0];
-  if(f){document.getElementById('resumeUpload').files;setFile(f)}
-});
-function handleFile(inp){if(inp.files[0])setFile(inp.files[0])}
-function setFile(f){
-  document.getElementById('fileName').innerText=f.name;
-  const dt=new DataTransfer();dt.items.add(f);
-  document.getElementById('resumeUpload').files=dt.files;
-  updateScore();
-}
-
-// ── Score ──
-function updateScore(){
-  let s=30;
-  if(document.getElementById('resumeUpload').files.length>0)s+=30;
-  if(document.getElementById('jobDesc').value.length>50)s+=20;
-  if(document.getElementById('updates').value.length>10)s+=15;
-  const bar=document.getElementById('atsBar');
-  bar.style.width=s+'%';
-  bar.style.background=s>80?'#27ae60':s>50?'#f5a623':'#e74c3c';
-  document.getElementById('scoreText').innerText=s+'%';
-}
-
-function resetHeading(){
-  chosenHeading="";
-  document.getElementById('headingTag').classList.remove('show');
-}
-
-function setStatus(msg,type=''){
-  const el=document.getElementById('statusText');
-  el.className=type;el.innerText=msg;
-}
-
-// ── Magic Polish ──
-async function magicPolish(){
-  const input=document.getElementById('updates');
-  const btn=document.getElementById('polishBtn');
-  const file=document.getElementById('resumeUpload').files[0];
-  if(!input.value.trim()){setStatus('Write an achievement in the field first.','error');return}
-  if(!file){setStatus('Upload your resume first so AI can read its structure.','error');return}
-
-  btn.disabled=true;btn.innerText='Analyzing...';
-  setStatus('AI is reading your resume and classifying the sentence...','loading');
-
-  const form=new FormData();
-  form.append('resume',file);
-  form.append('text',input.value);
-  form.append('template',document.getElementById('template').value);
-
-  try{
-    const res=await fetch(`${API_BASE}/polish`,{method:'POST',body:form});
-    const data=await res.json();
-    input.value=data.polished_text;
-    chosenHeading=data.heading||'Achievements';
-    document.getElementById('headingBadge').innerText=chosenHeading;
-    document.getElementById('headingTag').classList.add('show');
-    setStatus(`Polished! Will inject under "${chosenHeading}".`,'success');
-    updateScore();
-  }catch(e){
-    setStatus('Server error — try again in 30 seconds.','error');
-  }finally{
-    btn.disabled=false;btn.innerText='✨ Magic Polish';
-  }
-}
-
-// ── Smart Inject / ATS Export ──
-async function processResume(format){
-  const file=document.getElementById('resumeUpload').files[0];
-  if(!file){setStatus('Please upload a resume first.','error');return}
-  const updates=document.getElementById('updates').value;
-
-  let fmt=format;
-  if(file.name.toLowerCase().endsWith('.pdf')&&format==='docx')fmt='pdf';
-
-  setStatus('Injecting update into the correct heading...','loading');
-
-  const form=new FormData();
-  form.append('resume',file);
-  form.append('updates',updates);
-  form.append('template',document.getElementById('template').value);
-  form.append('format',fmt);
-  if(chosenHeading)form.append('heading',chosenHeading);
-
-  try{
-    const res=await fetch(`${API_BASE}/upgrade`,{method:'POST',body:form});
-    if(res.ok){
-      const blob=await res.blob();
-      const a=document.createElement('a');
-      a.href=URL.createObjectURL(blob);
-      a.download=`Optimized_Resume.${fmt}`;
-      document.body.appendChild(a);a.click();document.body.removeChild(a);
-      setStatus(`Done! Injected under "${chosenHeading||'Achievements'}".`,'success');
-    }else{
-      setStatus('Server error. Please try again.','error');
+    function setStatus(msg, type) {
+        const box = document.getElementById('statusBox');
+        box.style.display = 'block';
+        box.innerText = msg;
+        box.style.background = type === 'error' ? 'rgba(239, 68, 68, 0.15)' : (type === 'success' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(59, 130, 246, 0.15)');
+        box.style.color = type === 'error' ? 'var(--error)' : (type === 'success' ? 'var(--success)' : 'var(--primary)');
+        box.style.border = `1px solid ${box.style.color}`;
     }
-  }catch(e){
-    setStatus('Server warming up — retry in 30 seconds.','error');
-  }
-}
 
-// ── Complete Rebuild ──
-function openRebuild(){
-  const file=document.getElementById('resumeUpload').files[0];
-  if(!file){setStatus('Upload a resume first, then click Rebuild.','error');return}
-  document.getElementById('rebuildModal').classList.add('show');
-}
-function closeRebuild(){document.getElementById('rebuildModal').classList.remove('show')}
-
-async function doRebuild(){
-  const file=document.getElementById('resumeUpload').files[0];
-  if(!file){closeRebuild();return}
-
-  closeRebuild();
-  setStatus('AI is reading and completely rewriting your resume... This takes 15–30 seconds.','loading');
-
-  const form=new FormData();
-  form.append('resume',file);
-  form.append('template',document.getElementById('rebuildTemplate').value);
-  form.append('job_desc',document.getElementById('rebuildJD').value);
-  form.append('format',document.getElementById('rebuildFormat').value);
-
-  try{
-    const res=await fetch(`${API_BASE}/rebuild`,{method:'POST',body:form});
-    if(res.ok){
-      const blob=await res.blob();
-      const fmt=document.getElementById('rebuildFormat').value;
-      const a=document.createElement('a');
-      a.href=URL.createObjectURL(blob);
-      a.download=`Rebuilt_Resume.${fmt}`;
-      document.body.appendChild(a);a.click();document.body.removeChild(a);
-      setStatus('Complete AI rebuild done! Your new resume is downloading.','success');
-    }else{
-      const err=await res.json().catch(()=>({}));
-      setStatus(`Rebuild failed: ${err.error||'Server error'}. Try again.`,'error');
+    function handleFileSelect(input) {
+        const name = input.files[0]?.name || "No file chosen";
+        document.getElementById('fileNameDisplay').innerText = `Attached: ${name}`;
+        document.getElementById('fileNameDisplay').style.color = "var(--success)";
+        updateScore();
     }
-  }catch(e){
-    setStatus('Server error during rebuild. Check connection and retry.','error');
-  }
-}
 
-function openArchitect() {
-  const file = document.getElementById('resumeUpload').files[0];
-  const updates = document.getElementById('updates').value;
-  const heading = chosenHeading;
-  const name = 'Your Resume';
-  const ats = document.getElementById('scoreText').innerText.replace('%','');
-  // Pass file through sessionStorage flag + URL params
-  const params = new URLSearchParams({ ats, name, title: document.getElementById('template').options[document.getElementById('template').selectedIndex].text });
-  // Store file for architect page
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      try {
-        sessionStorage.setItem('resumeFileName', file.name);
-        sessionStorage.setItem('pendingUpdate', updates);
-        sessionStorage.setItem('pendingHeading', heading);
-      } catch(ex) {}
-      window.location.href = 'career_architect.html?' + params.toString();
-    };
-    reader.readAsDataURL(file);
-  } else {
-    window.location.href = 'career_architect.html?' + params.toString();
-  }
-}
+    function updateScore() {
+        let score = 0;
+        const nameVal = document.getElementById('inp-name').value;
+        const file = document.getElementById('resumeUpload').files.length;
+        const updates = document.getElementById('updates').value;
 
+        if(nameVal) score += 10;
+        if(file > 0) score += 40;
+        if(updates.length > 20) score += 20;
+        if(/\d+%/.test(updates) || /\$\d+/.test(updates)) score += 30; // Bonus for metrics
+        
+        const scoreEl = document.getElementById('scoreText');
+        scoreEl.innerText = score + '%';
+        scoreEl.style.color = score > 80 ? 'var(--success)' : (score > 40 ? 'var(--gold)' : 'var(--error)');
+        document.getElementById('scoreTag').innerText = score > 80 ? "Excellent metric density detected!" : (score > 40 ? "Good start, add more numbers/KPIs." : "Action required: upload file and add metrics.");
+    }
+
+    document.getElementById('inp-name').addEventListener('input', updateScore);
+    document.getElementById('updates').addEventListener('input', updateScore);
+
+    async function magicPolish() {
+        const text = document.getElementById('updates').value;
+        if(!text) return alert("Please enter an achievement to polish.");
+        
+        setStatus("✨ Groq AI is generating high-impact bullet points...", "info");
+        
+        try {
+            const res = await fetch(`${API_BASE}/polish`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({text: text})
+            });
+            const data = await res.json();
+            if(data.polished) {
+                document.getElementById('updates').value = data.polished;
+                chosenHeading = data.heading || "EXPERIENCE";
+                setStatus(`✅ Polish complete! Classified as: ${chosenHeading}`, "success");
+                updateScore();
+            }
+        } catch (e) {
+            setStatus("AI server is busy. Please try again in 10 seconds.", "error");
+        }
+    }
+
+    async function submitForm(format) {
+        const file = document.getElementById('resumeUpload').files[0];
+        if(!file) return alert("Please upload a resume first.");
+
+        const formData = new FormData();
+        formData.append('resume', file);
+        formData.append('updates', document.getElementById('updates').value);
+        formData.append('heading', chosenHeading);
+        formData.append('template', document.getElementById('template').value);
+        formData.append('format', format);
+
+        setStatus(`⚙️ Processing ${format.toUpperCase()} conversion...`, "info");
+
+        try {
+            const response = await fetch(`${API_BASE}/upgrade`, { method: 'POST', body: formData });
+            if(response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Optimized_Resume.${format}`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                setStatus("✅ Download successful!", "success");
+            } else {
+                throw new Error();
+            }
+        } catch (e) {
+            setStatus("Internal processing error. Ensure file is a valid .docx or .pdf.", "error");
+        }
+    }
+
+    // ORIGINAL FULL REBUILD LOGIC
+    async function fullRebuild() {
+        const file = document.getElementById('resumeUpload').files[0];
+        const jd = document.getElementById('jobDesc').value;
+        const fmt = document.getElementById('rebuildFormat').value;
+        
+        if(!file || !jd) return alert("Upload resume and paste job description first.");
+
+        setStatus("🚀 Full AI Rebuild initiated. Rewriting your entire profile...", "info");
+        const form = new FormData();
+        form.append('resume', file);
+        form.append('job_description', jd);
+        form.append('format', fmt);
+
+        try {
+            const res = await fetch(`${API_BASE}/rebuild`, { method: 'POST', body: form });
+            if (res.ok) {
+                const blob = await res.blob();
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `Rebuilt_Resume.${fmt}`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                setStatus("✅ Full Rebuild Complete! Downloading...", "success");
+            } else {
+                setStatus("Rebuild failed. Check server status.", "error");
+            }
+        } catch (e) {
+            setStatus("Network error during rebuild.", "error");
+        }
+    }
+
+    function openArchitect() {
+        const file = document.getElementById('resumeUpload').files[0];
+        const updates = document.getElementById('updates').value;
+        const name = document.getElementById('inp-name').value || 'User';
+        const ats = document.getElementById('scoreText').innerText.replace('%','');
+        
+        const params = new URLSearchParams({
+            ats, 
+            name,
+            title: document.getElementById('template').options[document.getElementById('template').selectedIndex].text
+        });
+
+        if (file) {
+            sessionStorage.setItem('resumeFileName', file.name);
+            sessionStorage.setItem('pendingUpdate', updates);
+        }
+        
+        window.location.href = 'career_architect.html?' + params.toString();
+    }
 </script>
 </body>
 </html>
