@@ -1,162 +1,997 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Architect | Full AI Workspace</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <style>
-        /* YOUR ORIGINAL COLOR PALETTE */
-        :root {
-            --bg-deep: #020617;
-            --panel-bg: rgba(15, 23, 42, 0.8);
-            --accent-gold: #f59e0b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: rgba(245, 158, 11, 0.2);
-            --success: #10b981;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK | Career Architect</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg0:#070B14;
+  --bg1:#0D1425;
+  --bg2:#111827;
+  --bg3:#1A2338;
+  --border:#1E2D40;
+  --border2:#2A3550;
+  --indigo:#6366F1;
+  --indigo-d:#4F46E5;
+  --indigo-l:#818CF8;
+  --text:#E2E8F0;
+  --muted:#64748B;
+  --dim:#334155;
+  --coral:#EF4444;
+  --teal:#0D9488;
+  --amber:#D97706;
+  --violet:#7C3AED;
+  --emerald:#059669;
+  --blue:#2563EB;
+  --panel:163px;
+  --sidebar:130px;
+  --toolbar:36px;
+  --header:38px;
+}
+body{
+  font-family:'Manrope',sans-serif;
+  background:var(--bg0);
+  color:var(--text);
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  font-size:13px;
+}
+button{font-family:'Manrope',sans-serif;cursor:pointer;border:none;outline:none}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--bg-deep); color: var(--text-main); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+/* ── HEADER ── */
+.header{
+  height:var(--header);
+  background:var(--bg2);
+  border-bottom:0.5px solid var(--border);
+  display:flex;
+  align-items:center;
+  padding:0 12px;
+  gap:8px;
+  flex-shrink:0;
+}
+.header-logo{
+  display:flex;align-items:center;gap:6px;
+  padding-right:12px;border-right:0.5px solid var(--border);
+  margin-right:4px;
+}
+.logo-mark{
+  width:22px;height:22px;border-radius:5px;
+  background:var(--indigo);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;color:white;letter-spacing:-0.5px;
+}
+.logo-text{font-size:13px;font-weight:600;color:var(--text)}
+.logo-text span{color:var(--indigo-l)}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.breadcrumb .sep{color:var(--dim)}
+.breadcrumb .cur{color:var(--text);font-weight:500}
+.header-space{flex:1}
+.header-actions{display:flex;align-items:center;gap:6px}
+.h-btn{
+  background:var(--bg3);border:0.5px solid var(--border2);
+  color:var(--muted);border-radius:5px;padding:4px 10px;
+  font-size:11px;font-family:'Manrope',sans-serif;
+}
+.h-btn:hover{color:var(--text);border-color:var(--indigo)}
+.h-btn-primary{
+  background:var(--indigo);color:white;
+  border:none;border-radius:5px;padding:4px 12px;
+  font-size:11px;font-weight:600;font-family:'Manrope',sans-serif;
+  display:flex;align-items:center;gap:5px;
+}
+.h-btn-primary:hover{background:var(--indigo-d)}
+.dl-split{
+  display:flex;align-items:center;
+  background:var(--indigo);border-radius:5px;overflow:hidden;
+}
+.dl-main{
+  background:none;border:none;color:white;
+  font-size:11px;font-weight:600;font-family:'Manrope',sans-serif;
+  padding:5px 10px;cursor:pointer;
+}
+.dl-sep{width:0.5px;height:22px;background:var(--indigo-d)}
+.dl-type{
+  background:none;border:none;color:var(--indigo-l);
+  font-size:10px;font-family:'JetBrains Mono',monospace;
+  font-weight:500;padding:5px 8px;cursor:pointer;letter-spacing:.04em;
+}
+.dl-type:hover{color:white}
+.avatar{
+  width:24px;height:24px;border-radius:50%;
+  background:var(--bg3);border:1px solid var(--indigo);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:var(--indigo-l);
+}
 
-        /* HEADER - KEPT DARK THEME */
-        header { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 1.5rem 2.5rem; border-bottom: 1px solid var(--border); 
-            background: rgba(2, 6, 23, 0.9); z-index: 100; 
-        }
-        .logo-area { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--accent-gold); display: flex; align-items: center; gap: 1rem; }
-        .back-link { font-size: 0.85rem; color: var(--text-muted); text-decoration: none; border: 1px solid var(--border); padding: 0.5rem 1rem; border-radius: 8px; transition: 0.3s; }
-        .back-link:hover { background: var(--border); color: white; }
+/* ── TOOLBAR ── */
+.toolbar{
+  height:var(--toolbar);
+  background:var(--bg2);
+  border-bottom:0.5px solid var(--border);
+  display:flex;align-items:center;
+  padding:0 10px;gap:3px;
+  flex-shrink:0;
+}
+.t-group{display:flex;align-items:center;gap:2px;padding:0 6px;border-right:0.5px solid var(--border)}
+.t-group:last-child{border-right:none}
+.t-btn{
+  width:26px;height:26px;border-radius:5px;background:none;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);transition:all .15s;border:0.5px solid transparent;
+}
+.t-btn:hover{background:var(--bg3);color:var(--text);border-color:var(--border2)}
+.t-btn.active{background:var(--bg3);color:var(--indigo-l);border-color:var(--border2)}
+.t-btn svg{width:14px;height:14px}
+.t-sep{width:0.5px;height:18px;background:var(--border);margin:0 4px}
+.zoom-ctrl{
+  display:flex;align-items:center;gap:6px;
+  padding:0 8px;
+  border:0.5px solid var(--border2);border-radius:5px;
+  background:var(--bg3);height:26px;
+}
+.zoom-ctrl span{
+  font-size:11px;color:var(--muted);
+  font-family:'JetBrains Mono',monospace;
+  min-width:30px;text-align:center;
+}
+.zoom-btn{
+  background:none;border:none;color:var(--muted);
+  font-size:14px;cursor:pointer;line-height:1;padding:0 2px;
+}
+.zoom-btn:hover{color:var(--text)}
+.ats-chip{
+  display:flex;align-items:center;gap:6px;
+  background:var(--bg3);border:0.5px solid var(--border2);
+  border-radius:5px;padding:3px 10px;height:26px;margin-left:6px;
+}
+.ats-chip-label{font-size:10px;color:var(--muted);font-weight:500;letter-spacing:.06em}
+.ats-track{width:60px;height:4px;background:var(--bg1);border-radius:2px;overflow:hidden}
+.ats-fill{height:100%;background:linear-gradient(90deg,#F59E0B,#10B981);border-radius:2px;width:82%}
+.ats-pct{font-size:11px;color:#10B981;font-weight:700;font-family:'JetBrains Mono',monospace}
 
-        /* ARCHITECT LAYOUT - ORIGINAL PROPORTIONS */
-        .architect-layout { display: grid; grid-template-columns: 380px 1fr 380px; flex: 1; overflow: hidden; }
+/* ── MAIN LAYOUT ── */
+.app-body{flex:1;display:flex;overflow:hidden;min-height:0}
 
-        /* SIDEBARS - ORIGINAL DARK GLASS */
-        .sidebar { background: var(--panel-bg); border-right: 1px solid var(--border); padding: 2rem; overflow-y: auto; backdrop-filter: blur(10px); }
-        .sidebar-right { border-right: none; border-left: 1px solid var(--border); }
-        
-        .section-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-gold); margin-bottom: 1.5rem; font-weight: 700; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+/* ── LEFT SIDEBAR ── */
+.left-sidebar{
+  width:var(--sidebar);
+  background:var(--bg2);
+  border-right:0.5px solid var(--border);
+  display:flex;flex-direction:column;
+  flex-shrink:0;overflow:hidden;
+}
+.sb-section{padding:8px 8px 6px;border-bottom:0.5px solid var(--border)}
+.sb-title{font-size:10px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:7px}
+.template-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px}
+.tpl{
+  aspect-ratio:.71;border-radius:3px;background:var(--bg3);
+  border:0.5px solid var(--border2);overflow:hidden;padding:3px;
+  cursor:pointer;transition:border-color .15s;
+}
+.tpl:hover,.tpl.active{border-color:var(--indigo)}
+.tpl.active{border-width:1.5px;border-color:var(--indigo)}
+.tpl-line{height:2px;border-radius:1px;background:var(--dim);margin-bottom:2px}
+.tpl-line.accent{background:var(--indigo);height:3px}
+.tpl-line.w70{width:70%}
+.tpl-line.w80{width:80%}
+.tpl-line.w60{width:60%}
+.tpl-line.w50{width:50%}
+.tpl-2col{display:flex;gap:2px;height:100%;padding:2px}
+.tpl-left{width:35%;background:var(--bg1);border-radius:1px}
+.tpl-right{flex:1;display:flex;flex-direction:column;gap:2px}
+.filter-row{display:flex;gap:3px;margin-bottom:7px;flex-wrap:wrap}
+.filter-chip{
+  font-size:10px;padding:2px 7px;border-radius:10px;
+  background:var(--bg3);border:0.5px solid var(--border2);
+  color:var(--muted);cursor:pointer;white-space:nowrap;
+}
+.filter-chip.active{background:var(--indigo);color:white;border-color:var(--indigo)}
+.section-links{display:flex;flex-direction:column;gap:2px}
+.sec-link{
+  font-size:11px;color:var(--muted);padding:4px 7px;
+  border-radius:4px;cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;gap:5px;
+}
+.sec-link:hover{background:var(--bg3);color:var(--text)}
+.sec-link.active{background:rgba(99,102,241,.15);color:var(--indigo-l)}
+.sec-dot{width:5px;height:5px;border-radius:50%;background:var(--dim);flex-shrink:0}
+.sec-link.active .sec-dot{background:var(--indigo)}
+.ai-panel{padding:8px;flex:1;overflow:hidden}
+.ai-title{font-size:10px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.ai-plus{font-size:16px;color:var(--indigo);cursor:pointer;line-height:1}
+.ai-bullet{
+  display:flex;align-items:flex-start;gap:5px;padding:4px 5px;
+  border-radius:4px;margin-bottom:2px;cursor:pointer;
+  border:0.5px solid transparent;
+  background:var(--bg3);margin-bottom:3px;
+}
+.ai-bullet:hover{border-color:var(--indigo);background:rgba(99,102,241,.08)}
+.ai-dot{width:4px;height:4px;border-radius:50%;background:var(--indigo);flex-shrink:0;margin-top:4px}
+.ai-text{font-size:10px;color:var(--muted);line-height:1.45}
 
-        /* BUTTONS - ORIGINAL STYLE */
-        .node-btn { 
-            width: 100%; text-align: left; background: rgba(255,255,255,0.03); 
-            border: 1px solid var(--border); padding: 1.2rem; border-radius: 12px; 
-            color: white; margin-bottom: 1rem; cursor: pointer; transition: 0.3s;
-        }
-        .node-btn:hover { border-color: var(--accent-gold); background: rgba(245, 158, 11, 0.05); }
+/* ── CANVAS ── */
+.canvas{
+  flex:1;position:relative;overflow:hidden;
+  background:var(--bg0);min-width:0;
+}
+.canvas-bg{
+  position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle at 20% 20%,rgba(99,102,241,.06) 0%,transparent 50%),
+    radial-gradient(circle at 80% 80%,rgba(13,148,136,.04) 0%,transparent 50%);
+}
+.canvas-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+/* Connection SVG */
+.connections{position:absolute;inset:0;pointer-events:none}
 
-        /* CANVAS AREA - ORIGINAL DARK GRADIENT */
-        .canvas-area { position: relative; background: radial-gradient(circle at center, #0f172a 0%, #020617 100%); flex: 1; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+/* Mind-map nodes */
+.node{
+  position:absolute;transform:translate(-50%,-50%);
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  cursor:pointer;
+}
+.node-circle{
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  text-align:center;font-size:11px;font-weight:700;color:white;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 0 0 0 rgba(0,0,0,0);
+}
+.node:hover .node-circle{transform:scale(1.08)}
+.node-label{font-size:10px;color:var(--muted);white-space:nowrap;text-align:center}
 
-        /* RESUME PREVIEW - ORIGINAL WHITE SHEET */
-        .resume-preview { 
-            width: 600px; height: 800px; background: white; padding: 4rem; 
-            color: #1e293b; box-shadow: 0 0 50px rgba(0,0,0,0.5); 
-            transform: scale(0.85); position: relative; z-index: 10;
-        }
+/* Central resume card */
+.resume-card-wrap{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:155px;
+  filter:drop-shadow(0 20px 60px rgba(0,0,0,.6));
+}
+.resume-card{
+  background:white;border-radius:5px;overflow:hidden;
+  width:100%;
+}
+.rc-header{
+  background:#1B2E6B;padding:10px 8px;
+}
+.rc-photo-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.rc-photo{
+  width:32px;height:32px;border-radius:50%;
+  background:#2d5a9e;border:2px solid #60a5fa;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;color:white;
+}
+.rc-name{font-size:10px;font-weight:800;color:white;letter-spacing:.5px}
+.rc-title-badge{font-size:8px;color:#93c5fd;font-weight:500;margin-top:1px}
+.rc-divider{height:0.5px;background:rgba(255,255,255,.2);margin:4px 0}
+.rc-body{background:#f8fafc;padding:5px;display:flex;gap:3px}
+.rc-col-l{width:44px;flex-shrink:0}
+.rc-col-r{flex:1;min-width:0}
+.rc-line{height:2px;border-radius:1px;margin-bottom:2px}
+.rc-line.ac{background:#6366f1;height:2.5px}
+.rc-line.dk{background:#1e3a5f}
+.rc-line.lt{background:#e2e8f0}
+.rc-line.w100{width:100%}
+.rc-line.w90{width:90%}
+.rc-line.w80{width:80%}
+.rc-line.w75{width:75%}
+.rc-line.w70{width:70%}
+.rc-line.w60{width:60%}
+.rc-line.w50{width:50%}
 
-        /* FLOATING NODES - ORIGINAL GOLD THEME */
-        .floating-node { 
-            position: absolute; background: #1e293b; border: 1px solid var(--accent-gold); 
-            color: white; padding: 0.7rem 1.2rem; border-radius: 50px; font-size: 0.8rem; 
-            z-index: 20; box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-        }
+/* Floating labels on canvas */
+.canvas-tag{
+  position:absolute;background:var(--bg2);
+  border:0.5px solid var(--border2);border-radius:5px;
+  padding:4px 8px;font-size:10px;color:var(--muted);
+  pointer-events:none;
+}
+.canvas-tag.alert{
+  border-color:#D97706;color:#F59E0B;
+  background:var(--bg1);
+}
+.canvas-tag.alert .alert-head{font-size:10px;font-weight:700;color:#F59E0B;margin-bottom:2px}
+.canvas-tag .tag-lines{display:flex;flex-direction:column;gap:2px;margin-top:3px}
+.canvas-tag .tag-line{height:2px;background:var(--dim);border-radius:1px}
+.canvas-tag .tag-line.w80{width:80%}
 
-        /* MODALS & INPUTS */
-        .action-btn { 
-            width: 100%; padding: 1rem; border-radius: 10px; font-weight: 700; 
-            cursor: pointer; margin-bottom: 1rem; border: none; font-size: 0.9rem;
-        }
-        .btn-purple { background: linear-gradient(135deg, #7c3aed, #db2777); color: white; }
-        .btn-blue { background: #2563eb; color: white; }
-        
-        #connection-canvas { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
-    </style>
+/* bottom hint */
+.canvas-hint{
+  position:absolute;bottom:10px;left:50%;transform:translateX(-50%);
+  background:var(--bg2);border:0.5px solid var(--border2);border-radius:5px;
+  padding:3px 12px;font-size:10px;color:var(--muted);
+  display:flex;align-items:center;gap:8px;
+}
+.canvas-hint .sep{color:var(--dim)}
+.canvas-nav{
+  position:absolute;bottom:10px;right:12px;
+  display:flex;gap:4px;
+}
+.cnav-btn{
+  background:var(--bg2);border:0.5px solid var(--border2);
+  border-radius:4px;padding:3px 9px;font-size:11px;
+  color:var(--muted);cursor:pointer;font-family:'Manrope',sans-serif;
+}
+.cnav-btn:hover{color:var(--text)}
+
+/* ── RIGHT PANEL ── */
+.right-panel{
+  width:var(--panel);
+  background:var(--bg2);
+  border-left:0.5px solid var(--border);
+  display:flex;flex-direction:column;
+  flex-shrink:0;overflow:hidden;
+}
+.rp-header{
+  padding:8px 10px;border-bottom:0.5px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.rp-title{font-size:13px;font-weight:600;color:var(--text)}
+.rp-close{font-size:16px;color:var(--muted);cursor:pointer;line-height:1;background:none;border:none;color:var(--muted)}
+.rp-close:hover{color:var(--text)}
+.rp-section{padding:8px 10px;border-bottom:0.5px solid var(--border)}
+.rp-label{font-size:10px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.toggle-row{display:flex;background:var(--bg1);border-radius:5px;padding:2px;gap:1px}
+.tgl-btn{
+  flex:1;padding:4px;border-radius:3px;font-size:11px;
+  font-family:'Manrope',sans-serif;cursor:pointer;border:none;
+  background:none;color:var(--muted);transition:all .15s;
+}
+.tgl-btn.active{background:var(--indigo);color:white}
+.rp-select{
+  width:100%;background:var(--bg1);border:0.5px solid var(--border2);
+  border-radius:5px;padding:5px 8px;
+  color:var(--muted);font-size:11px;font-family:'Manrope',sans-serif;
+  -webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2364748B' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 8px center;
+  padding-right:24px;
+}
+.rp-slider{
+  display:flex;align-items:center;gap:6px;
+}
+.slider-track{
+  flex:1;height:3px;background:var(--bg1);
+  border-radius:2px;position:relative;
+}
+.slider-fill{height:100%;background:var(--indigo);border-radius:2px;width:55%}
+.slider-thumb{
+  position:absolute;left:55%;top:50%;transform:translate(-50%,-50%);
+  width:11px;height:11px;border-radius:50%;
+  background:var(--text);border:1.5px solid var(--indigo);
+}
+.slider-sym{font-size:13px;color:var(--muted);line-height:1;background:none;border:none;cursor:pointer}
+.slider-sym:hover{color:var(--text)}
+/* AI Bullets in right panel */
+.rp-toggle{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;
+}
+.toggle-switch{
+  width:30px;height:16px;background:var(--indigo);border-radius:8px;
+  position:relative;cursor:pointer;flex-shrink:0;
+}
+.toggle-knob{
+  position:absolute;right:2px;top:2px;width:12px;height:12px;
+  border-radius:50%;background:white;
+}
+.bullet-list{display:flex;flex-direction:column;gap:3px}
+.bullet-item{
+  background:var(--bg3);border:0.5px solid var(--border2);
+  border-radius:4px;padding:5px 7px;
+  display:flex;align-items:flex-start;gap:5px;
+  cursor:pointer;transition:border-color .15s;
+}
+.bullet-item:hover{border-color:var(--indigo)}
+.bi-dot{width:4px;height:4px;border-radius:50%;background:var(--indigo);flex-shrink:0;margin-top:4px}
+.bi-text{font-size:10px;color:var(--muted);line-height:1.5}
+/* Inject button */
+.inject-btn{
+  width:100%;background:var(--indigo);color:white;
+  border:none;border-radius:6px;padding:7px 0;
+  font-size:12px;font-weight:600;font-family:'Manrope',sans-serif;
+  cursor:pointer;margin-bottom:4px;transition:background .15s;
+}
+.inject-btn:hover{background:var(--indigo-d)}
+.export-row{display:flex;gap:3px}
+.ex-btn{
+  flex:1;background:var(--bg3);border:0.5px solid var(--border2);
+  color:var(--muted);border-radius:5px;padding:5px 0;
+  font-size:11px;font-family:'Manrope',sans-serif;cursor:pointer;
+}
+.ex-btn:hover{color:var(--text);border-color:var(--indigo)}
+.ex-btn.primary{background:var(--indigo);color:white;border-color:var(--indigo)}
+/* Rebuild banner */
+.rebuild-banner{
+  margin:8px;background:linear-gradient(135deg,rgba(124,58,237,.3),rgba(99,102,241,.2));
+  border:0.5px solid rgba(124,58,237,.5);border-radius:6px;padding:8px;
+  cursor:pointer;transition:border-color .15s;
+}
+.rebuild-banner:hover{border-color:var(--indigo)}
+.rb-head{font-size:11px;font-weight:700;color:#A78BFA;margin-bottom:3px}
+.rb-sub{font-size:10px;color:var(--muted);line-height:1.5}
+.rb-icon{font-size:16px;margin-bottom:4px}
+/* Profile footer */
+.rp-footer{
+  margin-top:auto;border-top:0.5px solid var(--border);
+  padding:7px 10px;display:flex;align-items:center;gap:7px;
+}
+.rp-avatar{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--bg3);border:1px solid var(--indigo);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;color:var(--indigo-l);flex-shrink:0;
+}
+.rp-user{font-size:11px;color:var(--muted)}
+.rp-chevron{color:var(--dim);margin-left:auto;cursor:pointer;font-size:11px}
+</style>
 </head>
 <body>
 
-    <header>
-        <div class="logo-area">
-            <span style="color: var(--accent-gold);">★</span> Career Architect
-            <a href="index.html" class="back-link">‹ Hub Overview</a>
-        </div>
-        <div style="display: flex; gap: 2rem; align-items: center;">
-            <div id="status-pill" style="border: 1px solid var(--success); padding: 0.5rem 1rem; border-radius: 50px;">
-                <span id="nav-ats" style="color: var(--success); font-weight: 700;">ATS: 75%</span>
+<!-- ── HEADER ── -->
+<div class="header">
+  <div class="header-logo">
+    <div class="logo-mark">GK</div>
+    <span class="logo-text">Resu<span>ME</span></span>
+  </div>
+  <div class="breadcrumb">
+    <span>My Projects</span>
+    <span class="sep">›</span>
+    <span class="cur">Career Architect</span>
+  </div>
+  <div class="header-space"></div>
+  <div class="header-actions">
+    <button class="h-btn" onclick="goBack()">‹ Back to Hub</button>
+    <button class="h-btn">Undo</button>
+    <button class="h-btn">Redo</button>
+    <button class="h-btn">Print Layout</button>
+    <div class="dl-split">
+      <button class="dl-main" id="dlMainBtn">Download</button>
+      <div class="dl-sep"></div>
+      <button class="dl-type" id="dlPdfBtn" title="Download PDF">PDF</button>
+      <button class="dl-type" id="dlDocxBtn" title="Download DOCX">DOCX</button>
+    </div>
+    <div class="avatar">G</div>
+  </div>
+</div>
+
+<!-- ── TOOLBAR ── -->
+<div class="toolbar">
+  <div class="t-group">
+    <button class="t-btn active" title="Select">
+      <svg viewBox="0 0 14 14" fill="none"><path d="M2 2L2 11L5.5 8.5L7 12L8.5 11.5L7 8L11 8L2 2Z" fill="currentColor"/></svg>
+    </button>
+    <button class="t-btn" title="Pan">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg>
+    </button>
+    <button class="t-btn" title="Add text">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 4h10M7 4v7M4 11h6"/></svg>
+    </button>
+    <button class="t-btn" title="Connect">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="3" cy="3" r="1.5"/><circle cx="11" cy="11" r="1.5"/><path d="M4.5 4.5L9.5 9.5"/></svg>
+    </button>
+  </div>
+  <div class="t-group">
+    <button class="t-btn" title="Layout">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="1" y="1" width="5" height="5" rx="1"/><rect x="8" y="1" width="5" height="5" rx="1"/><rect x="1" y="8" width="5" height="5" rx="1"/><rect x="8" y="8" width="5" height="5" rx="1"/></svg>
+    </button>
+    <button class="t-btn" title="AI Rebuild">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 7a5 5 0 0 1 9-3M12 7a5 5 0 0 1-9 3"/><path d="M11 4l1-2 1 1M2 10L1 12l1 1" stroke-width="1"/></svg>
+    </button>
+    <button class="t-btn" title="Settings">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="7" cy="7" r="2"/><path d="M7 1v1.5M7 11.5V13M1 7h1.5M11.5 7H13M2.9 2.9l1 1M10.1 10.1l1 1M11.1 2.9l-1 1M3.9 10.1l-1 1"/></svg>
+    </button>
+  </div>
+  <div class="t-group">
+    <div class="zoom-ctrl">
+      <button class="zoom-btn" id="zoomOut">−</button>
+      <span id="zoomVal">100%</span>
+      <button class="zoom-btn" id="zoomIn">+</button>
+    </div>
+  </div>
+  <div class="t-group" style="border-right:none">
+    <div class="ats-chip">
+      <span class="ats-chip-label">ATS</span>
+      <div class="ats-track"><div class="ats-fill" id="atsTrack"></div></div>
+      <span class="ats-pct" id="atsPct">82%</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── APP BODY ── -->
+<div class="app-body">
+
+  <!-- LEFT SIDEBAR -->
+  <div class="left-sidebar">
+    <div class="sb-section">
+      <div class="sb-title">Templates</div>
+      <div class="filter-row">
+        <div class="filter-chip active">Pro</div>
+        <div class="filter-chip">Creative</div>
+        <div class="filter-chip">Min</div>
+      </div>
+      <div class="template-grid">
+        <!-- Template 1 — two-col sidebar -->
+        <div class="tpl active" onclick="setTemplate(this,0)" title="Executive — Navy Sidebar">
+          <div class="tpl-2col">
+            <div class="tpl-left"></div>
+            <div class="tpl-right">
+              <div class="tpl-line accent"></div>
+              <div class="tpl-line w80"></div>
+              <div class="tpl-line w60"></div>
+              <div class="tpl-line w70"></div>
             </div>
-            <button class="action-btn btn-purple" style="margin:0; padding: 0.6rem 1.5rem;" onclick="window.print()">Export Profile</button>
+          </div>
         </div>
-    </header>
-
-    <div class="architect-layout">
-        <div class="sidebar">
-            <div class="section-title">Structure Nodes</div>
-            <button class="node-btn">Professional Experience</button>
-            <button class="node-btn">Academic Pedigree</button>
-            <button class="node-btn">Technical Stack</button>
-            <button class="node-btn">Executive Summary</button>
-
-            <div class="section-title" style="margin-top: 2rem;">AI Insights</div>
-            <div style="font-size: 0.85rem; color: var(--text-muted); border: 1px dashed var(--border); padding: 1rem; border-radius: 10px;">
-                "Spearheaded integration of AI analytics, reducing manual reporting by 40%..."
+        <!-- Template 2 — vivid blue -->
+        <div class="tpl" onclick="setTemplate(this,1)" title="Modern Blue">
+          <div class="tpl-line" style="background:#1060C0;height:4px;margin-bottom:3px"></div>
+          <div class="tpl-line w90"></div>
+          <div class="tpl-line w70"></div>
+          <div class="tpl-line accent"></div>
+          <div class="tpl-line w80"></div>
+        </div>
+        <!-- Template 3 — elegant olive -->
+        <div class="tpl" onclick="setTemplate(this,2)" title="Elegant Olive">
+          <div class="tpl-2col">
+            <div class="tpl-left" style="background:#4A5240;border-radius:1px"></div>
+            <div class="tpl-right">
+              <div class="tpl-line" style="background:#D4AF37;height:3px"></div>
+              <div class="tpl-line w80"></div>
+              <div class="tpl-line w60"></div>
             </div>
+          </div>
         </div>
-
-        <div class="canvas-area" id="canvas">
-            <svg id="connection-canvas"></svg>
-            
-            <div class="floating-node" style="top: 15%; left: 5%;">Experience</div>
-            <div class="floating-node" style="top: 45%; left: 3%;">Education</div>
-            <div class="floating-node" style="top: 75%; left: 8%;">Skills</div>
-            <div class="floating-node" style="top: 25%; right: 5%;">Pillars</div>
-
-            <div class="resume-preview" id="resume">
-                <h1 id="prev-name" style="font-family: 'Playfair Display'; font-size: 2.5rem; text-align: center; margin-bottom: 0.5rem;">JOHN DOE</h1>
-                <p id="prev-title" style="text-align: center; text-transform: uppercase; letter-spacing: 2px; color: #64748b; margin-bottom: 2rem;">Software Architect</p>
-                
-                <div style="font-size: 0.9rem; line-height: 1.6;">
-                    <h3 style="border-bottom: 2px solid #e2e8f0; margin-bottom: 1rem;">EXPERIENCE</h3>
-                    <p><strong>Lead Developer</strong> | Tech Global</p>
-                    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
-                        <li>Developed AI-driven career tools for global users.</li>
-                        <li>Reduced deployment time by 60% using Docker.</li>
-                    </ul>
-
-                    <h3 style="border-bottom: 2px solid #e2e8f0; margin-bottom: 1rem;">SKILLS</h3>
-                    <p>Python, JavaScript, AI/ML, Cloud Architecture</p>
-                </div>
+        <!-- Template 4 — teal single col -->
+        <div class="tpl" onclick="setTemplate(this,3)" title="Clean Teal">
+          <div class="tpl-line" style="background:#00897B;height:5px;margin-bottom:3px"></div>
+          <div class="tpl-line w90"></div>
+          <div class="tpl-line w75"></div>
+          <div class="tpl-line" style="background:#00897B;height:2px;margin-top:2px"></div>
+          <div class="tpl-line w60"></div>
+        </div>
+        <!-- Template 5 — corporate gray -->
+        <div class="tpl" onclick="setTemplate(this,4)" title="Corporate Gray">
+          <div class="tpl-2col">
+            <div class="tpl-left" style="background:#2C3E50;border-radius:1px"></div>
+            <div class="tpl-right">
+              <div class="tpl-line" style="background:#2980B9;height:3px"></div>
+              <div class="tpl-line w80"></div>
+              <div class="tpl-line w65"></div>
             </div>
+          </div>
         </div>
-
-        <div class="sidebar sidebar-right">
-            <div class="section-title">Design Engine</div>
-            <label style="font-size: 0.8rem; color: var(--text-muted);">Template Style</label>
-            <select style="width: 100%; padding: 0.8rem; background: #0f172a; color: white; border: 1px solid var(--border); border-radius: 8px; margin-top: 0.5rem;">
-                <option>Executive — Midnight Gold</option>
-                <option>Modern — Professional Blue</option>
-            </select>
-
-            <div class="section-title" style="margin-top: 3rem;">Pipeline</div>
-            <button class="action-btn btn-blue">⬇ AI Smart Inject (.docx)</button>
-            <button class="action-btn" style="background: #334155; color: white;">📄 Export ATS Standard</button>
-            
-            <button class="action-btn btn-purple" style="margin-top: 5rem;">🔄 Complete AI Rebuild</button>
+        <!-- Template 6 placeholder -->
+        <div class="tpl" onclick="setTemplate(this,0)" title="Minimalist">
+          <div class="tpl-line accent w50"></div>
+          <div class="tpl-line w90"></div>
+          <div class="tpl-line w80"></div>
+          <div class="tpl-line w70"></div>
+          <div class="tpl-line w60"></div>
         </div>
+      </div>
     </div>
 
-    <script>
-        window.addEventListener('load', () => {
-            const params = new URLSearchParams(window.location.search);
-            const ats = params.get('ats') || '75';
-            const name = params.get('name') || 'Your Name';
-            const title = params.get('title') || 'Professional Title';
+    <div class="sb-section">
+      <div class="sb-title">Sections</div>
+      <div class="section-links">
+        <div class="sec-link active" onclick="selectSection(this,'experience')">
+          <div class="sec-dot"></div>Experience
+        </div>
+        <div class="sec-link" onclick="selectSection(this,'education')">
+          <div class="sec-dot"></div>Education
+        </div>
+        <div class="sec-link" onclick="selectSection(this,'skills')">
+          <div class="sec-dot"></div>Skills
+        </div>
+        <div class="sec-link" onclick="selectSection(this,'summary')">
+          <div class="sec-dot"></div>Summary
+        </div>
+        <div class="sec-link" onclick="selectSection(this,'certs')">
+          <div class="sec-dot"></div>Certifications
+        </div>
+        <div class="sec-link" onclick="selectSection(this,'langs')">
+          <div class="sec-dot"></div>Languages
+        </div>
+      </div>
+    </div>
 
-            document.getElementById('nav-ats').innerText = `ATS: ${ats}%`;
-            document.getElementById('prev-name').innerText = name.toUpperCase();
-            document.getElementById('prev-title').innerText = title.toUpperCase();
-        });
-    </script>
+    <div class="ai-panel">
+      <div class="ai-title">
+        AI Bullets
+        <span class="ai-plus">+</span>
+      </div>
+      <div class="ai-bullet">
+        <div class="ai-dot"></div>
+        <div class="ai-text">Led cross-functional team to deliver…</div>
+      </div>
+      <div class="ai-bullet">
+        <div class="ai-dot"></div>
+        <div class="ai-text">Reduced processing time by 40% via…</div>
+      </div>
+      <div class="ai-bullet">
+        <div class="ai-dot"></div>
+        <div class="ai-text">Managed delivery of 3 concurrent…</div>
+      </div>
+      <div class="ai-bullet">
+        <div class="ai-dot"></div>
+        <div class="ai-text">Increased NPS score from 62 to 84…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CANVAS -->
+  <div class="canvas" id="canvas">
+    <div class="canvas-bg"></div>
+    <div class="canvas-grid"></div>
+
+    <!-- SVG connection lines -->
+    <svg class="connections" id="connSvg" viewBox="0 0 800 550" preserveAspectRatio="xMidYMid meet">
+      <!-- Paths drawn by JS -->
+    </svg>
+
+    <!-- LEFT NODES -->
+    <!-- Work Experience (coral/red) -->
+    <div class="node" style="left:13%;top:22%" id="n-we">
+      <div class="node-circle" style="width:68px;height:68px;background:#DC2626;box-shadow:0 0 24px rgba(220,38,38,.35)">
+        <div><div>Work</div><div>Exp.</div></div>
+      </div>
+      <div class="node-label">Work history</div>
+    </div>
+
+    <!-- Work History (blue) -->
+    <div class="node" style="left:11%;top:52%" id="n-wh">
+      <div class="node-circle" style="width:60px;height:60px;background:#2563EB;box-shadow:0 0 24px rgba(37,99,235,.3)">
+        <div><div>Work</div><div>Hist.</div></div>
+      </div>
+      <div class="node-label">Education</div>
+    </div>
+
+    <!-- Attribute Pillars (teal) -->
+    <div class="node" style="left:13%;top:82%" id="n-ap">
+      <div class="node-circle" style="width:68px;height:68px;background:#0D9488;box-shadow:0 0 24px rgba(13,148,136,.3)">
+        <div><div>Attr.</div><div>Pillars</div></div>
+      </div>
+      <div class="node-label">Attribute Pillars</div>
+    </div>
+
+    <!-- RIGHT NODES -->
+    <!-- Education (amber) -->
+    <div class="node" style="right:13%;top:14%" id="n-edu">
+      <div class="node-circle" style="width:64px;height:64px;background:#D97706;box-shadow:0 0 24px rgba(217,119,6,.3)">
+        <div>Education</div>
+      </div>
+      <div class="node-label">Portfolio</div>
+    </div>
+
+    <!-- Skills (violet) -->
+    <div class="node" style="right:10%;top:47%" id="n-sk">
+      <div class="node-circle" style="width:68px;height:68px;background:#7C3AED;box-shadow:0 0 24px rgba(124,58,237,.35)">
+        <div>Skills</div>
+      </div>
+      <div class="node-label">Skills</div>
+    </div>
+
+    <!-- Portfolio (emerald) -->
+    <div class="node" style="right:13%;top:80%" id="n-port">
+      <div class="node-circle" style="width:64px;height:64px;background:#059669;box-shadow:0 0 24px rgba(5,150,105,.3)">
+        <div><div>Portfolio</div><div>Projects</div></div>
+      </div>
+      <div class="node-label">AI suggestions</div>
+    </div>
+
+    <!-- SKILL GAP BADGE -->
+    <div class="canvas-tag alert" style="right:calc(13% + 80px);top:8%">
+      <div class="alert-head">⚠ Skill gap alert</div>
+      <div style="font-size:10px;line-height:1.4;color:#94a3b8;">Add certifications to<br>boost your ATS score.</div>
+    </div>
+
+    <!-- CENTRAL RESUME CARD -->
+    <div class="resume-card-wrap">
+      <div class="resume-card">
+        <div class="rc-header">
+          <div class="rc-photo-row">
+            <div class="rc-photo" id="rcPhoto">GK</div>
+            <div>
+              <div class="rc-name" id="rcName">ARIA KHAN</div>
+              <div class="rc-title-badge" id="rcTitle">PRODUCT DESIGNER</div>
+            </div>
+          </div>
+          <div class="rc-divider"></div>
+        </div>
+        <div class="rc-body">
+          <div class="rc-col-l">
+            <div class="rc-line ac w100"></div>
+            <div class="rc-line lt w90" style="margin-top:3px"></div>
+            <div class="rc-line lt w80"></div>
+            <div class="rc-line lt w70"></div>
+            <div class="rc-line lt w60"></div>
+            <div class="rc-line ac w100" style="margin-top:5px"></div>
+            <div class="rc-line lt w90" style="margin-top:3px"></div>
+            <div class="rc-line lt w80"></div>
+            <div class="rc-line lt w75"></div>
+            <div class="rc-line lt w50"></div>
+            <div class="rc-line ac w100" style="margin-top:5px"></div>
+            <div class="rc-line lt w90" style="margin-top:3px"></div>
+            <div class="rc-line lt w60"></div>
+          </div>
+          <div class="rc-col-r">
+            <div class="rc-line ac w100"></div>
+            <div class="rc-line dk w90" style="margin-top:3px"></div>
+            <div class="rc-line lt w100"></div>
+            <div class="rc-line lt w80"></div>
+            <div class="rc-line lt w90"></div>
+            <div class="rc-line lt w75" style="margin-bottom:5px"></div>
+            <div class="rc-line ac w100"></div>
+            <div class="rc-line dk w85" style="margin-top:3px"></div>
+            <div class="rc-line lt w100"></div>
+            <div class="rc-line lt w80"></div>
+            <div class="rc-line lt w90" style="margin-bottom:5px"></div>
+            <div class="rc-line ac w100"></div>
+            <div class="rc-line dk w80" style="margin-top:3px"></div>
+            <div class="rc-line lt w65"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Canvas hints -->
+    <div class="canvas-hint">
+      <span>Drag nodes to rearrange</span>
+      <span class="sep">·</span>
+      <span>Click nodes to edit sections</span>
+      <span class="sep">·</span>
+      <span>A4</span>
+    </div>
+    <div class="canvas-nav">
+      <button class="cnav-btn">‹ Back</button>
+      <button class="cnav-btn">›</button>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="rp-header">
+      <span class="rp-title" id="rpTitle">Experience</span>
+      <button class="rp-close">×</button>
+    </div>
+
+    <div class="rp-section">
+      <div class="rp-label">Layout</div>
+      <div class="toggle-row">
+        <button class="tgl-btn active" onclick="toggleLayout(this)">Timeline</button>
+        <button class="tgl-btn" onclick="toggleLayout(this)">List</button>
+        <button class="tgl-btn" onclick="toggleLayout(this)">Compact</button>
+      </div>
+    </div>
+
+    <div class="rp-section">
+      <div class="rp-label">Style</div>
+      <select class="rp-select" id="visualTemplate" onchange="onTemplateChange()">
+        <option value="executive">Executive — Navy</option>
+        <option value="modern_blue">Modern Blue</option>
+        <option value="elegant">Elegant — Olive</option>
+        <option value="clean_teal">Clean Teal</option>
+        <option value="corporate">Corporate Gray</option>
+      </select>
+    </div>
+
+    <div class="rp-section">
+      <div class="rp-label">Spacing</div>
+      <div class="rp-slider">
+        <button class="slider-sym">−</button>
+        <div class="slider-track">
+          <div class="slider-fill"></div>
+          <div class="slider-thumb"></div>
+        </div>
+        <button class="slider-sym">+</button>
+      </div>
+    </div>
+
+    <div class="rp-section">
+      <div class="rp-toggle">
+        <span style="font-size:11px;font-weight:600;color:var(--text)">AI Optimize Bullets</span>
+        <div class="toggle-switch"><div class="toggle-knob"></div></div>
+      </div>
+      <div style="font-size:10px;color:var(--muted);margin-bottom:7px;line-height:1.5">
+        Groq AI rewrites bullets for ATS impact.
+      </div>
+      <div class="bullet-list">
+        <div class="bullet-item"><div class="bi-dot"></div><div class="bi-text">Led cross-functional project…</div></div>
+        <div class="bullet-item"><div class="bi-dot"></div><div class="bi-text">Reduced SLA breaches by 95%…</div></div>
+        <div class="bullet-item"><div class="bi-dot"></div><div class="bi-text">Spearheaded migration to…</div></div>
+        <div class="bullet-item"><div class="bi-dot"></div><div class="bi-text">Increased delivery speed…</div></div>
+      </div>
+    </div>
+
+    <div style="padding:8px 10px;border-bottom:0.5px solid var(--border)">
+      <button class="inject-btn" id="injectBtn">⬇ AI Smart Inject</button>
+      <div class="export-row">
+        <button class="ex-btn" id="atsExportBtn">ATS Export</button>
+        <button class="ex-btn primary" id="pdfBtn">PDF</button>
+        <button class="ex-btn" id="docxBtn">DOCX</button>
+      </div>
+    </div>
+
+    <div class="rebuild-banner" id="rebuildBanner">
+      <div class="rb-icon">🔄</div>
+      <div class="rb-head">Complete AI Rebuild</div>
+      <div class="rb-sub">Groq reads your entire resume and rewrites every section with ATS language.</div>
+    </div>
+
+    <div class="rp-footer">
+      <div class="rp-avatar">GK</div>
+      <span class="rp-user">GK Profile</span>
+      <span class="rp-chevron">▾</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── State ──
+let zoom = 100;
+const zoomEl = document.getElementById('zoomVal');
+document.getElementById('zoomIn').onclick  = () => { zoom = Math.min(200, zoom + 10); zoomEl.textContent = zoom + '%' };
+document.getElementById('zoomOut').onclick = () => { zoom = Math.max(50, zoom - 10);  zoomEl.textContent = zoom + '%' };
+
+// ── Template picker ──
+function setTemplate(el, idx) {
+  document.querySelectorAll('.tpl').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const sel = document.getElementById('visualTemplate');
+  const opts = ['executive','modern_blue','elegant','clean_teal','corporate','executive'];
+  sel.value = opts[idx] || 'executive';
+}
+function onTemplateChange() {}
+
+// ── Section picker ──
+function selectSection(el, section) {
+  document.querySelectorAll('.sec-link').forEach(l => l.classList.remove('active'));
+  el.classList.add('active');
+  const sectionNames = { experience:'Experience', education:'Education', skills:'Skills', summary:'Summary', certs:'Certifications', langs:'Languages' };
+  document.getElementById('rpTitle').textContent = sectionNames[section] || section;
+}
+
+// ── Layout toggle ──
+function toggleLayout(el) {
+  el.closest('.toggle-row').querySelectorAll('.tgl-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ── Draw SVG connections from nodes to center ──
+function drawConnections() {
+  const canvas = document.getElementById('canvas');
+  const svg    = document.getElementById('connSvg');
+  const cw     = canvas.offsetWidth;
+  const ch     = canvas.offsetHeight;
+  const cx     = cw / 2;
+  const cy     = ch / 2;
+
+  const nodes = [
+    { id:'n-we',   color:'#DC2626' },
+    { id:'n-wh',   color:'#2563EB' },
+    { id:'n-ap',   color:'#0D9488' },
+    { id:'n-edu',  color:'#D97706' },
+    { id:'n-sk',   color:'#7C3AED' },
+    { id:'n-port', color:'#059669' },
+  ];
+
+  svg.setAttribute('viewBox', `0 0 ${cw} ${ch}`);
+  svg.innerHTML = '<defs><filter id="glow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
+
+  nodes.forEach(n => {
+    const el = document.getElementById(n.id);
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const cr = canvas.getBoundingClientRect();
+    const nx = r.left + r.width  / 2 - cr.left;
+    const ny = r.top  + r.height / 2 - cr.top;
+
+    const mx = (nx + cx) / 2;
+    const my = (ny + cy) / 2;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', `M${nx},${ny} Q${mx},${my} ${cx},${cy}`);
+    path.setAttribute('stroke', n.color);
+    path.setAttribute('stroke-width', '1');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('opacity', '0.45');
+    svg.appendChild(path);
+  });
+}
+
+// ── Resume card live update from URL params ──
+function initFromParams() {
+  const p = new URLSearchParams(window.location.search);
+  if (p.get('name')) {
+    document.getElementById('rcName').textContent   = (p.get('name') || 'YOUR NAME').toUpperCase();
+    document.getElementById('rcTitle').textContent  = (p.get('title') || 'PROFESSIONAL').toUpperCase();
+    document.getElementById('rcPhoto').textContent  = (p.get('name') || 'GK').split(' ').map(x=>x[0]).join('').toUpperCase().slice(0,2);
+    document.getElementById('atsPct').textContent   = (p.get('ats') || '82') + '%';
+    const ats = parseInt(p.get('ats') || 82);
+    document.getElementById('atsTrack').style.width = ats + '%';
+  }
+}
+
+// ── Upload / Inject / Download buttons ──
+function getApiBase() {
+  return 'https://resume-hub-3eeb.onrender.com';
+}
+
+document.getElementById('injectBtn').onclick = () => {
+  const fi = window._uploadedFile;
+  if (!fi) { alert('Upload a resume on the landing page first.'); return; }
+  alert('AI Smart Inject will run — go back to the hub to upload and use Magic Polish first.');
+};
+
+document.getElementById('dlPdfBtn').onclick = () => {
+  triggerDownload('pdf');
+};
+document.getElementById('dlDocxBtn').onclick = () => {
+  triggerDownload('docx');
+};
+document.getElementById('dlMainBtn').onclick = () => {
+  triggerDownload('pdf');
+};
+document.getElementById('pdfBtn').onclick = () => {
+  triggerDownload('pdf');
+};
+document.getElementById('docxBtn').onclick = () => {
+  triggerDownload('docx');
+};
+document.getElementById('atsExportBtn').onclick = () => {
+  triggerDownload('pdf');
+};
+document.getElementById('rebuildBanner').onclick = () => {
+  window.location.href = 'index.html#rebuild';
+};
+
+function triggerDownload(format) {
+  const fi = window._uploadedFile;
+  if (!fi) {
+    window.location.href = 'index.html';
+    return;
+  }
+  const form = new FormData();
+  form.append('resume', fi);
+  form.append('format', format);
+  form.append('template', document.getElementById('visualTemplate').value);
+  form.append('updates', window._pendingUpdate || '');
+  form.append('heading',  window._pendingHeading || '');
+  const btn = document.getElementById('dlMainBtn');
+  btn.textContent = 'Downloading...';
+  fetch(`${getApiBase()}/upgrade`, { method:'POST', body:form })
+    .then(r => r.ok ? r.blob() : Promise.reject())
+    .then(blob => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `Optimized_Resume.${format}`;
+      a.click();
+      btn.textContent = 'Download';
+    })
+    .catch(() => {
+      btn.textContent = 'Download';
+      alert('Server not reachable. Make sure your backend is running.');
+    });
+}
+
+// ── Back button ──
+function goBack() { window.location.href = 'index.html'; }
+
+// ── Init ──
+window.addEventListener('load', () => {
+  drawConnections();
+  initFromParams();
+});
+window.addEventListener('resize', drawConnections);
+</script>
 </body>
 </html>
