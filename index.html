@@ -3,165 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume Hub - AI Career Suite</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Resume Hub | AI Career Suite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
+        /* ORIGINAL DEEP NAVY & GOLD PALETTE */
         :root {
-            --bg-dark: #0f172a;
-            --panel-bg: rgba(30, 41, 59, 0.7);
+            --bg-dark: #020617;
+            --panel-bg: rgba(15, 23, 42, 0.8);
             --primary: #3b82f6;
-            --gold: #f59e0b;
+            --accent-gold: #f59e0b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --success: #10b981;
-            --error: #ef4444;
+            --border: rgba(245, 158, 11, 0.2);
         }
+
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
         body { 
             background: linear-gradient(135deg, #020617, #0f172a); 
             color: var(--text-main); 
             min-height: 100vh; 
             padding: 2rem; 
-            line-height: 1.6;
         }
         
-        .container { max-width: 1100px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 2.5rem; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 3rem; }
         header h1 { 
             font-size: 3.5rem; 
             font-weight: 800; 
-            background: linear-gradient(to right, #60a5fa, #a78bfa); 
-            -webkit-background-clip: text; 
-            color: transparent; 
-            margin-bottom: 0.5rem;
+            color: var(--accent-gold);
+            text-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
         }
         
         .glass-panel { 
             background: var(--panel-bg); 
-            border: 1px solid rgba(255,255,255,0.1); 
+            border: 1px solid var(--border); 
             border-radius: 24px; 
             padding: 3rem; 
             backdrop-filter: blur(12px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
         }
         
-        /* ATS Meter Section */
+        /* ATS METER - ORIGINAL GOLD STYLE */
         .ats-container { 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
-            background: rgba(15, 23, 42, 0.8); 
+            background: rgba(0, 0, 0, 0.4); 
             padding: 1.5rem 2.5rem; 
             border-radius: 18px; 
             margin-bottom: 2.5rem; 
-            border-left: 6px solid var(--gold);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+            border-left: 6px solid var(--accent-gold);
         }
-        .ats-info h3 { color: var(--gold); font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1.5px; }
-        .ats-score { font-size: 3rem; font-weight: 800; color: var(--success); text-shadow: 0 0 25px rgba(16, 185, 129, 0.4); }
+        .ats-info h3 { color: var(--accent-gold); text-transform: uppercase; letter-spacing: 2px; }
+        .ats-score { font-size: 3rem; font-weight: 800; color: var(--success); }
         
-        /* Form Styling */
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1.5rem; }
-        .form-group { margin-bottom: 1.5rem; }
+        /* FORM INPUTS */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
         .full-width { grid-column: span 2; }
+        label { display: block; margin-bottom: 0.8rem; font-weight: 600; color: var(--text-main); }
         
-        label { display: block; margin-bottom: 0.8rem; font-weight: 600; color: #e2e8f0; font-size: 1rem; }
         input[type="text"], select, textarea { 
-            width: 100%; 
-            padding: 1rem; 
-            border-radius: 12px; 
-            background: rgba(15, 23, 42, 0.6); 
-            border: 1px solid rgba(255,255,255,0.1); 
-            color: white; 
-            font-size: 1rem;
-            transition: all 0.3s ease;
+            width: 100%; padding: 1rem; border-radius: 12px; 
+            background: rgba(2, 6, 23, 0.6); border: 1px solid var(--border); 
+            color: white; font-size: 1rem;
         }
-        input:focus, select:focus, textarea:focus { 
-            outline: none; 
-            border-color: var(--primary); 
-            background: rgba(15, 23, 42, 0.9);
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-        }
-        
+
         .file-upload-wrapper {
-            position: relative;
-            border: 2px dashed rgba(255,255,255,0.2);
+            border: 2px dashed var(--border);
             border-radius: 14px;
             padding: 2.5rem;
             text-align: center;
             cursor: pointer;
             transition: 0.3s;
-            background: rgba(255,255,255,0.02);
         }
-        .file-upload-wrapper:hover { border-color: var(--primary); background: rgba(59, 130, 246, 0.05); }
-        input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+        .file-upload-wrapper:hover { border-color: var(--accent-gold); background: rgba(245, 158, 11, 0.05); }
 
-        /* Buttons */
-        .btn-row { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-top: 2.5rem; }
+        /* BUTTONS */
+        .btn-row { display: flex; gap: 1.2rem; margin-top: 2.5rem; }
         .btn { 
-            padding: 1.2rem 1.5rem; 
-            border-radius: 12px; 
-            font-weight: 700; 
-            cursor: pointer; 
-            border: none; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 0.8rem; 
-            flex: 1;
-            font-size: 1rem;
+            padding: 1.2rem; border-radius: 12px; font-weight: 700; cursor: pointer; 
+            border: none; transition: 0.3s; flex: 1; font-size: 1rem;
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
         }
-        .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
-        .btn:active { transform: translateY(0); }
-        
-        .btn-primary { background: linear-gradient(135deg, #2563eb, #4f46e5); color: white; box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4); }
-        .btn-secondary { background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.1); }
+        .btn-primary { background: var(--accent-gold); color: #020617; }
+        .btn-secondary { background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border); }
         .btn-architect { 
             background: linear-gradient(135deg, #7c3aed, #db2777); 
             color: white; 
             position: relative;
-            box-shadow: 0 10px 20px -3px rgba(124, 58, 237, 0.4);
         }
         .btn-architect::after { 
-            content: 'EDIT'; 
-            position: absolute; 
-            top: -12px; 
-            right: -10px; 
-            background: var(--success); 
-            font-size: 0.7rem; 
-            padding: 4px 10px; 
-            border-radius: 20px; 
-            font-weight: 800;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            letter-spacing: 0.5px;
+            content: 'EDIT'; position: absolute; top: -10px; right: -10px; 
+            background: var(--success); font-size: 0.7rem; padding: 3px 8px; border-radius: 20px;
         }
 
-        .status-box {
-            margin-top: 1.5rem;
-            padding: 1.2rem;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 1rem;
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Rebuild Modal Section */
-        .rebuild-section {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
-        @media (max-width: 768px) {
-            .form-grid { grid-template-columns: 1fr; }
-            .full-width { grid-column: span 1; }
-            .btn-row { flex-direction: column; }
-            header h1 { font-size: 2.5rem; }
-        }
+        .status-box { margin-top: 1.5rem; padding: 1.2rem; border-radius: 12px; text-align: center; display: none; border: 1px solid transparent; }
+        .rebuild-section { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
     </style>
 </head>
 <body>
@@ -169,220 +107,29 @@
 <div class="container">
     <header>
         <h1>Resume Hub</h1>
-        <p style="color: var(--text-muted); font-size: 1.1rem;">The Professional AI Architect for Modern Careers</p>
+        <p style="color: var(--text-muted);">AI-Powered Career Optimization</p>
     </header>
 
     <div class="glass-panel">
         <div class="ats-container">
             <div class="ats-info">
-                <h3 id="ats-label">ATS Optimization Score</h3>
-                <p id="scoreTag" style="font-size: 0.9rem; color: var(--text-muted); margin-top: 4px;">Upload your file to begin analysis</p>
+                <h3>ATS Score</h3>
+                <p id="scoreTag" style="font-size: 0.85rem; color: var(--text-muted);">Analysis pending...</p>
             </div>
             <div class="ats-score" id="scoreText">0%</div>
         </div>
 
         <form id="resumeForm">
             <div class="form-grid">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="inp-name" placeholder="Johnathan Doe">
-                </div>
-                <div class="form-group">
-                    <label>Target Framework</label>
+                <div class="form-group"><label>Name</label><input type="text" id="inp-name"></div>
+                <div class="form-group"><label>Template</label>
                     <select id="template">
-                        <option value="google">Standard Professional (Google Style)</option>
-                        <option value="apple">Creative Modern (Apple Style)</option>
-                        <option value="amazon">Leadership Focused (Amazon Style)</option>
-                        <option value="goldman">Conservative Global (Goldman Style)</option>
+                        <option value="google">Standard Professional</option>
+                        <option value="creative">Creative Modern</option>
                     </select>
                 </div>
                 <div class="form-group full-width">
-                    <label>Existing Document</label>
+                    <label>Resume File</label>
                     <div class="file-upload-wrapper">
-                        <span id="fileNameDisplay" style="color: var(--text-muted);">Drop .docx or .pdf here to analyze</span>
-                        <input type="file" id="resumeUpload" name="resume" accept=".docx,.pdf" onchange="handleFileSelect(this)">
-                    </div>
-                </div>
-                <div class="form-group full-width">
-                    <label>Add Recent Achievement (Smart Inject)</label>
-                    <textarea id="updates" rows="4" placeholder="e.g. 'I led a team of 5 to increase revenue by 20% using Python and SQL'"></textarea>
-                    <button type="button" class="btn" style="background: rgba(245, 158, 11, 0.15); color: var(--gold); border: 1px solid var(--gold); width: auto; margin-top: 15px; padding: 0.7rem 1.5rem;" onclick="magicPolish()">✨ AI Magic Polish & Classify</button>
-                </div>
-            </div>
-
-            <div id="statusBox" class="status-box"></div>
-
-            <div class="btn-row">
-                <button type="button" class="btn btn-primary" onclick="submitForm('docx')">⬇ Smart Inject (.docx)</button>
-                <button type="button" class="btn btn-secondary" onclick="submitForm('pdf')">📄 Export ATS (.pdf)</button>
-                <button type="button" class="btn btn-architect" onclick="openArchitect()">✏️ Career Architect</button>
-            </div>
-
-            <div class="rebuild-section">
-                <h3 style="margin-bottom: 1rem; font-family: 'Poppins';">Complete AI Rebuild</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Target a specific job description? Paste it below and let Groq AI rewrite your entire profile from scratch.</p>
-                <textarea id="jobDesc" placeholder="Paste target job description here..." style="margin-bottom: 1rem;"></textarea>
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <select id="rebuildFormat" style="width: 120px;">
-                        <option value="pdf">PDF</option>
-                        <option value="docx">DOCX</option>
-                    </select>
-                    <button type="button" class="btn" style="background: #7c3aed; color: white;" onclick="fullRebuild()">🚀 Start Full AI Rebuild</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
-<script>
-    const API_BASE = "https://html-site-4emx.onrender.com";
-    let chosenHeading = "EXPERIENCE";
-
-    function setStatus(msg, type) {
-        const box = document.getElementById('statusBox');
-        box.style.display = 'block';
-        box.innerText = msg;
-        box.style.background = type === 'error' ? 'rgba(239, 68, 68, 0.15)' : (type === 'success' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(59, 130, 246, 0.15)');
-        box.style.color = type === 'error' ? 'var(--error)' : (type === 'success' ? 'var(--success)' : 'var(--primary)');
-        box.style.border = `1px solid ${box.style.color}`;
-    }
-
-    function handleFileSelect(input) {
-        const name = input.files[0]?.name || "No file chosen";
-        document.getElementById('fileNameDisplay').innerText = `Attached: ${name}`;
-        document.getElementById('fileNameDisplay').style.color = "var(--success)";
-        updateScore();
-    }
-
-    function updateScore() {
-        let score = 0;
-        const nameVal = document.getElementById('inp-name').value;
-        const file = document.getElementById('resumeUpload').files.length;
-        const updates = document.getElementById('updates').value;
-
-        if(nameVal) score += 10;
-        if(file > 0) score += 40;
-        if(updates.length > 20) score += 20;
-        if(/\d+%/.test(updates) || /\$\d+/.test(updates)) score += 30; // Bonus for metrics
-        
-        const scoreEl = document.getElementById('scoreText');
-        scoreEl.innerText = score + '%';
-        scoreEl.style.color = score > 80 ? 'var(--success)' : (score > 40 ? 'var(--gold)' : 'var(--error)');
-        document.getElementById('scoreTag').innerText = score > 80 ? "Excellent metric density detected!" : (score > 40 ? "Good start, add more numbers/KPIs." : "Action required: upload file and add metrics.");
-    }
-
-    document.getElementById('inp-name').addEventListener('input', updateScore);
-    document.getElementById('updates').addEventListener('input', updateScore);
-
-    async function magicPolish() {
-        const text = document.getElementById('updates').value;
-        if(!text) return alert("Please enter an achievement to polish.");
-        
-        setStatus("✨ Groq AI is generating high-impact bullet points...", "info");
-        
-        try {
-            const res = await fetch(`${API_BASE}/polish`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({text: text})
-            });
-            const data = await res.json();
-            if(data.polished) {
-                document.getElementById('updates').value = data.polished;
-                chosenHeading = data.heading || "EXPERIENCE";
-                setStatus(`✅ Polish complete! Classified as: ${chosenHeading}`, "success");
-                updateScore();
-            }
-        } catch (e) {
-            setStatus("AI server is busy. Please try again in 10 seconds.", "error");
-        }
-    }
-
-    async function submitForm(format) {
-        const file = document.getElementById('resumeUpload').files[0];
-        if(!file) return alert("Please upload a resume first.");
-
-        const formData = new FormData();
-        formData.append('resume', file);
-        formData.append('updates', document.getElementById('updates').value);
-        formData.append('heading', chosenHeading);
-        formData.append('template', document.getElementById('template').value);
-        formData.append('format', format);
-
-        setStatus(`⚙️ Processing ${format.toUpperCase()} conversion...`, "info");
-
-        try {
-            const response = await fetch(`${API_BASE}/upgrade`, { method: 'POST', body: formData });
-            if(response.ok) {
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `Optimized_Resume.${format}`;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                setStatus("✅ Download successful!", "success");
-            } else {
-                throw new Error();
-            }
-        } catch (e) {
-            setStatus("Internal processing error. Ensure file is a valid .docx or .pdf.", "error");
-        }
-    }
-
-    // ORIGINAL FULL REBUILD LOGIC
-    async function fullRebuild() {
-        const file = document.getElementById('resumeUpload').files[0];
-        const jd = document.getElementById('jobDesc').value;
-        const fmt = document.getElementById('rebuildFormat').value;
-        
-        if(!file || !jd) return alert("Upload resume and paste job description first.");
-
-        setStatus("🚀 Full AI Rebuild initiated. Rewriting your entire profile...", "info");
-        const form = new FormData();
-        form.append('resume', file);
-        form.append('job_description', jd);
-        form.append('format', fmt);
-
-        try {
-            const res = await fetch(`${API_BASE}/rebuild`, { method: 'POST', body: form });
-            if (res.ok) {
-                const blob = await res.blob();
-                const a = document.createElement('a');
-                a.href = URL.createObjectURL(blob);
-                a.download = `Rebuilt_Resume.${fmt}`;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                setStatus("✅ Full Rebuild Complete! Downloading...", "success");
-            } else {
-                setStatus("Rebuild failed. Check server status.", "error");
-            }
-        } catch (e) {
-            setStatus("Network error during rebuild.", "error");
-        }
-    }
-
-    function openArchitect() {
-        const file = document.getElementById('resumeUpload').files[0];
-        const updates = document.getElementById('updates').value;
-        const name = document.getElementById('inp-name').value || 'User';
-        const ats = document.getElementById('scoreText').innerText.replace('%','');
-        
-        const params = new URLSearchParams({
-            ats, 
-            name,
-            title: document.getElementById('template').options[document.getElementById('template').selectedIndex].text
-        });
-
-        if (file) {
-            sessionStorage.setItem('resumeFileName', file.name);
-            sessionStorage.setItem('pendingUpdate', updates);
-        }
-        
-        window.location.href = 'career_architect.html?' + params.toString();
-    }
-</script>
-</body>
-</html>
+                        <span id="fileNameDisplay">Attach .docx or .pdf</span>
+                        <input type="file" id="resumeUpload" name="resume" accept=".docx,.pdf" style
