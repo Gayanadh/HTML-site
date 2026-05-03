@@ -2,780 +2,593 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GK | Career Architect</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Career Architect | Resume Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg0:#070B14;
-  --bg1:#0D1425;
-  --bg2:#111827;
-  --bg3:#1A2338;
-  --border:#1E2D40;
-  --border2:#2A3550;
-  --indigo:#6366F1;
-  --indigo-d:#4F46E5;
-  --indigo-l:#818CF8;
-  --text:#E2E8F0;
-  --muted:#64748B;
-  --dim:#334155;
-  --coral:#EF4444;
-  --teal:#0D9488;
-  --amber:#D97706;
-  --violet:#7C3AED;
-  --emerald:#059669;
-  --blue:#2563EB;
-  --panel:163px;
-  --sidebar:130px;
-  --toolbar:36px;
-  --header:38px;
+  --bg0:#070B14;--bg1:#0D1425;--bg2:#111827;--bg3:#1A2338;
+  --border:#1E2D40;--border2:#2A3550;
+  --indigo:#6366F1;--indigo-d:#4F46E5;--indigo-l:#818CF8;
+  --text:#E2E8F0;--muted:#64748B;--dim:#334155;
+  --coral:#EF4444;--teal:#0D9488;--amber:#D97706;
+  --violet:#7C3AED;--emerald:#059669;--blue:#2563EB;
+  --green:#10B981;--orange:#F59E0B;
+  --sb-w:220px;--rp-w:260px;--hdr:42px;--tb:38px;
 }
-body{
-  font-family:'Manrope',sans-serif;
-  background:var(--bg0);
-  color:var(--text);
-  height:100vh;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  font-size:13px;
-}
-button{font-family:'Manrope',sans-serif;cursor:pointer;border:none;outline:none}
+body{font-family:'Manrope',sans-serif;background:var(--bg0);color:var(--text);
+  height:100vh;overflow:hidden;display:flex;flex-direction:column;font-size:13px}
+button,input,select,textarea{font-family:'Manrope',sans-serif}
+button{cursor:pointer;border:none;outline:none}
+input,select,textarea{outline:none}
 
 /* ── HEADER ── */
-.header{
-  height:var(--header);
-  background:var(--bg2);
-  border-bottom:0.5px solid var(--border);
-  display:flex;
-  align-items:center;
-  padding:0 12px;
-  gap:8px;
-  flex-shrink:0;
-}
-.header-logo{
-  display:flex;align-items:center;gap:6px;
-  padding-right:12px;border-right:0.5px solid var(--border);
-  margin-right:4px;
-}
-.logo-mark{
-  width:22px;height:22px;border-radius:5px;
-  background:var(--indigo);
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:800;color:white;letter-spacing:-0.5px;
-}
-.logo-text{font-size:13px;font-weight:600;color:var(--text)}
-.logo-text span{color:var(--indigo-l)}
-.breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
-.breadcrumb .sep{color:var(--dim)}
-.breadcrumb .cur{color:var(--text);font-weight:500}
-.header-space{flex:1}
-.header-actions{display:flex;align-items:center;gap:6px}
-.h-btn{
-  background:var(--bg3);border:0.5px solid var(--border2);
-  color:var(--muted);border-radius:5px;padding:4px 10px;
-  font-size:11px;font-family:'Manrope',sans-serif;
-}
+.hdr{height:var(--hdr);background:var(--bg2);border-bottom:0.5px solid var(--border);
+  display:flex;align-items:center;padding:0 10px;gap:6px;flex-shrink:0;min-width:0}
+.hdr-logo{display:flex;align-items:center;gap:6px;padding-right:10px;
+  border-right:0.5px solid var(--border);margin-right:4px;flex-shrink:0}
+.logo-mark{width:24px;height:24px;border-radius:5px;background:var(--indigo);
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:white}
+.logo-name{font-size:13px;font-weight:700;color:var(--text)}
+.breadcrumb{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px;flex-shrink:0}
+.breadcrumb .cur{color:var(--text);font-weight:600}
+.hdr-space{flex:1;min-width:0}
+.hdr-btns{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.h-btn{background:var(--bg3);border:0.5px solid var(--border2);color:var(--muted);
+  border-radius:5px;padding:4px 9px;font-size:11px;white-space:nowrap}
 .h-btn:hover{color:var(--text);border-color:var(--indigo)}
-.h-btn-primary{
-  background:var(--indigo);color:white;
-  border:none;border-radius:5px;padding:4px 12px;
-  font-size:11px;font-weight:600;font-family:'Manrope',sans-serif;
-  display:flex;align-items:center;gap:5px;
-}
-.h-btn-primary:hover{background:var(--indigo-d)}
-.dl-split{
-  display:flex;align-items:center;
-  background:var(--indigo);border-radius:5px;overflow:hidden;
-}
-.dl-main{
-  background:none;border:none;color:white;
-  font-size:11px;font-weight:600;font-family:'Manrope',sans-serif;
-  padding:5px 10px;cursor:pointer;
-}
-.dl-sep{width:0.5px;height:22px;background:var(--indigo-d)}
-.dl-type{
-  background:none;border:none;color:var(--indigo-l);
-  font-size:10px;font-family:'JetBrains Mono',monospace;
-  font-weight:500;padding:5px 8px;cursor:pointer;letter-spacing:.04em;
-}
-.dl-type:hover{color:white}
-.avatar{
-  width:24px;height:24px;border-radius:50%;
-  background:var(--bg3);border:1px solid var(--indigo);
-  display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:700;color:var(--indigo-l);
-}
+.dl-group{display:flex;align-items:center;background:var(--indigo);border-radius:5px;overflow:hidden}
+.dl-main{background:none;color:white;font-size:11px;font-weight:600;padding:5px 10px}
+.dl-divider{width:0.5px;height:22px;background:var(--indigo-d)}
+.dl-fmt{background:none;color:var(--indigo-l);font-size:10px;padding:5px 8px;
+  font-family:'JetBrains Mono',monospace;font-weight:500}
+.dl-fmt:hover{color:white}
+.hdr-avatar{width:26px;height:26px;border-radius:50%;background:var(--bg3);
+  border:1.5px solid var(--indigo);display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;color:var(--indigo-l);flex-shrink:0}
 
 /* ── TOOLBAR ── */
-.toolbar{
-  height:var(--toolbar);
-  background:var(--bg2);
-  border-bottom:0.5px solid var(--border);
-  display:flex;align-items:center;
-  padding:0 10px;gap:3px;
-  flex-shrink:0;
-}
-.t-group{display:flex;align-items:center;gap:2px;padding:0 6px;border-right:0.5px solid var(--border)}
-.t-group:last-child{border-right:none}
-.t-btn{
-  width:26px;height:26px;border-radius:5px;background:none;
+.toolbar{height:var(--tb);background:var(--bg2);border-bottom:0.5px solid var(--border);
+  display:flex;align-items:center;padding:0 10px;gap:4px;flex-shrink:0;overflow-x:auto}
+.t-grp{display:flex;align-items:center;gap:2px;padding:0 6px;
+  border-right:0.5px solid var(--border);flex-shrink:0}
+.t-grp:last-child{border-right:none}
+.t-btn{width:28px;height:28px;border-radius:5px;background:none;
   display:flex;align-items:center;justify-content:center;
-  color:var(--muted);transition:all .15s;border:0.5px solid transparent;
-}
-.t-btn:hover{background:var(--bg3);color:var(--text);border-color:var(--border2)}
-.t-btn.active{background:var(--bg3);color:var(--indigo-l);border-color:var(--border2)}
-.t-btn svg{width:14px;height:14px}
-.t-sep{width:0.5px;height:18px;background:var(--border);margin:0 4px}
-.zoom-ctrl{
-  display:flex;align-items:center;gap:6px;
-  padding:0 8px;
-  border:0.5px solid var(--border2);border-radius:5px;
-  background:var(--bg3);height:26px;
-}
-.zoom-ctrl span{
-  font-size:11px;color:var(--muted);
-  font-family:'JetBrains Mono',monospace;
-  min-width:30px;text-align:center;
-}
-.zoom-btn{
-  background:none;border:none;color:var(--muted);
-  font-size:14px;cursor:pointer;line-height:1;padding:0 2px;
-}
-.zoom-btn:hover{color:var(--text)}
-.ats-chip{
-  display:flex;align-items:center;gap:6px;
-  background:var(--bg3);border:0.5px solid var(--border2);
-  border-radius:5px;padding:3px 10px;height:26px;margin-left:6px;
-}
-.ats-chip-label{font-size:10px;color:var(--muted);font-weight:500;letter-spacing:.06em}
-.ats-track{width:60px;height:4px;background:var(--bg1);border-radius:2px;overflow:hidden}
-.ats-fill{height:100%;background:linear-gradient(90deg,#F59E0B,#10B981);border-radius:2px;width:82%}
-.ats-pct{font-size:11px;color:#10B981;font-weight:700;font-family:'JetBrains Mono',monospace}
+  color:var(--muted);transition:all .15s;border:0.5px solid transparent;font-size:14px}
+.t-btn:hover,.t-btn.on{background:var(--bg3);color:var(--text);border-color:var(--border2)}
+.zoom-wrap{display:flex;align-items:center;gap:5px;background:var(--bg3);
+  border:0.5px solid var(--border2);border-radius:5px;padding:3px 8px;height:28px;flex-shrink:0}
+.zoom-wrap span{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;min-width:32px;text-align:center}
+.z-btn{background:none;color:var(--muted);font-size:14px;padding:0 2px}
+.z-btn:hover{color:var(--text)}
+.ats-wrap{display:flex;align-items:center;gap:7px;background:var(--bg3);
+  border:0.5px solid var(--border2);border-radius:5px;padding:3px 10px;height:28px;flex-shrink:0}
+.ats-lbl{font-size:10px;color:var(--muted);font-weight:600;letter-spacing:.06em}
+.ats-bar{width:70px;height:4px;background:var(--bg1);border-radius:2px;overflow:hidden}
+.ats-fill{height:100%;background:linear-gradient(90deg,#F59E0B,#10B981);border-radius:2px;transition:width .5s}
+.ats-num{font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;color:#10B981}
 
-/* ── MAIN LAYOUT ── */
-.app-body{flex:1;display:flex;overflow:hidden;min-height:0}
+/* ── BODY ── */
+.body{flex:1;display:flex;overflow:hidden;min-height:0}
 
 /* ── LEFT SIDEBAR ── */
-.left-sidebar{
-  width:var(--sidebar);
-  background:var(--bg2);
-  border-right:0.5px solid var(--border);
-  display:flex;flex-direction:column;
-  flex-shrink:0;overflow:hidden;
-}
-.sb-section{padding:8px 8px 6px;border-bottom:0.5px solid var(--border)}
-.sb-title{font-size:10px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:7px}
-.template-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px}
-.tpl{
-  aspect-ratio:.71;border-radius:3px;background:var(--bg3);
-  border:0.5px solid var(--border2);overflow:hidden;padding:3px;
-  cursor:pointer;transition:border-color .15s;
-}
-.tpl:hover,.tpl.active{border-color:var(--indigo)}
-.tpl.active{border-width:1.5px;border-color:var(--indigo)}
-.tpl-line{height:2px;border-radius:1px;background:var(--dim);margin-bottom:2px}
-.tpl-line.accent{background:var(--indigo);height:3px}
-.tpl-line.w70{width:70%}
-.tpl-line.w80{width:80%}
-.tpl-line.w60{width:60%}
-.tpl-line.w50{width:50%}
-.tpl-2col{display:flex;gap:2px;height:100%;padding:2px}
-.tpl-left{width:35%;background:var(--bg1);border-radius:1px}
-.tpl-right{flex:1;display:flex;flex-direction:column;gap:2px}
-.filter-row{display:flex;gap:3px;margin-bottom:7px;flex-wrap:wrap}
-.filter-chip{
-  font-size:10px;padding:2px 7px;border-radius:10px;
-  background:var(--bg3);border:0.5px solid var(--border2);
-  color:var(--muted);cursor:pointer;white-space:nowrap;
-}
-.filter-chip.active{background:var(--indigo);color:white;border-color:var(--indigo)}
-.section-links{display:flex;flex-direction:column;gap:2px}
-.sec-link{
-  font-size:11px;color:var(--muted);padding:4px 7px;
-  border-radius:4px;cursor:pointer;transition:all .15s;
-  display:flex;align-items:center;gap:5px;
-}
-.sec-link:hover{background:var(--bg3);color:var(--text)}
-.sec-link.active{background:rgba(99,102,241,.15);color:var(--indigo-l)}
+.sb{width:var(--sb-w);background:var(--bg2);border-right:0.5px solid var(--border);
+  display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;transition:transform .3s}
+.sb-sec{padding:10px;border-bottom:0.5px solid var(--border)}
+.sb-hd{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.08em;
+  text-transform:uppercase;margin-bottom:8px}
+
+/* Upload area */
+.upload-zone{border:1.5px dashed var(--border2);border-radius:8px;padding:12px;
+  text-align:center;background:var(--bg3);cursor:pointer;transition:all .2s;position:relative}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--indigo);background:rgba(99,102,241,.08)}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-icon{font-size:20px;margin-bottom:4px}
+.upload-text{font-size:11px;color:var(--muted);line-height:1.5}
+.upload-text span{color:var(--indigo);font-weight:600}
+.file-badge{display:none;align-items:center;gap:5px;background:rgba(16,185,129,.1);
+  border:0.5px solid #10B981;border-radius:5px;padding:4px 8px;margin-top:6px}
+.file-badge.show{display:flex}
+.file-badge span{font-size:10px;color:#10B981;font-weight:500;word-break:break-all}
+
+/* Template grid */
+.tpl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.tpl{aspect-ratio:.72;border-radius:4px;background:var(--bg3);
+  border:0.5px solid var(--border2);overflow:hidden;padding:4px;
+  cursor:pointer;transition:border-color .15s}
+.tpl:hover,.tpl.on{border-color:var(--indigo);border-width:1.5px}
+.tl{height:2px;border-radius:1px;background:var(--dim);margin-bottom:2px}
+.tl.a{background:var(--indigo);height:3px}
+.tl.w9{width:90%}.tl.w8{width:80%}.tl.w7{width:70%}.tl.w6{width:60%}.tl.w5{width:50%}
+.t2c{display:flex;gap:2px;height:100%}
+.tc-l{width:38%;background:var(--bg1);border-radius:1px}
+.tc-r{flex:1;display:flex;flex-direction:column;gap:2px}
+.tpl-name{font-size:9px;color:var(--muted);text-align:center;margin-top:3px}
+
+/* Sections */
+.sec-list{display:flex;flex-direction:column;gap:1px}
+.sec-item{display:flex;align-items:center;gap:7px;padding:5px 8px;border-radius:5px;
+  cursor:pointer;transition:all .15s;font-size:12px;color:var(--muted)}
+.sec-item:hover{background:var(--bg3);color:var(--text)}
+.sec-item.on{background:rgba(99,102,241,.15);color:var(--indigo-l)}
 .sec-dot{width:5px;height:5px;border-radius:50%;background:var(--dim);flex-shrink:0}
-.sec-link.active .sec-dot{background:var(--indigo)}
-.ai-panel{padding:8px;flex:1;overflow:hidden}
-.ai-title{font-size:10px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
-.ai-plus{font-size:16px;color:var(--indigo);cursor:pointer;line-height:1}
-.ai-bullet{
-  display:flex;align-items:flex-start;gap:5px;padding:4px 5px;
-  border-radius:4px;margin-bottom:2px;cursor:pointer;
-  border:0.5px solid transparent;
-  background:var(--bg3);margin-bottom:3px;
-}
-.ai-bullet:hover{border-color:var(--indigo);background:rgba(99,102,241,.08)}
+.sec-item.on .sec-dot{background:var(--indigo)}
+
+/* AI bullets */
+.ai-bullets{display:flex;flex-direction:column;gap:3px;overflow-y:auto;max-height:140px}
+.ai-b{display:flex;align-items:flex-start;gap:5px;padding:5px 7px;border-radius:4px;
+  background:var(--bg3);border:0.5px solid transparent;cursor:pointer;transition:border-color .15s}
+.ai-b:hover{border-color:var(--indigo)}
 .ai-dot{width:4px;height:4px;border-radius:50%;background:var(--indigo);flex-shrink:0;margin-top:4px}
-.ai-text{font-size:10px;color:var(--muted);line-height:1.45}
+.ai-bt{font-size:10px;color:var(--muted);line-height:1.45}
 
 /* ── CANVAS ── */
-.canvas{
-  flex:1;position:relative;overflow:hidden;
-  background:var(--bg0);min-width:0;
-}
-.canvas-bg{
-  position:absolute;inset:0;
-  background-image:
-    radial-gradient(circle at 20% 20%,rgba(99,102,241,.06) 0%,transparent 50%),
-    radial-gradient(circle at 80% 80%,rgba(13,148,136,.04) 0%,transparent 50%);
-}
-.canvas-grid{
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-  background-size:40px 40px;
-}
-/* Connection SVG */
-.connections{position:absolute;inset:0;pointer-events:none}
-
-/* Mind-map nodes */
-.node{
-  position:absolute;transform:translate(-50%,-50%);
-  display:flex;flex-direction:column;align-items:center;gap:5px;
-  cursor:pointer;
-}
-.node-circle{
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
+.canvas{flex:1;position:relative;overflow:hidden;background:var(--bg0);min-width:0;display:flex;flex-direction:column}
+.canvas-bg{position:absolute;inset:0;background:
+  radial-gradient(circle at 20% 30%,rgba(99,102,241,.05) 0%,transparent 50%),
+  radial-gradient(circle at 80% 70%,rgba(13,148,136,.04) 0%,transparent 50%)}
+.canvas-grid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+  background-size:40px 40px}
+.conn-svg{position:absolute;inset:0;pointer-events:none}
+.node{position:absolute;transform:translate(-50%,-50%);
+  display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer}
+.n-circle{border-radius:50%;display:flex;align-items:center;justify-content:center;
   text-align:center;font-size:11px;font-weight:700;color:white;
-  transition:transform .2s,box-shadow .2s;
-  box-shadow:0 0 0 0 rgba(0,0,0,0);
-}
-.node:hover .node-circle{transform:scale(1.08)}
-.node-label{font-size:10px;color:var(--muted);white-space:nowrap;text-align:center}
+  transition:transform .2s;user-select:none}
+.node:hover .n-circle{transform:scale(1.1)}
+.n-lbl{font-size:10px;color:var(--muted);white-space:nowrap}
 
-/* Central resume card */
-.resume-card-wrap{
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:155px;
-  filter:drop-shadow(0 20px 60px rgba(0,0,0,.6));
-}
-.resume-card{
-  background:white;border-radius:5px;overflow:hidden;
-  width:100%;
-}
-.rc-header{
-  background:#1B2E6B;padding:10px 8px;
-}
-.rc-photo-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
-.rc-photo{
-  width:32px;height:32px;border-radius:50%;
-  background:#2d5a9e;border:2px solid #60a5fa;
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:800;color:white;
-}
-.rc-name{font-size:10px;font-weight:800;color:white;letter-spacing:.5px}
-.rc-title-badge{font-size:8px;color:#93c5fd;font-weight:500;margin-top:1px}
-.rc-divider{height:0.5px;background:rgba(255,255,255,.2);margin:4px 0}
-.rc-body{background:#f8fafc;padding:5px;display:flex;gap:3px}
-.rc-col-l{width:44px;flex-shrink:0}
-.rc-col-r{flex:1;min-width:0}
-.rc-line{height:2px;border-radius:1px;margin-bottom:2px}
-.rc-line.ac{background:#6366f1;height:2.5px}
-.rc-line.dk{background:#1e3a5f}
-.rc-line.lt{background:#e2e8f0}
-.rc-line.w100{width:100%}
-.rc-line.w90{width:90%}
-.rc-line.w80{width:80%}
-.rc-line.w75{width:75%}
-.rc-line.w70{width:70%}
-.rc-line.w60{width:60%}
-.rc-line.w50{width:50%}
+/* Central editor */
+.editor-panel{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:260px;background:white;border-radius:8px;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.7);z-index:10}
+.ep-hdr{background:#1B2E6B;padding:10px 12px}
+.ep-name-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.ep-photo{width:36px;height:36px;border-radius:50%;background:#2d5a9e;
+  border:2px solid #60a5fa;display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:white;flex-shrink:0}
+.ep-title-area{flex:1;min-width:0}
+.ep-name-input{background:transparent;border:none;color:white;font-size:12px;
+  font-weight:800;letter-spacing:.5px;width:100%;font-family:'Manrope',sans-serif}
+.ep-name-input::placeholder{color:rgba(255,255,255,.4)}
+.ep-title-input{background:transparent;border:none;color:#93c5fd;font-size:10px;
+  width:100%;font-family:'Manrope',sans-serif;margin-top:2px}
+.ep-title-input::placeholder{color:rgba(147,197,253,.4)}
+.ep-divider{height:0.5px;background:rgba(255,255,255,.2);margin:5px 0}
+.ep-body{padding:8px;background:#f8fafc;max-height:280px;overflow-y:auto}
+.ep-section{margin-bottom:8px}
+.ep-sec-head{font-size:8px;font-weight:700;color:#6366f1;text-transform:uppercase;
+  letter-spacing:.08em;margin-bottom:4px;padding-bottom:2px;border-bottom:1px solid #e2e8f0}
+.ep-field{width:100%;background:white;border:1px solid #e2e8f0;border-radius:4px;
+  padding:4px 6px;font-size:10px;color:#1a2c6b;font-family:'Manrope',sans-serif;
+  resize:none;transition:border-color .15s;line-height:1.4}
+.ep-field:focus{border-color:#6366f1;outline:none}
+.ep-add{font-size:10px;color:#6366f1;background:none;border:none;
+  cursor:pointer;padding:2px 4px;margin-top:2px;font-weight:600}
+.ep-add:hover{text-decoration:underline}
 
-/* Floating labels on canvas */
-.canvas-tag{
-  position:absolute;background:var(--bg2);
-  border:0.5px solid var(--border2);border-radius:5px;
-  padding:4px 8px;font-size:10px;color:var(--muted);
-  pointer-events:none;
-}
-.canvas-tag.alert{
-  border-color:#D97706;color:#F59E0B;
-  background:var(--bg1);
-}
-.canvas-tag.alert .alert-head{font-size:10px;font-weight:700;color:#F59E0B;margin-bottom:2px}
-.canvas-tag .tag-lines{display:flex;flex-direction:column;gap:2px;margin-top:3px}
-.canvas-tag .tag-line{height:2px;background:var(--dim);border-radius:1px}
-.canvas-tag .tag-line.w80{width:80%}
-
-/* bottom hint */
-.canvas-hint{
-  position:absolute;bottom:10px;left:50%;transform:translateX(-50%);
+/* Floating alerts/labels */
+.canvas-tag{position:absolute;background:var(--bg2);border:0.5px solid var(--border2);
+  border-radius:5px;padding:4px 8px;font-size:10px;color:var(--muted);pointer-events:none}
+.canvas-tag.alert{border-color:#D97706;color:#F59E0B;background:var(--bg1)}
+.canvas-hint{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);
   background:var(--bg2);border:0.5px solid var(--border2);border-radius:5px;
-  padding:3px 12px;font-size:10px;color:var(--muted);
-  display:flex;align-items:center;gap:8px;
-}
-.canvas-hint .sep{color:var(--dim)}
-.canvas-nav{
-  position:absolute;bottom:10px;right:12px;
-  display:flex;gap:4px;
-}
-.cnav-btn{
-  background:var(--bg2);border:0.5px solid var(--border2);
-  border-radius:4px;padding:3px 9px;font-size:11px;
-  color:var(--muted);cursor:pointer;font-family:'Manrope',sans-serif;
-}
-.cnav-btn:hover{color:var(--text)}
+  padding:3px 14px;font-size:10px;color:var(--muted);display:flex;align-items:center;gap:8px;white-space:nowrap}
+.canvas-nav{position:absolute;bottom:10px;right:10px;display:flex;gap:4px}
+.cnav{background:var(--bg2);border:0.5px solid var(--border2);border-radius:4px;
+  padding:3px 10px;font-size:11px;color:var(--muted);cursor:pointer}
+.cnav:hover{color:var(--text)}
 
 /* ── RIGHT PANEL ── */
-.right-panel{
-  width:var(--panel);
-  background:var(--bg2);
-  border-left:0.5px solid var(--border);
-  display:flex;flex-direction:column;
-  flex-shrink:0;overflow:hidden;
-}
-.rp-header{
-  padding:8px 10px;border-bottom:0.5px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-}
-.rp-title{font-size:13px;font-weight:600;color:var(--text)}
-.rp-close{font-size:16px;color:var(--muted);cursor:pointer;line-height:1;background:none;border:none;color:var(--muted)}
+.rp{width:var(--rp-w);background:var(--bg2);border-left:0.5px solid var(--border);
+  display:flex;flex-direction:column;flex-shrink:0;overflow:hidden}
+.rp-hdr{padding:9px 12px;border-bottom:0.5px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.rp-title{font-size:14px;font-weight:600;color:var(--text)}
+.rp-close{font-size:18px;color:var(--muted);background:none;cursor:pointer}
 .rp-close:hover{color:var(--text)}
-.rp-section{padding:8px 10px;border-bottom:0.5px solid var(--border)}
-.rp-label{font-size:10px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.rp-scroll{flex:1;overflow-y:auto}
+.rp-sec{padding:10px 12px;border-bottom:0.5px solid var(--border)}
+.rp-lbl{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.08em;
+  text-transform:uppercase;margin-bottom:7px}
+.rp-row{display:flex;gap:3px}
+
+/* Achievement input */
+.achieve-box{display:flex;flex-direction:column;gap:5px}
+.achieve-ta{width:100%;background:var(--bg3);border:0.5px solid var(--border2);
+  border-radius:6px;padding:7px 9px;color:var(--text);font-size:11px;
+  resize:none;min-height:60px;line-height:1.5;transition:border-color .2s}
+.achieve-ta:focus{border-color:var(--indigo)}
+.polish-btn{background:var(--amber);color:#fff;border:none;border-radius:6px;
+  padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;gap:5px;justify-content:center;transition:opacity .2s}
+.polish-btn:hover{opacity:.88}
+.polish-btn:disabled{opacity:.5;cursor:not-allowed}
+.heading-pill{display:none;align-items:center;gap:5px;margin-top:3px;font-size:10px}
+.heading-pill.show{display:flex}
+.h-badge{background:#e8f4ff;color:#1a5276;border:0.5px solid #aed6f1;
+  padding:2px 8px;border-radius:12px;font-size:10px;font-weight:700}
+
+/* Toggle */
 .toggle-row{display:flex;background:var(--bg1);border-radius:5px;padding:2px;gap:1px}
-.tgl-btn{
-  flex:1;padding:4px;border-radius:3px;font-size:11px;
-  font-family:'Manrope',sans-serif;cursor:pointer;border:none;
-  background:none;color:var(--muted);transition:all .15s;
-}
-.tgl-btn.active{background:var(--indigo);color:white}
-.rp-select{
-  width:100%;background:var(--bg1);border:0.5px solid var(--border2);
-  border-radius:5px;padding:5px 8px;
-  color:var(--muted);font-size:11px;font-family:'Manrope',sans-serif;
-  -webkit-appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2364748B' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 8px center;
-  padding-right:24px;
-}
-.rp-slider{
-  display:flex;align-items:center;gap:6px;
-}
-.slider-track{
-  flex:1;height:3px;background:var(--bg1);
-  border-radius:2px;position:relative;
-}
-.slider-fill{height:100%;background:var(--indigo);border-radius:2px;width:55%}
-.slider-thumb{
-  position:absolute;left:55%;top:50%;transform:translate(-50%,-50%);
-  width:11px;height:11px;border-radius:50%;
-  background:var(--text);border:1.5px solid var(--indigo);
-}
-.slider-sym{font-size:13px;color:var(--muted);line-height:1;background:none;border:none;cursor:pointer}
-.slider-sym:hover{color:var(--text)}
-/* AI Bullets in right panel */
-.rp-toggle{
-  display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;
-}
-.toggle-switch{
-  width:30px;height:16px;background:var(--indigo);border-radius:8px;
-  position:relative;cursor:pointer;flex-shrink:0;
-}
-.toggle-knob{
-  position:absolute;right:2px;top:2px;width:12px;height:12px;
-  border-radius:50%;background:white;
-}
-.bullet-list{display:flex;flex-direction:column;gap:3px}
-.bullet-item{
-  background:var(--bg3);border:0.5px solid var(--border2);
-  border-radius:4px;padding:5px 7px;
-  display:flex;align-items:flex-start;gap:5px;
-  cursor:pointer;transition:border-color .15s;
-}
-.bullet-item:hover{border-color:var(--indigo)}
-.bi-dot{width:4px;height:4px;border-radius:50%;background:var(--indigo);flex-shrink:0;margin-top:4px}
-.bi-text{font-size:10px;color:var(--muted);line-height:1.5}
-/* Inject button */
-.inject-btn{
-  width:100%;background:var(--indigo);color:white;
-  border:none;border-radius:6px;padding:7px 0;
-  font-size:12px;font-weight:600;font-family:'Manrope',sans-serif;
-  cursor:pointer;margin-bottom:4px;transition:background .15s;
-}
+.tgl{flex:1;padding:4px;border-radius:3px;font-size:11px;cursor:pointer;
+  background:none;color:var(--muted);border:none;transition:all .15s}
+.tgl.on{background:var(--indigo);color:white}
+.rp-select{width:100%;background:var(--bg3);border:0.5px solid var(--border2);
+  border-radius:5px;padding:6px 9px;color:var(--muted);font-size:11px;
+  -webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2364748B' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 9px center;padding-right:26px}
+.rp-slider{display:flex;align-items:center;gap:6px}
+.sl-track{flex:1;height:3px;background:var(--bg1);border-radius:2px;position:relative}
+.sl-fill{height:100%;background:var(--indigo);border-radius:2px;width:55%}
+.sl-thumb{position:absolute;left:55%;top:50%;transform:translate(-50%,-50%);
+  width:12px;height:12px;border-radius:50%;background:var(--text);border:1.5px solid var(--indigo)}
+.sl-sym{font-size:14px;color:var(--muted);background:none;cursor:pointer}
+.sl-sym:hover{color:var(--text)}
+
+/* Toggle switch */
+.sw-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.sw{width:32px;height:17px;background:var(--indigo);border-radius:9px;
+  position:relative;cursor:pointer;flex-shrink:0}
+.sw-knob{position:absolute;right:2px;top:2px;width:13px;height:13px;
+  border-radius:50%;background:white;transition:right .2s}
+
+/* Bullet list */
+.b-list{display:flex;flex-direction:column;gap:3px;max-height:140px;overflow-y:auto}
+.b-item{background:var(--bg3);border:0.5px solid var(--border2);border-radius:4px;
+  padding:5px 8px;display:flex;align-items:flex-start;gap:5px;cursor:pointer;transition:border-color .15s}
+.b-item:hover{border-color:var(--indigo)}
+.b-dot{width:4px;height:4px;border-radius:50%;background:var(--indigo);flex-shrink:0;margin-top:4px}
+.b-txt{font-size:10px;color:var(--muted);line-height:1.5}
+
+/* Action buttons */
+.inject-btn{width:100%;background:var(--indigo);color:white;border:none;
+  border-radius:7px;padding:9px;font-size:12px;font-weight:700;
+  cursor:pointer;transition:background .15s;display:flex;align-items:center;
+  justify-content:center;gap:6px}
 .inject-btn:hover{background:var(--indigo-d)}
-.export-row{display:flex;gap:3px}
-.ex-btn{
-  flex:1;background:var(--bg3);border:0.5px solid var(--border2);
-  color:var(--muted);border-radius:5px;padding:5px 0;
-  font-size:11px;font-family:'Manrope',sans-serif;cursor:pointer;
-}
+.inject-btn:disabled{opacity:.5;cursor:not-allowed}
+.ex-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px}
+.ex-btn{background:var(--bg3);border:0.5px solid var(--border2);color:var(--muted);
+  border-radius:5px;padding:6px 4px;font-size:11px;cursor:pointer;text-align:center;transition:all .15s}
 .ex-btn:hover{color:var(--text);border-color:var(--indigo)}
 .ex-btn.primary{background:var(--indigo);color:white;border-color:var(--indigo)}
+
 /* Rebuild banner */
-.rebuild-banner{
-  margin:8px;background:linear-gradient(135deg,rgba(124,58,237,.3),rgba(99,102,241,.2));
-  border:0.5px solid rgba(124,58,237,.5);border-radius:6px;padding:8px;
-  cursor:pointer;transition:border-color .15s;
-}
-.rebuild-banner:hover{border-color:var(--indigo)}
-.rb-head{font-size:11px;font-weight:700;color:#A78BFA;margin-bottom:3px}
+.rebuild-card{margin:10px 12px;background:linear-gradient(135deg,rgba(124,58,237,.25),rgba(99,102,241,.15));
+  border:0.5px solid rgba(124,58,237,.4);border-radius:8px;padding:10px;
+  cursor:pointer;transition:border-color .2s}
+.rebuild-card:hover{border-color:var(--indigo)}
+.rb-head{font-size:12px;font-weight:700;color:#A78BFA;margin-bottom:3px;display:flex;align-items:center;gap:5px}
 .rb-sub{font-size:10px;color:var(--muted);line-height:1.5}
-.rb-icon{font-size:16px;margin-bottom:4px}
-/* Profile footer */
-.rp-footer{
-  margin-top:auto;border-top:0.5px solid var(--border);
-  padding:7px 10px;display:flex;align-items:center;gap:7px;
+.rb-upload{margin-top:7px}
+.rb-file-input{display:none}
+.rb-ul-btn{width:100%;background:rgba(124,58,237,.2);border:0.5px dashed rgba(124,58,237,.5);
+  color:#A78BFA;border-radius:5px;padding:6px;font-size:11px;cursor:pointer;
+  text-align:center;transition:all .2s}
+.rb-ul-btn:hover{background:rgba(124,58,237,.3)}
+.rb-run-btn{width:100%;background:var(--violet);color:white;border:none;
+  border-radius:5px;padding:7px;font-size:11px;font-weight:700;
+  margin-top:5px;cursor:pointer;transition:opacity .2s}
+.rb-run-btn:hover{opacity:.88}
+.rb-run-btn:disabled{opacity:.4;cursor:not-allowed}
+.rb-sel{width:100%;background:rgba(124,58,237,.15);border:0.5px solid rgba(124,58,237,.3);
+  color:#A78BFA;border-radius:5px;padding:5px 8px;font-size:11px;margin-top:5px;
+  -webkit-appearance:none}
+.rb-file-name{font-size:10px;color:#10B981;margin-top:4px;word-break:break-all}
+
+/* Status */
+.status-bar{padding:6px 12px;text-align:center;font-size:11px;color:var(--muted);
+  border-top:0.5px solid var(--border);flex-shrink:0;min-height:28px}
+.status-bar.ok{color:#10B981}.status-bar.err{color:#EF4444}.status-bar.loading{color:var(--indigo)}
+
+/* RHS footer */
+.rp-footer{border-top:0.5px solid var(--border);padding:7px 12px;
+  display:flex;align-items:center;gap:7px;flex-shrink:0}
+.rp-av{width:24px;height:24px;border-radius:50%;background:var(--bg3);
+  border:1px solid var(--indigo);display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;color:var(--indigo-l)}
+
+/* Sidebar mobile toggle */
+.mob-sb-toggle{display:none;position:fixed;bottom:70px;left:10px;z-index:100;
+  background:var(--indigo);color:white;border:none;border-radius:50%;
+  width:40px;height:40px;font-size:18px;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+.mob-rp-toggle{display:none;position:fixed;bottom:70px;right:10px;z-index:100;
+  background:var(--indigo);color:white;border:none;border-radius:50%;
+  width:40px;height:40px;font-size:18px;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  :root{--sb-w:200px;--rp-w:220px}
 }
-.rp-avatar{
-  width:22px;height:22px;border-radius:50%;
-  background:var(--bg3);border:1px solid var(--indigo);
-  display:flex;align-items:center;justify-content:center;
-  font-size:10px;font-weight:800;color:var(--indigo-l);flex-shrink:0;
+@media(max-width:700px){
+  :root{--sb-w:85vw;--rp-w:85vw}
+  .sb{position:fixed;left:0;top:0;height:100vh;z-index:200;transform:translateX(-100%)}
+  .sb.open{transform:translateX(0)}
+  .rp{position:fixed;right:0;top:0;height:100vh;z-index:200;transform:translateX(100%)}
+  .rp.open{transform:translateX(0)}
+  .mob-sb-toggle,.mob-rp-toggle{display:flex;align-items:center;justify-content:center}
+  .hdr-btns .h-btn:not(.always){display:none}
+  .editor-panel{width:calc(100vw - 20px) !important;max-width:320px}
+  .breadcrumb .cur{display:none}
 }
-.rp-user{font-size:11px;color:var(--muted)}
-.rp-chevron{color:var(--dim);margin-left:auto;cursor:pointer;font-size:11px}
+@media(max-width:480px){
+  .toolbar{gap:2px}
+  .t-grp{padding:0 3px}
+  .logo-name{display:none}
+  .hdr{padding:0 8px}
+}
+
+/* Overlay for mobile panel close */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:150}
+.overlay.show{display:block}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:var(--bg1)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 </style>
 </head>
 <body>
 
-<!-- ── HEADER ── -->
-<div class="header">
-  <div class="header-logo">
-    <div class="logo-mark">GK</div>
-    <span class="logo-text">Resu<span>ME</span></span>
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-logo">
+    <div class="logo-mark">CA</div>
+    <span class="logo-name">Career Architect</span>
   </div>
   <div class="breadcrumb">
-    <span>My Projects</span>
-    <span class="sep">›</span>
+    <span>Resume Hub</span>
+    <span style="color:var(--dim)">›</span>
     <span class="cur">Career Architect</span>
   </div>
-  <div class="header-space"></div>
-  <div class="header-actions">
-    <button class="h-btn" onclick="goBack()">‹ Back to Hub</button>
-    <button class="h-btn">Undo</button>
-    <button class="h-btn">Redo</button>
-    <button class="h-btn">Print Layout</button>
-    <div class="dl-split">
-      <button class="dl-main" id="dlMainBtn">Download</button>
-      <div class="dl-sep"></div>
-      <button class="dl-type" id="dlPdfBtn" title="Download PDF">PDF</button>
-      <button class="dl-type" id="dlDocxBtn" title="Download DOCX">DOCX</button>
+  <div class="hdr-space"></div>
+  <div class="hdr-btns">
+    <button class="h-btn always" onclick="goBack()">‹ Back to Hub</button>
+    <button class="h-btn" id="undoBtn" title="Undo">↩</button>
+    <button class="h-btn" id="redoBtn" title="Redo">↪</button>
+    <div class="dl-group">
+      <button class="dl-main" onclick="download('pdf')">⬇ Download</button>
+      <div class="dl-divider"></div>
+      <button class="dl-fmt" onclick="download('pdf')">PDF</button>
+      <button class="dl-fmt" onclick="download('docx')">DOCX</button>
     </div>
-    <div class="avatar">G</div>
+    <div class="hdr-avatar">GK</div>
   </div>
 </div>
 
-<!-- ── TOOLBAR ── -->
+<!-- TOOLBAR -->
 <div class="toolbar">
-  <div class="t-group">
-    <button class="t-btn active" title="Select">
-      <svg viewBox="0 0 14 14" fill="none"><path d="M2 2L2 11L5.5 8.5L7 12L8.5 11.5L7 8L11 8L2 2Z" fill="currentColor"/></svg>
-    </button>
-    <button class="t-btn" title="Pan">
-      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M7 2v10M2 7h10"/></svg>
-    </button>
-    <button class="t-btn" title="Add text">
-      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 4h10M7 4v7M4 11h6"/></svg>
-    </button>
-    <button class="t-btn" title="Connect">
-      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="3" cy="3" r="1.5"/><circle cx="11" cy="11" r="1.5"/><path d="M4.5 4.5L9.5 9.5"/></svg>
-    </button>
+  <div class="t-grp">
+    <button class="t-btn on" title="Select">↖</button>
+    <button class="t-btn" title="Pan">✥</button>
+    <button class="t-btn" title="Text">T</button>
+    <button class="t-btn" title="Connect">⌀</button>
   </div>
-  <div class="t-group">
-    <button class="t-btn" title="Layout">
-      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="1" y="1" width="5" height="5" rx="1"/><rect x="8" y="1" width="5" height="5" rx="1"/><rect x="1" y="8" width="5" height="5" rx="1"/><rect x="8" y="8" width="5" height="5" rx="1"/></svg>
-    </button>
-    <button class="t-btn" title="AI Rebuild">
-      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 7a5 5 0 0 1 9-3M12 7a5 5 0 0 1-9 3"/><path d="M11 4l1-2 1 1M2 10L1 12l1 1" stroke-width="1"/></svg>
-    </button>
-    <button class="t-btn" title="Settings">
-      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="7" cy="7" r="2"/><path d="M7 1v1.5M7 11.5V13M1 7h1.5M11.5 7H13M2.9 2.9l1 1M10.1 10.1l1 1M11.1 2.9l-1 1M3.9 10.1l-1 1"/></svg>
-    </button>
+  <div class="t-grp">
+    <button class="t-btn" title="Grid view">⊞</button>
+    <button class="t-btn" title="AI Rebuild" onclick="scrollToRebuild()">↻</button>
+    <button class="t-btn" title="Settings">⚙</button>
   </div>
-  <div class="t-group">
-    <div class="zoom-ctrl">
-      <button class="zoom-btn" id="zoomOut">−</button>
-      <span id="zoomVal">100%</span>
-      <button class="zoom-btn" id="zoomIn">+</button>
+  <div class="t-grp">
+    <div class="zoom-wrap">
+      <button class="z-btn" onclick="zoom(-10)">−</button>
+      <span id="zoomLbl">100%</span>
+      <button class="z-btn" onclick="zoom(+10)">+</button>
     </div>
   </div>
-  <div class="t-group" style="border-right:none">
-    <div class="ats-chip">
-      <span class="ats-chip-label">ATS</span>
-      <div class="ats-track"><div class="ats-fill" id="atsTrack"></div></div>
-      <span class="ats-pct" id="atsPct">82%</span>
+  <div class="t-grp">
+    <div class="ats-wrap">
+      <span class="ats-lbl">ATS</span>
+      <div class="ats-bar"><div class="ats-fill" id="atsBar" style="width:30%"></div></div>
+      <span class="ats-num" id="atsNum">30%</span>
     </div>
   </div>
 </div>
 
-<!-- ── APP BODY ── -->
-<div class="app-body">
+<!-- BODY -->
+<div class="body">
 
-  <!-- LEFT SIDEBAR -->
-  <div class="left-sidebar">
-    <div class="sb-section">
-      <div class="sb-title">Templates</div>
-      <div class="filter-row">
-        <div class="filter-chip active">Pro</div>
-        <div class="filter-chip">Creative</div>
-        <div class="filter-chip">Min</div>
-      </div>
-      <div class="template-grid">
-        <!-- Template 1 — two-col sidebar -->
-        <div class="tpl active" onclick="setTemplate(this,0)" title="Executive — Navy Sidebar">
-          <div class="tpl-2col">
-            <div class="tpl-left"></div>
-            <div class="tpl-right">
-              <div class="tpl-line accent"></div>
-              <div class="tpl-line w80"></div>
-              <div class="tpl-line w60"></div>
-              <div class="tpl-line w70"></div>
-            </div>
-          </div>
-        </div>
-        <!-- Template 2 — vivid blue -->
-        <div class="tpl" onclick="setTemplate(this,1)" title="Modern Blue">
-          <div class="tpl-line" style="background:#1060C0;height:4px;margin-bottom:3px"></div>
-          <div class="tpl-line w90"></div>
-          <div class="tpl-line w70"></div>
-          <div class="tpl-line accent"></div>
-          <div class="tpl-line w80"></div>
-        </div>
-        <!-- Template 3 — elegant olive -->
-        <div class="tpl" onclick="setTemplate(this,2)" title="Elegant Olive">
-          <div class="tpl-2col">
-            <div class="tpl-left" style="background:#4A5240;border-radius:1px"></div>
-            <div class="tpl-right">
-              <div class="tpl-line" style="background:#D4AF37;height:3px"></div>
-              <div class="tpl-line w80"></div>
-              <div class="tpl-line w60"></div>
-            </div>
-          </div>
-        </div>
-        <!-- Template 4 — teal single col -->
-        <div class="tpl" onclick="setTemplate(this,3)" title="Clean Teal">
-          <div class="tpl-line" style="background:#00897B;height:5px;margin-bottom:3px"></div>
-          <div class="tpl-line w90"></div>
-          <div class="tpl-line w75"></div>
-          <div class="tpl-line" style="background:#00897B;height:2px;margin-top:2px"></div>
-          <div class="tpl-line w60"></div>
-        </div>
-        <!-- Template 5 — corporate gray -->
-        <div class="tpl" onclick="setTemplate(this,4)" title="Corporate Gray">
-          <div class="tpl-2col">
-            <div class="tpl-left" style="background:#2C3E50;border-radius:1px"></div>
-            <div class="tpl-right">
-              <div class="tpl-line" style="background:#2980B9;height:3px"></div>
-              <div class="tpl-line w80"></div>
-              <div class="tpl-line w65"></div>
-            </div>
-          </div>
-        </div>
-        <!-- Template 6 placeholder -->
-        <div class="tpl" onclick="setTemplate(this,0)" title="Minimalist">
-          <div class="tpl-line accent w50"></div>
-          <div class="tpl-line w90"></div>
-          <div class="tpl-line w80"></div>
-          <div class="tpl-line w70"></div>
-          <div class="tpl-line w60"></div>
-        </div>
-      </div>
+<!-- LEFT SIDEBAR -->
+<div class="sb" id="sb">
+  <!-- Upload -->
+  <div class="sb-sec">
+    <div class="sb-hd">Upload Resume</div>
+    <div class="upload-zone" id="uploadZone">
+      <input type="file" id="fileIn" accept=".pdf,.docx" onchange="handleFile(this)">
+      <div class="upload-icon">📄</div>
+      <div class="upload-text">Drop here or <span>browse</span><br>PDF or DOCX</div>
     </div>
-
-    <div class="sb-section">
-      <div class="sb-title">Sections</div>
-      <div class="section-links">
-        <div class="sec-link active" onclick="selectSection(this,'experience')">
-          <div class="sec-dot"></div>Experience
-        </div>
-        <div class="sec-link" onclick="selectSection(this,'education')">
-          <div class="sec-dot"></div>Education
-        </div>
-        <div class="sec-link" onclick="selectSection(this,'skills')">
-          <div class="sec-dot"></div>Skills
-        </div>
-        <div class="sec-link" onclick="selectSection(this,'summary')">
-          <div class="sec-dot"></div>Summary
-        </div>
-        <div class="sec-link" onclick="selectSection(this,'certs')">
-          <div class="sec-dot"></div>Certifications
-        </div>
-        <div class="sec-link" onclick="selectSection(this,'langs')">
-          <div class="sec-dot"></div>Languages
-        </div>
-      </div>
+    <div class="file-badge" id="fileBadge">
+      <span>✓</span><span id="fileNameLbl">file.pdf</span>
     </div>
+  </div>
 
-    <div class="ai-panel">
-      <div class="ai-title">
-        AI Bullets
-        <span class="ai-plus">+</span>
+  <!-- Templates -->
+  <div class="sb-sec">
+    <div class="sb-hd">Visual Template</div>
+    <div class="tpl-grid">
+      <div>
+        <div class="tpl on" onclick="setTpl(this,'executive')">
+          <div class="t2c"><div class="tc-l"></div><div class="tc-r">
+            <div class="tl a"></div><div class="tl w9"></div><div class="tl w7"></div>
+          </div></div>
+        </div>
+        <div class="tpl-name">Executive</div>
       </div>
-      <div class="ai-bullet">
-        <div class="ai-dot"></div>
-        <div class="ai-text">Led cross-functional team to deliver…</div>
+      <div>
+        <div class="tpl" onclick="setTpl(this,'modern_blue')">
+          <div class="tl" style="background:#1060C0;height:4px;margin-bottom:3px"></div>
+          <div class="tl w9"></div><div class="tl a w8"></div><div class="tl w7"></div>
+        </div>
+        <div class="tpl-name">Modern</div>
       </div>
-      <div class="ai-bullet">
-        <div class="ai-dot"></div>
-        <div class="ai-text">Reduced processing time by 40% via…</div>
+      <div>
+        <div class="tpl" onclick="setTpl(this,'elegant')">
+          <div class="t2c"><div class="tc-l" style="background:#4A5240"></div>
+          <div class="tc-r"><div class="tl" style="background:#D4AF37;height:3px"></div>
+          <div class="tl w8"></div><div class="tl w6"></div></div></div>
+        </div>
+        <div class="tpl-name">Elegant</div>
       </div>
-      <div class="ai-bullet">
-        <div class="ai-dot"></div>
-        <div class="ai-text">Managed delivery of 3 concurrent…</div>
+      <div>
+        <div class="tpl" onclick="setTpl(this,'clean_teal')">
+          <div class="tl" style="background:#00897B;height:5px;margin-bottom:3px"></div>
+          <div class="tl w9"></div><div class="tl a w7"></div><div class="tl w6"></div>
+        </div>
+        <div class="tpl-name">Clean Teal</div>
       </div>
-      <div class="ai-bullet">
-        <div class="ai-dot"></div>
-        <div class="ai-text">Increased NPS score from 62 to 84…</div>
+      <div>
+        <div class="tpl" onclick="setTpl(this,'corporate')">
+          <div class="t2c"><div class="tc-l" style="background:#2C3E50"></div>
+          <div class="tc-r"><div class="tl" style="background:#2980B9;height:3px"></div>
+          <div class="tl w8"></div><div class="tl w6"></div></div></div>
+        </div>
+        <div class="tpl-name">Corporate</div>
+      </div>
+      <div>
+        <div class="tpl" onclick="setTpl(this,'executive')">
+          <div class="tl a w6"></div><div class="tl w9"></div>
+          <div class="tl w8"></div><div class="tl w7"></div>
+        </div>
+        <div class="tpl-name">Classic</div>
       </div>
     </div>
   </div>
 
-  <!-- CANVAS -->
-  <div class="canvas" id="canvas">
-    <div class="canvas-bg"></div>
-    <div class="canvas-grid"></div>
-
-    <!-- SVG connection lines -->
-    <svg class="connections" id="connSvg" viewBox="0 0 800 550" preserveAspectRatio="xMidYMid meet">
-      <!-- Paths drawn by JS -->
-    </svg>
-
-    <!-- LEFT NODES -->
-    <!-- Work Experience (coral/red) -->
-    <div class="node" style="left:13%;top:22%" id="n-we">
-      <div class="node-circle" style="width:68px;height:68px;background:#DC2626;box-shadow:0 0 24px rgba(220,38,38,.35)">
-        <div><div>Work</div><div>Exp.</div></div>
-      </div>
-      <div class="node-label">Work history</div>
-    </div>
-
-    <!-- Work History (blue) -->
-    <div class="node" style="left:11%;top:52%" id="n-wh">
-      <div class="node-circle" style="width:60px;height:60px;background:#2563EB;box-shadow:0 0 24px rgba(37,99,235,.3)">
-        <div><div>Work</div><div>Hist.</div></div>
-      </div>
-      <div class="node-label">Education</div>
-    </div>
-
-    <!-- Attribute Pillars (teal) -->
-    <div class="node" style="left:13%;top:82%" id="n-ap">
-      <div class="node-circle" style="width:68px;height:68px;background:#0D9488;box-shadow:0 0 24px rgba(13,148,136,.3)">
-        <div><div>Attr.</div><div>Pillars</div></div>
-      </div>
-      <div class="node-label">Attribute Pillars</div>
-    </div>
-
-    <!-- RIGHT NODES -->
-    <!-- Education (amber) -->
-    <div class="node" style="right:13%;top:14%" id="n-edu">
-      <div class="node-circle" style="width:64px;height:64px;background:#D97706;box-shadow:0 0 24px rgba(217,119,6,.3)">
-        <div>Education</div>
-      </div>
-      <div class="node-label">Portfolio</div>
-    </div>
-
-    <!-- Skills (violet) -->
-    <div class="node" style="right:10%;top:47%" id="n-sk">
-      <div class="node-circle" style="width:68px;height:68px;background:#7C3AED;box-shadow:0 0 24px rgba(124,58,237,.35)">
-        <div>Skills</div>
-      </div>
-      <div class="node-label">Skills</div>
-    </div>
-
-    <!-- Portfolio (emerald) -->
-    <div class="node" style="right:13%;top:80%" id="n-port">
-      <div class="node-circle" style="width:64px;height:64px;background:#059669;box-shadow:0 0 24px rgba(5,150,105,.3)">
-        <div><div>Portfolio</div><div>Projects</div></div>
-      </div>
-      <div class="node-label">AI suggestions</div>
-    </div>
-
-    <!-- SKILL GAP BADGE -->
-    <div class="canvas-tag alert" style="right:calc(13% + 80px);top:8%">
-      <div class="alert-head">⚠ Skill gap alert</div>
-      <div style="font-size:10px;line-height:1.4;color:#94a3b8;">Add certifications to<br>boost your ATS score.</div>
-    </div>
-
-    <!-- CENTRAL RESUME CARD -->
-    <div class="resume-card-wrap">
-      <div class="resume-card">
-        <div class="rc-header">
-          <div class="rc-photo-row">
-            <div class="rc-photo" id="rcPhoto">GK</div>
-            <div>
-              <div class="rc-name" id="rcName">ARIA KHAN</div>
-              <div class="rc-title-badge" id="rcTitle">PRODUCT DESIGNER</div>
-            </div>
-          </div>
-          <div class="rc-divider"></div>
-        </div>
-        <div class="rc-body">
-          <div class="rc-col-l">
-            <div class="rc-line ac w100"></div>
-            <div class="rc-line lt w90" style="margin-top:3px"></div>
-            <div class="rc-line lt w80"></div>
-            <div class="rc-line lt w70"></div>
-            <div class="rc-line lt w60"></div>
-            <div class="rc-line ac w100" style="margin-top:5px"></div>
-            <div class="rc-line lt w90" style="margin-top:3px"></div>
-            <div class="rc-line lt w80"></div>
-            <div class="rc-line lt w75"></div>
-            <div class="rc-line lt w50"></div>
-            <div class="rc-line ac w100" style="margin-top:5px"></div>
-            <div class="rc-line lt w90" style="margin-top:3px"></div>
-            <div class="rc-line lt w60"></div>
-          </div>
-          <div class="rc-col-r">
-            <div class="rc-line ac w100"></div>
-            <div class="rc-line dk w90" style="margin-top:3px"></div>
-            <div class="rc-line lt w100"></div>
-            <div class="rc-line lt w80"></div>
-            <div class="rc-line lt w90"></div>
-            <div class="rc-line lt w75" style="margin-bottom:5px"></div>
-            <div class="rc-line ac w100"></div>
-            <div class="rc-line dk w85" style="margin-top:3px"></div>
-            <div class="rc-line lt w100"></div>
-            <div class="rc-line lt w80"></div>
-            <div class="rc-line lt w90" style="margin-bottom:5px"></div>
-            <div class="rc-line ac w100"></div>
-            <div class="rc-line dk w80" style="margin-top:3px"></div>
-            <div class="rc-line lt w65"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Canvas hints -->
-    <div class="canvas-hint">
-      <span>Drag nodes to rearrange</span>
-      <span class="sep">·</span>
-      <span>Click nodes to edit sections</span>
-      <span class="sep">·</span>
-      <span>A4</span>
-    </div>
-    <div class="canvas-nav">
-      <button class="cnav-btn">‹ Back</button>
-      <button class="cnav-btn">›</button>
+  <!-- Sections -->
+  <div class="sb-sec">
+    <div class="sb-hd">Sections</div>
+    <div class="sec-list">
+      <div class="sec-item on" onclick="selectSec(this,'Experience')"><div class="sec-dot"></div>Experience</div>
+      <div class="sec-item" onclick="selectSec(this,'Education')"><div class="sec-dot"></div>Education</div>
+      <div class="sec-item" onclick="selectSec(this,'Skills')"><div class="sec-dot"></div>Skills</div>
+      <div class="sec-item" onclick="selectSec(this,'Summary')"><div class="sec-dot"></div>Summary</div>
+      <div class="sec-item" onclick="selectSec(this,'Certifications')"><div class="sec-dot"></div>Certifications</div>
+      <div class="sec-item" onclick="selectSec(this,'Languages')"><div class="sec-dot"></div>Languages</div>
     </div>
   </div>
 
-  <!-- RIGHT PANEL -->
-  <div class="right-panel">
-    <div class="rp-header">
-      <span class="rp-title" id="rpTitle">Experience</span>
-      <button class="rp-close">×</button>
+  <!-- AI Bullets -->
+  <div class="sb-sec" style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+    <div class="sb-hd" style="display:flex;justify-content:space-between;align-items:center">
+      AI Bullets
+      <span style="font-size:16px;color:var(--indigo);cursor:pointer;line-height:1">+</span>
     </div>
+    <div class="ai-bullets">
+      <div class="ai-b" onclick="insertBullet(this)"><div class="ai-dot"></div><div class="ai-bt">Led cross-functional team to deliver project on time...</div></div>
+      <div class="ai-b" onclick="insertBullet(this)"><div class="ai-dot"></div><div class="ai-bt">Reduced processing time by 40% via automation...</div></div>
+      <div class="ai-b" onclick="insertBullet(this)"><div class="ai-dot"></div><div class="ai-bt">Managed delivery of 3 concurrent projects...</div></div>
+      <div class="ai-b" onclick="insertBullet(this)"><div class="ai-dot"></div><div class="ai-bt">Increased NPS score from 62 to 84 through...</div></div>
+      <div class="ai-b" onclick="insertBullet(this)"><div class="ai-dot"></div><div class="ai-bt">Spearheaded migration to cloud infrastructure...</div></div>
+    </div>
+  </div>
+</div>
 
-    <div class="rp-section">
-      <div class="rp-label">Layout</div>
+<!-- CANVAS -->
+<div class="canvas" id="canvas">
+  <div class="canvas-bg"></div>
+  <div class="canvas-grid"></div>
+  <svg class="conn-svg" id="connSvg"></svg>
+
+  <!-- Orbital nodes -->
+  <div class="node" style="left:13%;top:20%" id="n1"><div class="n-circle" style="width:64px;height:64px;background:#DC2626;box-shadow:0 0 20px rgba(220,38,38,.4)" onclick="selectSec(null,'Experience')"><div><div>Work</div><div>Exp.</div></div></div><div class="n-lbl">Experience</div></div>
+  <div class="node" style="left:11%;top:50%" id="n2"><div class="n-circle" style="width:56px;height:56px;background:#2563EB;box-shadow:0 0 20px rgba(37,99,235,.35)" onclick="selectSec(null,'Education')"><div>Edu.</div></div><div class="n-lbl">Education</div></div>
+  <div class="node" style="left:13%;top:80%" id="n3"><div class="n-circle" style="width:60px;height:60px;background:#0D9488;box-shadow:0 0 20px rgba(13,148,136,.35)" onclick="selectSec(null,'Summary')"><div>Summary</div></div><div class="n-lbl">Summary</div></div>
+  <div class="node" style="right:13%;top:16%" id="n4"><div class="n-circle" style="width:60px;height:60px;background:#D97706;box-shadow:0 0 20px rgba(217,119,6,.35)" onclick="selectSec(null,'Certifications')"><div>Certs</div></div><div class="n-lbl">Certifications</div></div>
+  <div class="node" style="right:11%;top:50%" id="n5"><div class="n-circle" style="width:64px;height:64px;background:#7C3AED;box-shadow:0 0 20px rgba(124,58,237,.4)" onclick="selectSec(null,'Skills')"><div>Skills</div></div><div class="n-lbl">Skills</div></div>
+  <div class="node" style="right:13%;top:82%" id="n6"><div class="n-circle" style="width:56px;height:56px;background:#059669;box-shadow:0 0 20px rgba(5,150,105,.35)" onclick="selectSec(null,'Languages')"><div>Langs</div></div><div class="n-lbl">Languages</div></div>
+
+  <!-- Skill gap badge -->
+  <div class="canvas-tag alert" style="right:calc(14% + 68px);top:8%;font-size:10px;max-width:100px">
+    <div style="font-weight:700;margin-bottom:3px">⚠ Skill gap</div>
+    <div style="color:#94a3b8;font-size:9px">Add certs to boost ATS</div>
+  </div>
+
+  <!-- CENTRAL RESUME EDITOR -->
+  <div class="editor-panel" id="editorPanel">
+    <div class="ep-hdr">
+      <div class="ep-name-row">
+        <div class="ep-photo" id="epPhoto">GK</div>
+        <div class="ep-title-area">
+          <input class="ep-name-input" id="epName" placeholder="YOUR NAME" value="" oninput="updatePreview()">
+          <input class="ep-title-input" id="epJobTitle" placeholder="Job Title" value="" oninput="updatePreview()">
+        </div>
+      </div>
+      <div class="ep-divider"></div>
+      <div style="display:flex;gap:8px;font-size:9px">
+        <input style="background:transparent;border:none;color:#93c5fd;font-size:9px;flex:1;font-family:Manrope,sans-serif" id="epEmail" placeholder="email@example.com">
+        <input style="background:transparent;border:none;color:#93c5fd;font-size:9px;flex:1;font-family:Manrope,sans-serif" id="epPhone" placeholder="+1 234 567">
+      </div>
+    </div>
+    <div class="ep-body" id="epBody">
+      <div class="ep-section" id="sec-Summary">
+        <div class="ep-sec-head">Professional Summary</div>
+        <textarea class="ep-field" rows="3" placeholder="A dedicated professional seeking..." id="f-summary"></textarea>
+      </div>
+      <div class="ep-section" id="sec-Experience">
+        <div class="ep-sec-head">Experience</div>
+        <textarea class="ep-field" rows="4" placeholder="Job Title — Company (Year–Year)&#10;• Achievement with metrics&#10;• Led team to deliver..." id="f-experience"></textarea>
+        <button class="ep-add" onclick="addExpRow()">+ Add role</button>
+      </div>
+      <div class="ep-section" id="sec-Education">
+        <div class="ep-sec-head">Education</div>
+        <textarea class="ep-field" rows="2" placeholder="Degree — University (Year)" id="f-education"></textarea>
+      </div>
+      <div class="ep-section" id="sec-Skills">
+        <div class="ep-sec-head">Skills</div>
+        <textarea class="ep-field" rows="2" placeholder="Python, SQL, Excel, HRIS..." id="f-skills"></textarea>
+      </div>
+      <div class="ep-section" id="sec-Certifications">
+        <div class="ep-sec-head">Certifications</div>
+        <textarea class="ep-field" rows="2" placeholder="AWS Certified, PMP..." id="f-certifications"></textarea>
+      </div>
+      <div class="ep-section" id="sec-Languages">
+        <div class="ep-sec-head">Languages</div>
+        <textarea class="ep-field" rows="1" placeholder="English (Native), French (B2)..." id="f-languages"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="canvas-hint">
+    <span>Click nodes to jump to sections</span>
+    <span style="color:var(--dim)">·</span>
+    <span>Edit fields directly in the card</span>
+    <span style="color:var(--dim)">·</span>
+    <span>A4</span>
+  </div>
+  <div class="canvas-nav">
+    <button class="cnav" onclick="goBack()">‹ Back</button>
+    <button class="cnav" onclick="scrollToRebuild()">Rebuild ↻</button>
+  </div>
+</div>
+
+<!-- RIGHT PANEL -->
+<div class="rp" id="rp">
+  <div class="rp-hdr">
+    <span class="rp-title" id="rpTitle">Experience</span>
+    <button class="rp-close" onclick="closeRp()">×</button>
+  </div>
+  <div class="rp-scroll">
+
+    <!-- Layout -->
+    <div class="rp-sec">
+      <div class="rp-lbl">Layout</div>
       <div class="toggle-row">
-        <button class="tgl-btn active" onclick="toggleLayout(this)">Timeline</button>
-        <button class="tgl-btn" onclick="toggleLayout(this)">List</button>
-        <button class="tgl-btn" onclick="toggleLayout(this)">Compact</button>
+        <button class="tgl on" onclick="toggleLayout(this)">Timeline</button>
+        <button class="tgl" onclick="toggleLayout(this)">List</button>
+        <button class="tgl" onclick="toggleLayout(this)">Compact</button>
       </div>
     </div>
 
-    <div class="rp-section">
-      <div class="rp-label">Style</div>
-      <select class="rp-select" id="visualTemplate" onchange="onTemplateChange()">
+    <!-- Visual style -->
+    <div class="rp-sec">
+      <div class="rp-lbl">Visual Style</div>
+      <select class="rp-select" id="styleSelect" onchange="onStyleChange()">
         <option value="executive">Executive — Navy</option>
         <option value="modern_blue">Modern Blue</option>
         <option value="elegant">Elegant — Olive</option>
@@ -784,213 +597,408 @@ button{font-family:'Manrope',sans-serif;cursor:pointer;border:none;outline:none}
       </select>
     </div>
 
-    <div class="rp-section">
-      <div class="rp-label">Spacing</div>
+    <!-- Spacing -->
+    <div class="rp-sec">
+      <div class="rp-lbl">Spacing</div>
       <div class="rp-slider">
-        <button class="slider-sym">−</button>
-        <div class="slider-track">
-          <div class="slider-fill"></div>
-          <div class="slider-thumb"></div>
+        <button class="sl-sym">−</button>
+        <div class="sl-track"><div class="sl-fill"></div><div class="sl-thumb"></div></div>
+        <button class="sl-sym">+</button>
+      </div>
+    </div>
+
+    <!-- Achievement inject -->
+    <div class="rp-sec">
+      <div class="rp-lbl">Add Achievement</div>
+      <div class="achieve-box">
+        <textarea class="achieve-ta" id="achieveTa" placeholder="e.g. I reduced SLA breaches by 40% through coordinating teams..." oninput="onAchieveInput()"></textarea>
+        <button class="polish-btn" id="polishBtn" onclick="doPolish()">✨ AI Polish &amp; Classify</button>
+        <div class="heading-pill" id="headingPill">
+          <span style="font-size:10px;color:var(--muted)">Will inject under:</span>
+          <span class="h-badge" id="headingBadge"></span>
         </div>
-        <button class="slider-sym">+</button>
       </div>
     </div>
 
-    <div class="rp-section">
-      <div class="rp-toggle">
-        <span style="font-size:11px;font-weight:600;color:var(--text)">AI Optimize Bullets</span>
-        <div class="toggle-switch"><div class="toggle-knob"></div></div>
+    <!-- AI Optimize Bullets -->
+    <div class="rp-sec">
+      <div class="sw-row">
+        <span style="font-size:12px;font-weight:600;color:var(--text)">AI Optimize Bullets</span>
+        <div class="sw"><div class="sw-knob"></div></div>
       </div>
-      <div style="font-size:10px;color:var(--muted);margin-bottom:7px;line-height:1.5">
-        Groq AI rewrites bullets for ATS impact.
-      </div>
-      <div class="bullet-list">
-        <div class="bullet-item"><div class="bi-dot"></div><div class="bi-text">Led cross-functional project…</div></div>
-        <div class="bullet-item"><div class="bi-dot"></div><div class="bi-text">Reduced SLA breaches by 95%…</div></div>
-        <div class="bullet-item"><div class="bi-dot"></div><div class="bi-text">Spearheaded migration to…</div></div>
-        <div class="bullet-item"><div class="bi-dot"></div><div class="bi-text">Increased delivery speed…</div></div>
-      </div>
-    </div>
-
-    <div style="padding:8px 10px;border-bottom:0.5px solid var(--border)">
-      <button class="inject-btn" id="injectBtn">⬇ AI Smart Inject</button>
-      <div class="export-row">
-        <button class="ex-btn" id="atsExportBtn">ATS Export</button>
-        <button class="ex-btn primary" id="pdfBtn">PDF</button>
-        <button class="ex-btn" id="docxBtn">DOCX</button>
+      <div style="font-size:10px;color:var(--muted);margin-bottom:8px;line-height:1.5">Groq rewrites bullets for ATS impact.</div>
+      <div class="b-list" id="bulletList">
+        <div class="b-item" onclick="useBullet(this)"><div class="b-dot"></div><div class="b-txt">Led cross-functional project delivery...</div></div>
+        <div class="b-item" onclick="useBullet(this)"><div class="b-dot"></div><div class="b-txt">Reduced SLA breaches by 95%...</div></div>
+        <div class="b-item" onclick="useBullet(this)"><div class="b-dot"></div><div class="b-txt">Spearheaded migration to cloud...</div></div>
+        <div class="b-item" onclick="useBullet(this)"><div class="b-dot"></div><div class="b-txt">Increased delivery speed by 3x...</div></div>
       </div>
     </div>
 
-    <div class="rebuild-banner" id="rebuildBanner">
-      <div class="rb-icon">🔄</div>
-      <div class="rb-head">Complete AI Rebuild</div>
-      <div class="rb-sub">Groq reads your entire resume and rewrites every section with ATS language.</div>
+    <!-- Actions -->
+    <div class="rp-sec">
+      <button class="inject-btn" id="injectBtn" onclick="doInject()">⬇ AI Smart Inject</button>
+      <div style="height:6px"></div>
+      <div class="ex-row">
+        <button class="ex-btn" onclick="download('pdf')">ATS PDF</button>
+        <button class="ex-btn primary" onclick="download('pdf')">PDF</button>
+        <button class="ex-btn" onclick="download('docx')">DOCX</button>
+      </div>
     </div>
 
-    <div class="rp-footer">
-      <div class="rp-avatar">GK</div>
-      <span class="rp-user">GK Profile</span>
-      <span class="rp-chevron">▾</span>
+    <!-- Complete Rebuild -->
+    <div class="rebuild-card" id="rebuildCard">
+      <div class="rb-head">🔄 Complete AI Rebuild</div>
+      <div class="rb-sub">Upload your resume — Groq reads every section and rewrites it with ATS-optimized language. All facts preserved.</div>
+      <div class="rb-upload">
+        <input type="file" class="rb-file-input" id="rbFileIn" accept=".pdf,.docx" onchange="handleRebuildFile(this)">
+        <button class="rb-ul-btn" onclick="document.getElementById('rbFileIn').click()">📂 Choose resume to rebuild</button>
+        <div class="rb-file-name" id="rbFileName"></div>
+        <select class="rb-sel" id="rbTemplate">
+          <option value="google">Google — XYZ Formula</option>
+          <option value="apple">Apple — Elegant Impact</option>
+          <option value="amazon">Amazon — Metrics + Leadership</option>
+        </select>
+        <select class="rb-sel" id="rbFormat" style="margin-top:4px">
+          <option value="docx">Download as Word (.docx)</option>
+          <option value="pdf">Download as PDF</option>
+        </select>
+        <button class="rb-run-btn" id="rbRunBtn" onclick="doRebuild()" disabled>Rebuild Resume →</button>
+      </div>
     </div>
+
+  </div><!-- end rp-scroll -->
+  <div class="status-bar" id="statusBar" aria-live="polite"></div>
+  <div class="rp-footer">
+    <div class="rp-av">GK</div>
+    <span style="font-size:11px;color:var(--muted)">GK Profile</span>
+    <span style="color:var(--dim);margin-left:auto;font-size:11px">▾</span>
   </div>
 </div>
+</div><!-- end body -->
+
+<!-- Mobile overlays -->
+<div class="overlay" id="overlay" onclick="closeMobile()"></div>
+<button class="mob-sb-toggle" onclick="toggleSb()">☰</button>
+<button class="mob-rp-toggle" onclick="toggleRp()">✦</button>
 
 <script>
-// ── State ──
-let zoom = 100;
-const zoomEl = document.getElementById('zoomVal');
-document.getElementById('zoomIn').onclick  = () => { zoom = Math.min(200, zoom + 10); zoomEl.textContent = zoom + '%' };
-document.getElementById('zoomOut').onclick = () => { zoom = Math.max(50, zoom - 10);  zoomEl.textContent = zoom + '%' };
+const API = 'https://resume-hub-3eeb.onrender.com';
+let uploadedFile = null;
+let rebuildFile  = null;
+let chosenHeading = '';
+let zoomLevel = 100;
 
-// ── Template picker ──
-function setTemplate(el, idx) {
-  document.querySelectorAll('.tpl').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  const sel = document.getElementById('visualTemplate');
-  const opts = ['executive','modern_blue','elegant','clean_teal','corporate','executive'];
-  sel.value = opts[idx] || 'executive';
+// ── File upload (sidebar) ──
+function handleFile(inp) {
+  if (!inp.files[0]) return;
+  uploadedFile = inp.files[0];
+  document.getElementById('fileNameLbl').textContent = uploadedFile.name;
+  document.getElementById('fileBadge').classList.add('show');
+  updateATS(60);
+  setStatus('Resume uploaded. Ready to inject or rebuild.', 'ok');
 }
-function onTemplateChange() {}
 
-// ── Section picker ──
-function selectSection(el, section) {
-  document.querySelectorAll('.sec-link').forEach(l => l.classList.remove('active'));
-  el.classList.add('active');
-  const sectionNames = { experience:'Experience', education:'Education', skills:'Skills', summary:'Summary', certs:'Certifications', langs:'Languages' };
-  document.getElementById('rpTitle').textContent = sectionNames[section] || section;
+// Drag-drop
+const uz = document.getElementById('uploadZone');
+['dragenter','dragover'].forEach(e => uz.addEventListener(e, ev => { ev.preventDefault(); uz.classList.add('drag'); }));
+['dragleave','drop'].forEach(e => uz.addEventListener(e, ev => { ev.preventDefault(); uz.classList.remove('drag'); }));
+uz.addEventListener('drop', ev => {
+  const f = ev.dataTransfer.files[0];
+  if (!f) return;
+  const dt = new DataTransfer(); dt.items.add(f);
+  document.getElementById('fileIn').files = dt.files;
+  handleFile(document.getElementById('fileIn'));
+});
+
+// ── Rebuild file upload ──
+function handleRebuildFile(inp) {
+  if (!inp.files[0]) return;
+  rebuildFile = inp.files[0];
+  document.getElementById('rbFileName').textContent = '✓ ' + rebuildFile.name;
+  document.getElementById('rbRunBtn').disabled = false;
+}
+
+// ── Template selection ──
+let currentTpl = 'executive';
+function setTpl(el, name) {
+  document.querySelectorAll('.tpl').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  currentTpl = name;
+  document.getElementById('styleSelect').value = name;
+  setStatus('Template: ' + name, '');
+}
+function onStyleChange() {
+  currentTpl = document.getElementById('styleSelect').value;
+}
+
+// ── Section navigation ──
+function selectSec(el, name) {
+  if (el) {
+    document.querySelectorAll('.sec-item').forEach(i => i.classList.remove('on'));
+    el.classList.add('on');
+  }
+  document.getElementById('rpTitle').textContent = name;
+  const target = document.getElementById('sec-' + name);
+  if (target) target.scrollIntoView({ behavior:'smooth', block:'center' });
 }
 
 // ── Layout toggle ──
 function toggleLayout(el) {
-  el.closest('.toggle-row').querySelectorAll('.tgl-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
+  el.closest('.toggle-row').querySelectorAll('.tgl').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
 }
 
-// ── Draw SVG connections from nodes to center ──
+// ── Zoom ──
+function zoom(delta) {
+  zoomLevel = Math.max(50, Math.min(200, zoomLevel + delta));
+  document.getElementById('zoomLbl').textContent = zoomLevel + '%';
+  document.getElementById('editorPanel').style.transform =
+    `translate(-50%,-50%) scale(${zoomLevel/100})`;
+}
+
+// ── ATS score ──
+function updateATS(val) {
+  document.getElementById('atsBar').style.width = val + '%';
+  document.getElementById('atsNum').textContent = val + '%';
+  document.getElementById('atsNum').style.color = val > 75 ? '#10B981' : val > 50 ? '#F59E0B' : '#EF4444';
+}
+
+// ── Update preview initials ──
+function updatePreview() {
+  const name = document.getElementById('epName').value || '';
+  const parts = name.trim().split(' ').filter(Boolean);
+  const ini = parts.map(p => p[0]).join('').toUpperCase().slice(0, 2) || 'GK';
+  document.getElementById('epPhoto').textContent = ini;
+  const wordCount = document.getElementById('f-experience').value.split('\n').filter(l => l.trim()).length;
+  const ats = Math.min(95, 30 + (uploadedFile ? 20 : 0) + (name ? 10 : 0) + wordCount * 3);
+  updateATS(ats);
+}
+
+// ── AI Polish ──
+function onAchieveInput() {
+  chosenHeading = '';
+  document.getElementById('headingPill').classList.remove('show');
+}
+
+async function doPolish() {
+  const text = document.getElementById('achieveTa').value.trim();
+  if (!text) { setStatus('Enter an achievement first.', 'err'); return; }
+  if (!uploadedFile) { setStatus('Upload your resume first so AI can read its structure.', 'err'); return; }
+
+  const btn = document.getElementById('polishBtn');
+  btn.disabled = true; btn.textContent = '⏳ Classifying...';
+  setStatus('AI is reading your resume and classifying the sentence...', 'loading');
+
+  const form = new FormData();
+  form.append('resume', uploadedFile);
+  form.append('text', text);
+  form.append('template', currentTpl.includes('amazon') ? 'amazon' : currentTpl.includes('apple') ? 'apple' : 'google');
+
+  try {
+    const res = await fetch(API + '/polish', { method:'POST', body:form });
+    const data = await res.json();
+    document.getElementById('achieveTa').value = data.polished_text || text;
+    chosenHeading = data.heading || 'Achievements';
+    document.getElementById('headingBadge').textContent = chosenHeading;
+    document.getElementById('headingPill').classList.add('show');
+    setStatus('Polished! Will inject under "' + chosenHeading + '".', 'ok');
+    updateATS(Math.min(95, parseInt(document.getElementById('atsNum').textContent) + 10));
+  } catch (e) {
+    setStatus('Server warming up — retry in 30 seconds.', 'err');
+  } finally {
+    btn.disabled = false; btn.textContent = '✨ AI Polish & Classify';
+  }
+}
+
+// ── AI Smart Inject ──
+async function doInject() {
+  const updates = document.getElementById('achieveTa').value.trim();
+  if (!uploadedFile && !updates) { setStatus('Upload a resume and add an achievement first.', 'err'); return; }
+
+  const file = uploadedFile;
+  if (!file) {
+    // No file — just save to editor
+    const ta = document.getElementById('f-' + (chosenHeading || 'experience').toLowerCase());
+    if (ta) { ta.value += (ta.value ? '\n' : '') + '• ' + updates; }
+    setStatus('Added to editor. Upload a resume file to inject into the document.', 'ok');
+    return;
+  }
+
+  const btn = document.getElementById('injectBtn');
+  btn.disabled = true; btn.textContent = '⏳ Injecting...';
+  setStatus('Injecting into the correct heading...', 'loading');
+
+  const form = new FormData();
+  form.append('resume', file);
+  form.append('updates', updates);
+  form.append('template', currentTpl);
+  form.append('format', file.name.toLowerCase().endsWith('.pdf') ? 'pdf' : 'docx');
+  if (chosenHeading) form.append('heading', chosenHeading);
+
+  try {
+    const res = await fetch(API + '/upgrade', { method:'POST', body:form });
+    if (res.ok) {
+      const blob = await res.blob();
+      const ext = file.name.toLowerCase().endsWith('.pdf') ? 'pdf' : 'docx';
+      triggerDownload(blob, 'Optimized_Resume.' + ext);
+      setStatus('Done! Injected under "' + (chosenHeading || 'Achievements') + '".', 'ok');
+      updateATS(Math.min(95, parseInt(document.getElementById('atsNum').textContent) + 5));
+    } else {
+      setStatus('Server error. Please try again.', 'err');
+    }
+  } catch (e) {
+    setStatus('Server warming up — retry in 30 seconds.', 'err');
+  } finally {
+    btn.disabled = false; btn.textContent = '⬇ AI Smart Inject';
+  }
+}
+
+// ── Download ──
+async function download(fmt) {
+  if (!uploadedFile) { setStatus('Upload a resume first to download.', 'err'); return; }
+  setStatus('Preparing download...', 'loading');
+  const form = new FormData();
+  form.append('resume', uploadedFile);
+  form.append('format', fmt);
+  form.append('template', currentTpl);
+  form.append('updates', document.getElementById('achieveTa').value);
+  if (chosenHeading) form.append('heading', chosenHeading);
+  try {
+    const res = await fetch(API + '/upgrade', { method:'POST', body:form });
+    if (res.ok) {
+      const blob = await res.blob();
+      triggerDownload(blob, 'Resume.' + fmt);
+      setStatus('Downloaded!', 'ok');
+    } else { setStatus('Download failed. Try again.', 'err'); }
+  } catch (e) { setStatus('Server warming up — retry in 30s.', 'err'); }
+}
+
+// ── Complete AI Rebuild ──
+async function doRebuild() {
+  if (!rebuildFile) { setStatus('Choose a resume file to rebuild.', 'err'); return; }
+  const btn = document.getElementById('rbRunBtn');
+  btn.disabled = true; btn.textContent = '⏳ AI is rebuilding...';
+  setStatus('Groq is reading your entire resume and rewriting every section. This takes 15–30 seconds...', 'loading');
+  const form = new FormData();
+  form.append('resume', rebuildFile);
+  form.append('template', document.getElementById('rbTemplate').value);
+  form.append('format', document.getElementById('rbFormat').value);
+  try {
+    const res = await fetch(API + '/rebuild', { method:'POST', body:form });
+    if (res.ok) {
+      const blob = await res.blob();
+      const fmt = document.getElementById('rbFormat').value;
+      triggerDownload(blob, 'Rebuilt_Resume.' + fmt);
+      setStatus('Complete AI rebuild done! Your new resume is downloading.', 'ok');
+      updateATS(92);
+    } else {
+      const err = await res.json().catch(() => ({}));
+      setStatus('Rebuild failed: ' + (err.error || 'Server error'), 'err');
+    }
+  } catch (e) {
+    setStatus('Server error. Check connection and retry.', 'err');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Rebuild Resume →';
+  }
+}
+
+function triggerDownload(blob, name) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+
+// ── Bullet helpers ──
+function useBullet(el) {
+  const text = el.querySelector('.b-txt').textContent;
+  const ta = document.getElementById('achieveTa');
+  ta.value = text;
+}
+function insertBullet(el) {
+  const text = el.querySelector('.ai-bt').textContent;
+  const ta = document.getElementById('f-experience');
+  ta.value += (ta.value ? '\n' : '') + '• ' + text;
+  updatePreview();
+}
+function addExpRow() {
+  const ta = document.getElementById('f-experience');
+  ta.value += '\n\nJob Title — Company (Year–Year)\n• ';
+  ta.focus();
+}
+
+// ── Misc ──
+function scrollToRebuild() {
+  document.getElementById('rebuildCard').scrollIntoView({ behavior:'smooth' });
+}
+function setStatus(msg, type) {
+  const el = document.getElementById('statusBar');
+  el.textContent = msg; el.className = 'status-bar' + (type ? ' ' + type : '');
+}
+function closeRp() {}
+function goBack() { window.location.href = 'index.html'; }
+
+// ── Connection lines ──
 function drawConnections() {
   const canvas = document.getElementById('canvas');
-  const svg    = document.getElementById('connSvg');
-  const cw     = canvas.offsetWidth;
-  const ch     = canvas.offsetHeight;
-  const cx     = cw / 2;
-  const cy     = ch / 2;
-
-  const nodes = [
-    { id:'n-we',   color:'#DC2626' },
-    { id:'n-wh',   color:'#2563EB' },
-    { id:'n-ap',   color:'#0D9488' },
-    { id:'n-edu',  color:'#D97706' },
-    { id:'n-sk',   color:'#7C3AED' },
-    { id:'n-port', color:'#059669' },
-  ];
-
+  const svg = document.getElementById('connSvg');
+  const ep = document.getElementById('editorPanel');
+  const cw = canvas.offsetWidth, ch = canvas.offsetHeight;
+  const cx = cw / 2, cy = ch / 2;
   svg.setAttribute('viewBox', `0 0 ${cw} ${ch}`);
-  svg.innerHTML = '<defs><filter id="glow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
-
-  nodes.forEach(n => {
-    const el = document.getElementById(n.id);
+  svg.innerHTML = '';
+  const nodeIds = ['n1','n2','n3','n4','n5','n6'];
+  const colors  = ['#DC2626','#2563EB','#0D9488','#D97706','#7C3AED','#059669'];
+  nodeIds.forEach((id, i) => {
+    const el = document.getElementById(id);
     if (!el) return;
     const r = el.getBoundingClientRect();
     const cr = canvas.getBoundingClientRect();
-    const nx = r.left + r.width  / 2 - cr.left;
-    const ny = r.top  + r.height / 2 - cr.top;
-
-    const mx = (nx + cx) / 2;
-    const my = (ny + cy) / 2;
-
+    const nx = r.left + r.width / 2 - cr.left;
+    const ny = r.top  + r.height/ 2 - cr.top;
+    const mx = (nx + cx) / 2, my = (ny + cy) / 2;
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path.setAttribute('d', `M${nx},${ny} Q${mx},${my} ${cx},${cy}`);
-    path.setAttribute('stroke', n.color);
+    path.setAttribute('stroke', colors[i]);
     path.setAttribute('stroke-width', '1');
     path.setAttribute('fill', 'none');
-    path.setAttribute('opacity', '0.45');
+    path.setAttribute('opacity', '0.4');
     svg.appendChild(path);
   });
 }
 
-// ── Resume card live update from URL params ──
+// ── Mobile panel toggles ──
+function toggleSb() {
+  document.getElementById('sb').classList.toggle('open');
+  document.getElementById('rp').classList.remove('open');
+  document.getElementById('overlay').classList.toggle('show', document.getElementById('sb').classList.contains('open'));
+}
+function toggleRp() {
+  document.getElementById('rp').classList.toggle('open');
+  document.getElementById('sb').classList.remove('open');
+  document.getElementById('overlay').classList.toggle('show', document.getElementById('rp').classList.contains('open'));
+}
+function closeMobile() {
+  document.getElementById('sb').classList.remove('open');
+  document.getElementById('rp').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// ── Init from URL params ──
 function initFromParams() {
   const p = new URLSearchParams(window.location.search);
   if (p.get('name')) {
-    document.getElementById('rcName').textContent   = (p.get('name') || 'YOUR NAME').toUpperCase();
-    document.getElementById('rcTitle').textContent  = (p.get('title') || 'PROFESSIONAL').toUpperCase();
-    document.getElementById('rcPhoto').textContent  = (p.get('name') || 'GK').split(' ').map(x=>x[0]).join('').toUpperCase().slice(0,2);
-    document.getElementById('atsPct').textContent   = (p.get('ats') || '82') + '%';
-    const ats = parseInt(p.get('ats') || 82);
-    document.getElementById('atsTrack').style.width = ats + '%';
+    const name = p.get('name') || '';
+    document.getElementById('epName').value = name;
+    document.getElementById('epJobTitle').value = p.get('title') || '';
+    updatePreview();
   }
+  const ats = parseInt(p.get('ats') || 30);
+  updateATS(ats);
 }
 
-// ── Upload / Inject / Download buttons ──
-function getApiBase() {
-  return 'https://resume-hub-3eeb.onrender.com';
-}
-
-document.getElementById('injectBtn').onclick = () => {
-  const fi = window._uploadedFile;
-  if (!fi) { alert('Upload a resume on the landing page first.'); return; }
-  alert('AI Smart Inject will run — go back to the hub to upload and use Magic Polish first.');
-};
-
-document.getElementById('dlPdfBtn').onclick = () => {
-  triggerDownload('pdf');
-};
-document.getElementById('dlDocxBtn').onclick = () => {
-  triggerDownload('docx');
-};
-document.getElementById('dlMainBtn').onclick = () => {
-  triggerDownload('pdf');
-};
-document.getElementById('pdfBtn').onclick = () => {
-  triggerDownload('pdf');
-};
-document.getElementById('docxBtn').onclick = () => {
-  triggerDownload('docx');
-};
-document.getElementById('atsExportBtn').onclick = () => {
-  triggerDownload('pdf');
-};
-document.getElementById('rebuildBanner').onclick = () => {
-  window.location.href = 'index.html#rebuild';
-};
-
-function triggerDownload(format) {
-  const fi = window._uploadedFile;
-  if (!fi) {
-    window.location.href = 'index.html';
-    return;
-  }
-  const form = new FormData();
-  form.append('resume', fi);
-  form.append('format', format);
-  form.append('template', document.getElementById('visualTemplate').value);
-  form.append('updates', window._pendingUpdate || '');
-  form.append('heading',  window._pendingHeading || '');
-  const btn = document.getElementById('dlMainBtn');
-  btn.textContent = 'Downloading...';
-  fetch(`${getApiBase()}/upgrade`, { method:'POST', body:form })
-    .then(r => r.ok ? r.blob() : Promise.reject())
-    .then(blob => {
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `Optimized_Resume.${format}`;
-      a.click();
-      btn.textContent = 'Download';
-    })
-    .catch(() => {
-      btn.textContent = 'Download';
-      alert('Server not reachable. Make sure your backend is running.');
-    });
-}
-
-// ── Back button ──
-function goBack() { window.location.href = 'index.html'; }
-
-// ── Init ──
-window.addEventListener('load', () => {
-  drawConnections();
-  initFromParams();
-});
+window.addEventListener('load', () => { drawConnections(); initFromParams(); });
 window.addEventListener('resize', drawConnections);
 </script>
 </body>
